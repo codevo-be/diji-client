@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     nextjs:
         build:
@@ -7,16 +5,14 @@ services:
             dockerfile: Dockerfile
         container_name: diji-client
         ports:
-            - "3000:3000"
+            - '3000:3000'
         networks:
             - app-network
         volumes:
             - .:/app
             - /app/node_modules
-        environment:
-            NODE_ENV: development
-        command: npm run dev
         restart: always
+        command: sh -c "npm run dev"
 
 networks:
     app-network:
