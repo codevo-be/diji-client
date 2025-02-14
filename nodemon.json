@@ -1,5 +1,0 @@
-{
-    "watch": ["src/icons"],
-    "ext": "svg",
-    "exec": "npx gulp generateSprite"
-}

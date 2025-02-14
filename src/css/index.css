@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@source "../../node_modules/@digico/ui/dist";
+
+@theme {
+    --font-inter: 'Inter', 'sans-serif';
+
+    /* Colors */
+    --color-*: initial;
+    --color-white: oklch(55 0 100);
+    --color-main: #111928;
+
+    --color-primary: #2f6bff;
+
+    --color-grey-200: #f7f7f7;
+    --color-grey-400: #e5e5e5;
+    --color-grey-600: #a5a5a5;
+    --color-grey-800: #727272;
+
+    --color-success: #7ac667;
+    --color-success-200: #eefdea;
+
+    --color-warning: orange;
+    --color-warning-200: #fff5d1;
+
+    --color-error: #e93939;
+    --color-error-200: #fdebeb;
+
+    /* Font Sizes */
+    --text-*: initial;
+    --text-xxs: 1.2rem;
+    --text-xs: 1.4rem;
+    --text-sm: 1.6rem;
+    --text-base: 1.8rem;
+    --text-md: 2.2rem;
+    --text-xl: 2.8rem;
+    --text-xl: 3.6rem;
+    --text-2xl: 4.2rem;
+
+    /* Border radius */
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-md: 16px;
+
+    /* Breakpoints */
+    --breakpoint-mobile: 640px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1020px;
+    --breakpoint-wide: 1380px;
+    --breakpoint-hd: 1920px;
+    --breakpoint-full: 2450px;
+}
+
+@layer base {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        @apply text-[62.5%];
+        @apply scroll-smooth;
+    }
+
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+
+        @apply text-main text-base;
+    }
+}
