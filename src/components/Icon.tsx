@@ -1,13 +1,19 @@
-import { SVGProps } from 'react'
+import { type SVGProps } from 'react'
 
-interface Props extends SVGProps<SVGSVGElement> {
-    name: string
-}
+import { type IconName } from 'types/name'
 
-export const Icon = ({ name, ...props }: Props) => {
+export { IconName }
+
+export const Icon = ({
+    name,
+    ...props
+}: SVGProps<SVGSVGElement> & {
+    name: IconName
+    childClassName?: string
+}) => {
     return (
         <svg {...props}>
-            <use xlinkHref={`/sprite.svg?v=${Date.now()}#${name}`} />
+            <use href={`/icons/${process.env.NEXT_PUBLIC_SPRITE_PATH}#${name}`} />
         </svg>
     )
 }

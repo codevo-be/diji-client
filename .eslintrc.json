@@ -1,8 +1,25 @@
 {
     "extends": ["next/core-web-vitals", "next/typescript"],
-    "plugins": ["@typescript-eslint", "prettier"],
+    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
     "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "max-len": ["off", "error"]
+        "@typescript-eslint/ban-ts-comment": "off",
+        "max-len": ["off", "error"],
+        "simple-import-sort/imports": [
+            "error",
+            {
+                "groups": [
+                    ["^next"], // 1. Priorité pour les imports Next.js
+                    ["^node:"], // 2. Modules Node.js
+                    ["^react", "^@?\\w"], // 3. Importations externes (modules de node_modules, y compris 'class-variance-authority')
+                    ["services", "hooks", "types"], // 3. Imports aliasés (absolus) avec priorités spécifiques
+                    ["layouts", "components"], // 3. Imports aliasés (absolus) avec priorités spécifiques
+                    ["^\\../"], // 4. Imports relatifs à un niveau supérieur
+                    ["^\\./"] // 5. Imports relatifs du même niveau
+                ]
+            }
+        ],
+        "simple-import-sort/exports": "error",
+        "@next/next/no-img-element": "off"
     }
 }
