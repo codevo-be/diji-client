@@ -10,7 +10,7 @@ import { ContactFields } from './ContactFields'
 
 export const CreateContactForm = () => {
     const routerWithTenant = useRouterWithTenant()
-    const form = useForm()
+    const form = useForm<ContactType>()
 
     const createContact = useCreateContact()
 
