@@ -12,8 +12,10 @@ type Props = {
 
 export const MenuItemDashboard = ({ name, className, ...props }: Props) => {
     return (
-        <Link className={clsx('text-white flex p-5 rounded transition-all hover:bg-white hover:text-main', className)} {...props}>
-            <Icon className="size-7 fill-current" name={name} />
-        </Link>
+        <li>
+            <Link className={clsx('text-white flex p-5 rounded transition-all hover:bg-white hover:text-main', className)} {...props}>
+                <Icon className="size-7 fill-current" name={name} />
+            </Link>
+        </li>
     )
 }

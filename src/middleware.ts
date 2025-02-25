@@ -5,7 +5,7 @@ import { getAuthenticatedUser } from 'services/auth/getAuthenticatedUser'
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
 
-    const access_token = request.cookies.get('access_token')?.value
+    const access_token = request.cookies.get('Authorization')?.value
 
     if (!access_token) {
         return NextResponse.redirect(new URL('/login', request.url))
@@ -19,14 +19,13 @@ export async function middleware(request: NextRequest) {
 
     const response = NextResponse.next()
 
-    response.cookies.set('tenant', tenant, {
+    response.cookies.set('X-tenant', tenant, {
         path: '/',
-        httpOnly: false,
-        sameSite: 'lax'
+        httpOnly: false
     })
 
     try {
-        await getAuthenticatedUser()
+        await getAuthenticatedUser(tenant)
     } catch {
         return NextResponse.redirect(new URL('/login', request.url))
     }

@@ -1,16 +1,19 @@
-import { cookies } from 'next/headers'
+import { cookiesNext } from '@digico/utils'
 
-import { HttpRequest } from '@digico/utils'
+import { TenantType } from 'types/tenant.types'
+import { UserType } from 'types/user.types'
 
-import { AuthResponse } from 'types/auth.types'
+import { HttpService } from '.'
 
-export const getAuthenticatedUser = async () => {
-    const cookie = await cookies()
+export const getAuthenticatedUser = async (tenant?: string) => {
+    const cookie = await cookiesNext()
 
-    return HttpRequest.setHeader({
-        'X-Tenant': `${cookie.get('tenant')?.value}`,
-        Authorization: `${cookie.get('access_token')?.value}`
+    return HttpService.setHeader({
+        'X-Tenant': `${tenant ? tenant : cookie.get('X-tenant')}`
     }).get<{
-        data: AuthResponse
-    }>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/user`)
+        data: {
+            user: UserType
+            tenant: TenantType
+        }
+    }>(`/auth/user`)
 }

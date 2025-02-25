@@ -2,5 +2,6 @@
  
 export type IconName =
 	| "app"
+	| "contact"
 	| "logout"
 	| "search";

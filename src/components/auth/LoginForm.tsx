@@ -20,15 +20,15 @@ export const LoginForm = () => {
 
     const handleSubmit = (data: LoginFormData) => {
         login.mutate(data, {
-            onSuccess: ({ data }) => {
-                const expires_at = dayjs().add(data.expires_in, 'second').add(1, 'hours').toDate()
+            onSuccess: (response: any) => {
+                const expires_at = dayjs().add(response.data.expires_in, 'second').add(1, 'hours').toDate()
 
-                Cookies.set('access_token', data.access_token, {
+                Cookies.set('Authorization', response.data.token_type + ' ' + response.data.access_token, {
                     expires: expires_at,
                     sameSite: 'Strict'
                 })
 
-                window.location.assign(`/${data.tenant.id}`)
+                window.location.assign(`/${response.data.tenant.id}`)
             },
             onError: (error) => {
                 toast.error(error.message)

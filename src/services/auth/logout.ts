@@ -1,5 +1,3 @@
-import { HttpRequest } from '@digico/utils'
+import { HttpService } from '.'
 
-export const logout = () => {
-    return HttpRequest.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, [])
-}
+export const logout = () => HttpService.post(`/auth/logout`, [])

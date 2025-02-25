@@ -1,9 +1,5 @@
-import { HttpRequest } from '@digico/utils'
+import { LoginFormData } from 'types/auth.types'
 
-import { AuthResponse, LoginFormData } from 'types/auth.types'
+import { HttpService } from '.'
 
-export const login = (data: LoginFormData) => {
-    return HttpRequest.post<{
-        data: AuthResponse
-    }>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, data)
-}
+export const login = (data: LoginFormData) => HttpService.post(`/auth/login`, data)

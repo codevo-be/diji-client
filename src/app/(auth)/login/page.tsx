@@ -7,7 +7,7 @@ import { LoginForm } from 'components/auth/LoginForm'
 export default function Index() {
     return (
         <div className="h-screen flex">
-            <div className="max-mobile:hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-primary/80">
+            <div className="w-full max-mobile:hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-primary/80">
                 <ImageBuilder className="w-full h-full object-cover object-center" src="/images/auth-background.jpg" />
             </div>
 
