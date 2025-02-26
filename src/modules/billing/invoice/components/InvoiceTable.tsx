@@ -2,7 +2,7 @@
 
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
 import { Table, Tag } from '@digico/ui'
-import { DateHelper, formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { formatCurrency, useRouterWithTenant } from '@digico/utils'
 import clsx from 'clsx'
 
 import { InvoiceType } from '@billing/invoice/types/invoice'
