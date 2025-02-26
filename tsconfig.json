@@ -20,7 +20,8 @@
         ],
         "baseUrl": "./src",
         "paths": {
-            "@contact/*": ["./modules/contact/*"]
+            "@contact/*": ["./modules/contact/*"],
+            "@billing/*": ["./modules/billing/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -16,6 +16,8 @@ export const useCreateContact = () => {
             queryClient.invalidateQueries({
                 queryKey: ['contacts']
             })
+
+            toast.success('Le contact a été créé !')
         }
     })
 }

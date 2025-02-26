@@ -1,6 +1,6 @@
 'use client'
 
-import { getModules } from 'helpers/module'
+import { getTenantUrl } from '@digico/utils'
 
 import { ButtonLogout } from 'components/auth/ButtonLogout'
 
@@ -12,9 +12,9 @@ export const MenuDashboard = () => {
             <ul className="h-full flex flex-col items-center">
                 <MenuItemDashboard name="app" href="/" />
 
-                {getModules().map((module) => {
-                    return <MenuItemDashboard key={module.name} name={module.name as any} href={`/gvt/${module.href}`} />
-                })}
+                <MenuItemDashboard name={'contact'} href={getTenantUrl('/contact')} />
+
+                <MenuItemDashboard name={'billing'} href={getTenantUrl('/billing/invoice')} />
 
                 <li className="mt-auto">
                     <ButtonLogout />
