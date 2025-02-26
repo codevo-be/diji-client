@@ -30,7 +30,7 @@ export const InvoiceTable = ({ items }: Props) => {
             <Table.Col name="contact_name" />
             <Table.Col>
                 {(invoice: InvoiceType) => {
-                    return DateHelper.format(invoice.date)
+                    return invoice.date
                 }}
             </Table.Col>
             <Table.Col>
