@@ -16,6 +16,7 @@ export const useDestroyContact = () => {
             queryClient.invalidateQueries({
                 queryKey: ['contacts']
             })
+            toast.success('Le contact a été supprimé !')
         }
     })
 }

@@ -16,6 +16,7 @@ export const useUpdateContact = () => {
             queryClient.invalidateQueries({
                 queryKey: ['contacts', { id: variables.id }]
             })
+            toast.success('Le contact a été modifié !')
         }
     })
 }
