@@ -1,3 +1,11 @@
+'use client'
+
+import { MenuHome } from '@components/dashboard/home/MenuHome'
+
 export default function Index() {
-    return <p>home</p>
+    return (
+        <div>
+            <MenuHome />
+        </div>
+    )
 }

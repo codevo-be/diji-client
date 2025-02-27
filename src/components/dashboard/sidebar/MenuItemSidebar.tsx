@@ -10,7 +10,7 @@ type Props = {
     className?: string
 }
 
-export const MenuItemDashboard = ({ name, className, ...props }: Props) => {
+export const MenuItemSidebar = ({ name, className, ...props }: Props) => {
     return (
         <li>
             <Link className={clsx('text-white flex p-5 rounded transition-all hover:bg-white hover:text-main', className)} {...props}>
