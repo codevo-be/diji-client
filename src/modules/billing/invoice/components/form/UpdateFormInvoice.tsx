@@ -1,7 +1,8 @@
 import { useParams } from 'next/navigation'
 
 import { useForm } from 'react-hook-form'
-import { Box, Button, Form } from '@digico/ui'
+import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
+import { Box, Button, Form, Grid } from '@digico/ui'
 
 import { useUpdateInvoice } from '@billing/invoice/hooks/mutations'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
@@ -18,12 +19,18 @@ export const UpdateFormInvoice = () => {
         values: queryInvoice.data?.data
     })
 
+    if (queryInvoice.data?.data.status !== INVOICE_STATUS_DRAFT) {
+        return null
+    }
+
     return (
-        <Box>
-            <Form useForm={form} onSubmit={updateInvoice.mutate}>
-                <InvoiceFields />
-                <Button isLoading={updateInvoice.isPending}>Mettre à jour</Button>
-            </Form>
-        </Box>
+        <Grid.Col>
+            <Box>
+                <Form useForm={form} onSubmit={updateInvoice.mutate}>
+                    <InvoiceFields />
+                    <Button isLoading={updateInvoice.isPending}>Mettre à jour</Button>
+                </Form>
+            </Box>
+        </Grid.Col>
     )
 }

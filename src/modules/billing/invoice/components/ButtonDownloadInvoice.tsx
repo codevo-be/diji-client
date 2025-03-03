@@ -8,7 +8,7 @@ type Props = {
     className?: string
 }
 
-export const ButtonDownload = ({ ...props }: Props) => {
+export const ButtonDownloadInvoice = ({ ...props }: Props) => {
     const { id } = useParams()
     const downloadInvoice = useDownloadInvoice()
 
