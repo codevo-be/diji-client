@@ -39,7 +39,7 @@ export const LoginForm = () => {
     return (
         <Form useForm={form} onSubmit={handleSubmit}>
             <Form.Group>
-                <Form.Field type="email" id="email" name="email" label="Adresse email" placeholder="info@digico.be" />
+                <Form.Field type="email" id="email" name="email" label="Adresse email" placeholder="info@diji.be" />
                 <Form.Field type="password" id="password" name="password" label="Mot de passe" placeholder="********" />
 
                 <div className="flex flex-wrap gap-4 justify-between items-center">

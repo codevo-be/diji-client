@@ -13,7 +13,7 @@ export default function Index() {
 
             <div className="w-[52rem] max-mobile:w-full flex flex-col gap-20 items-center justify-center flex-shrink-0 p-20 max-mobile:p-12">
                 <div className="flex flex-col items-center">
-                    <h1 className="text-2xl font-bold text-primary">Digico</h1>
+                    <h1 className="text-2xl font-bold text-primary">Diji</h1>
                     <p className="text-grey-800 text-sm">Votre outil personnel</p>
                 </div>
 

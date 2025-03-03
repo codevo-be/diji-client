@@ -12,6 +12,7 @@ import { ActionInvoice } from '@billing/invoice/components/ActionInvoice'
 import { InvoiceContentEditable } from '@billing/invoice/components/document/InvoiceContentEditable'
 import { SelectUpdateStatus } from '@billing/invoice/components/form/SelectUpdateStatus'
 import { UpdateFormInvoice } from '@billing/invoice/components/form/UpdateFormInvoice'
+import { TransactionsBox } from '@billing/invoice/components/TransactionBox'
 
 export default function Page() {
     const { id } = useParams()
@@ -38,8 +39,13 @@ export default function Page() {
                         <ActionInvoice />
                     </Grid.Col>
                     <Grid.Col>
-                        <UpdateFormInvoice />
+                        <TransactionsBox />
                     </Grid.Col>
+                    {queryInvoice.data?.data.status === 'draft' && (
+                        <Grid.Col>
+                            <UpdateFormInvoice />
+                        </Grid.Col>
+                    )}
                 </Grid>
             </Grid.Col>
         </Grid>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Grid, QuerySearchBar } from '@digico/ui'
+import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 
@@ -9,7 +9,7 @@ import { InvoiceTable } from '@billing/invoice/components/InvoiceTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
 
 export default function Page() {
-    const queryInvoices = useReadInvoices()
+    const queryInvoices = useReadInvoices(useQueryParams())
 
     return (
         <Grid>
