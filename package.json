@@ -14,7 +14,6 @@
         "@digico/utils": "github:Digico-be/utils-client",
         "@dnd-kit/modifiers": "^9.0.0",
         "@dnd-kit/sortable": "^10.0.0",
-        "@tailwindcss/oxide": "^4.0.9",
         "@tailwindcss/postcss": "^4.0.6",
         "@tanstack/react-query": "^5.66.6",
         "@tanstack/react-query-devtools": "^5.66.6",
