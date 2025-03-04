@@ -34,5 +34,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/:tenant((?!login|_next|api|static|public|favicon.ico|images|icons|sources).*)']
+    matcher: ['/:tenant((?!login|_next|api|static|public|favicon.ico|images|icons|fonts|sources).*)']
 }

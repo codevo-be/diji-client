@@ -1,8 +1,9 @@
 @import 'tailwindcss';
-@source "../../node_modules/@digico/ui/dist";
+@import './font-face.css';
+@source '../../node_modules/@digico/ui/dist';
 
 @theme {
-    --font-inter: 'Inter', 'sans-serif';
+    --font-inter: 'Inter', 'serif';
 
     /* Colors */
     --color-*: initial;
@@ -67,6 +68,6 @@
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
 
-        @apply text-main text-base;
+        @apply font-inter text-main text-base;
     }
 }
