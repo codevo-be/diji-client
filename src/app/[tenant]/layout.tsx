@@ -1,3 +1,7 @@
+import { AuthProvider } from '@digico/utils'
+
+import { getAuthenticatedUser } from 'services/auth'
+
 import { DashboardLayout } from 'layouts/DashboardLayout'
 
 export default async function RootLayout({
@@ -5,5 +9,11 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
-    return <DashboardLayout>{children}</DashboardLayout>
+    const { user, tenant } = await getAuthenticatedUser()
+
+    return (
+        <AuthProvider tenant={tenant} user={user}>
+            <DashboardLayout>{children}</DashboardLayout>
+        </AuthProvider>
+    )
 }

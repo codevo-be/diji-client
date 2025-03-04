@@ -1,5 +1,6 @@
 'use client'
 
+import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
@@ -8,7 +9,19 @@ import { useReadContacts } from '@contact/hooks/queries'
 import { SelectCustom } from 'components/SelectCustom'
 
 export const InvoiceFields = () => {
-    const queryContacts = useReadContacts()
+    const form = useFormContext()
+    const { data: contact } = useReadContacts()
+
+    const onChangeContact = (id: string | number) => {
+        const item = contact?.data.find((contact) => contact.id === id)
+
+        if (!item) {
+            return
+        }
+
+        form.setValue('contact_name', item.display_name)
+        form.setValue('vat_number', item.vat_number)
+    }
 
     return (
         <>
@@ -33,9 +46,10 @@ export const InvoiceFields = () => {
                     <SelectCustom
                         name="contact_id"
                         label={'Contact'}
+                        onChange={onChangeContact}
                         options={
-                            queryContacts.data?.data
-                                ? queryContacts.data?.data.map((contact) => {
+                            contact?.data
+                                ? contact?.data.map((contact) => {
                                       return {
                                           label: contact.display_name,
                                           value: contact.id
@@ -51,6 +65,7 @@ export const InvoiceFields = () => {
                     <Form.Field name={`street`} id="street" label="Rue" placeholder="Route de marche" />
                     <Form.Field name={`street_number`} id="street_number" label="Numéro de rue" placeholder="12" />
                     <Form.Field name={`city`} id="city" label="Ville" placeholder="Namur" />
+                    <Form.Field name={`zipcode`} id="zipcode" label="Code postal" placeholder="5590" />
                     <SelectCustom name="country" label={'Pays'} options={countries} />
                 </Form.Row>
             </Form.Group>

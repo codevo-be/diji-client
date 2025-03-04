@@ -12,14 +12,14 @@ import { InvoiceFields } from './InvoiceFields'
 
 export const UpdateFormInvoice = () => {
     const { id } = useParams()
-    const queryInvoice = useReadInvoice(Number(id))
+    const { data } = useReadInvoice(Number(id))
     const updateInvoice = useUpdateInvoice()
 
     const form = useForm<InvoiceType>({
-        values: queryInvoice.data?.data
+        values: data
     })
 
-    if (queryInvoice.data?.data.status !== INVOICE_STATUS_DRAFT) {
+    if (data?.status !== INVOICE_STATUS_DRAFT) {
         return null
     }
 

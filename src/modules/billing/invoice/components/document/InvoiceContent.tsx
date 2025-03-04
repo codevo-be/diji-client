@@ -7,9 +7,8 @@ import { useReadInvoice } from '@billing/invoice/hooks/queries'
 import { Header } from './Header'
 import { InvoiceFooter } from './InvoiceFooter'
 import { InvoiceItemListEditable } from './InvoiceItemListEditable'
-import { ItemManager } from './ItemManager'
 
-export const InvoiceContentEditable = () => {
+export const InvoiceContent = () => {
     const { id } = useParams()
     const { data } = useReadInvoice(Number(id))
 
@@ -17,7 +16,6 @@ export const InvoiceContentEditable = () => {
         <>
             <Header />
             <InvoiceItemListEditable />
-            <ItemManager />
             <Summary data={data} />
             <InvoiceFooter data={data} />
         </>

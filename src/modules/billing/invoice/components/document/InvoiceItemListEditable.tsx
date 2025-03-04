@@ -26,8 +26,6 @@ export const InvoiceItemListEditable = ({ className = '' }: Props) => {
     const queryInvoiceItem = useReadInvoiceItems(Number(invoice_id))
 
     const onDragEnd = (e: DragEndEvent) => {
-        console.log(e.over)
-
         if (!e.over) {
             return
         }

@@ -6,23 +6,23 @@ import { DateHelper, formatCurrency } from '@digico/utils'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 import { TransactionType } from '@billing/types/transaction'
 
-import { INVOICE_STATUS_DRAFT } from '../data/invoice-statuses'
-
 export const TransactionsBox = () => {
     const { id } = useParams()
 
-    const { data: invoice } = useReadInvoice(Number(id), {
+    const { data, isSuccess } = useReadInvoice(Number(id), {
         include: ['transactions']
     })
 
-    if (invoice?.data.status === INVOICE_STATUS_DRAFT) {
+    const transactions = data?.transactions ?? []
+
+    if (!isSuccess || transactions.length === 0) {
         return null
     }
 
     return (
         <Grid.Col>
             <Box>
-                <Table items={invoice?.data?.transactions ?? []}>
+                <Table items={transactions}>
                     <Table.Head>Date de la transaction</Table.Head>
                     <Table.Head>Communication structurée</Table.Head>
                     <Table.Head>Montant</Table.Head>

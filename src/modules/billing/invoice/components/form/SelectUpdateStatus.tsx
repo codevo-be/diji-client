@@ -9,7 +9,7 @@ import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
 export const SelectUpdateStatus = () => {
     const { id } = useParams()
-    const queryInvoice = useReadInvoice(Number(id))
+    const { data } = useReadInvoice(Number(id))
     const updateInvoice = useUpdateInvoice()
 
     const onCHangeStatus = ({ value }: any) => {
@@ -24,7 +24,7 @@ export const SelectUpdateStatus = () => {
             <Select
                 onChange={onCHangeStatus}
                 options={Object.values(INVOICE_STATUSES)}
-                value={Object.values(INVOICE_STATUSES).find((opt) => opt.value === queryInvoice.data?.data.status) || null}
+                value={Object.values(INVOICE_STATUSES).find((opt) => opt.value === data?.status) || null}
             />
         </Box>
     )

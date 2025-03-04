@@ -10,10 +10,14 @@ export const getAuthenticatedUser = async (tenant?: string) => {
 
     return HttpService.setHeader({
         'X-Tenant': `${tenant ? tenant : cookie.get('X-tenant')}`
-    }).get<{
-        data: {
-            user: UserType
-            tenant: TenantType
-        }
-    }>(`/auth/user`)
+    })
+        .get<{
+            data: {
+                user: UserType
+                tenant: TenantType
+            }
+        }>(`/auth/user`)
+        .then((response) => {
+            return response.data
+        })
 }
