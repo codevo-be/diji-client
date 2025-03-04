@@ -5,7 +5,7 @@ export const INVOICE_STATUSES = {
         color: 'grey'
     },
     pending: {
-        label: 'En attente',
+        label: 'En attente de paiement',
         value: 'pending',
         color: 'primary'
     },

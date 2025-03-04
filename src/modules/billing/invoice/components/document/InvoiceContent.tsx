@@ -6,7 +6,7 @@ import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
 import { Header } from './Header'
 import { InvoiceFooter } from './InvoiceFooter'
-import { InvoiceItemListEditable } from './InvoiceItemListEditable'
+import { InvoiceItemList } from './InvoiceItemList'
 
 export const InvoiceContent = () => {
     const { id } = useParams()
@@ -15,7 +15,7 @@ export const InvoiceContent = () => {
     return (
         <>
             <Header />
-            <InvoiceItemListEditable />
+            <InvoiceItemList />
             <Summary data={data} />
             <InvoiceFooter data={data} />
         </>

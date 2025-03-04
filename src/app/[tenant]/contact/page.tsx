@@ -1,13 +1,13 @@
 'use client'
 
-import { Button, Grid, PageHeader, QuerySearchBar } from '@digico/ui'
+import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
 
 import { useReadContacts } from '@contact/hooks/queries'
 
 import { ContactTable } from '@contact/components/ContactTable'
 
 export default function Page() {
-    const queryContacts = useReadContacts()
+    const queryContacts = useReadContacts(useQueryParams())
 
     return (
         <Grid>

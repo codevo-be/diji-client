@@ -1,12 +1,13 @@
 import { Box } from '@digico/ui'
 
+import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { InvoiceType } from '@billing/invoice/types/invoice'
 
 import { Header } from './Header'
 
 type Props = {
     children: React.ReactNode
-    data: InvoiceType | undefined
+    data: InvoiceType | CreditNoteType | undefined
     editable?: boolean
 }
 

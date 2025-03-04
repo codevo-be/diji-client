@@ -8,5 +8,5 @@ export type TransactionType = {
     debtor_account: string
     amount: number
     response: string
-    created_at: string
+    date: string
 }

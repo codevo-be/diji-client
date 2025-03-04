@@ -2,10 +2,11 @@
 
 import { formatCurrency } from '@digico/utils'
 
+import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { InvoiceType } from '@billing/invoice/types/invoice'
 
 type Props = {
-    data: InvoiceType | undefined
+    data: InvoiceType | CreditNoteType | undefined
 }
 
 export const Summary = ({ data }: Props) => {
