@@ -1,6 +1,6 @@
 import { taxes } from 'data/taxes'
 
-import { SelectCustom } from 'components/SelectCustom'
+import { SelectCustom } from '@components/temp/SelectCustom'
 
 export const SheetInputVat = () => {
     return (

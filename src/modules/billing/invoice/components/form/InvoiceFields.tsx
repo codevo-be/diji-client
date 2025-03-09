@@ -6,7 +6,7 @@ import { countries } from 'data/countries'
 
 import { useReadContacts } from '@contact/hooks/queries'
 
-import { SelectCustom } from 'components/SelectCustom'
+import { SelectCustom } from '@components/temp/SelectCustom'
 
 export const InvoiceFields = () => {
     const form = useFormContext()

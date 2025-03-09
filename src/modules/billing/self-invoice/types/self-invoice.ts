@@ -1,10 +1,10 @@
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
 
-export type CreditNoteType = {
+export type SelfInvoiceType = {
     id: number
     identifier?: string
     identifier_number?: number
-    invoice_id?: number
+    status: 'draft' | 'pending' | 'payed' | 'expired'
     issuer?: {
         name: string
         vat_number?: string
@@ -28,7 +28,9 @@ export type CreditNoteType = {
     }
     contact_id?: number
     date: string
-    status: 'draft' | 'pending' | 'refund'
+    due_date: string
+    payment_date?: string
+    structured_communication?: string
     subtotal?: number
     taxes?: Record<string, number>
     total?: number

@@ -49,6 +49,9 @@
     --breakpoint-wide: 1380px;
     --breakpoint-hd: 1920px;
     --breakpoint-full: 2450px;
+
+    /* Shadow */
+    --shadow: 0 0 7px 0 rgba(17, 25, 40, 0.1);
 }
 
 @layer base {

@@ -2,13 +2,16 @@ import { useParams } from 'next/navigation'
 
 import { useForm } from 'react-hook-form'
 import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
-import { Box, Button, Form, Grid } from '@digico/ui'
+import { Box, Form, Grid } from '@digico/ui'
 
 import { useUpdateInvoice } from '@billing/invoice/hooks/mutations'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 import { InvoiceType } from '@billing/invoice/types/invoice'
 
-import { InvoiceFields } from './InvoiceFields'
+import { Tabs } from '@components/temp/Tab'
+
+import { IssuerFields } from './IssuerFields'
+import { RecipientFields } from './RecipientFields'
 
 export const UpdateFormInvoice = () => {
     const { id } = useParams()
@@ -16,7 +19,15 @@ export const UpdateFormInvoice = () => {
     const updateInvoice = useUpdateInvoice()
 
     const form = useForm<InvoiceType>({
-        values: data
+        values: data,
+        defaultValues: {
+            issuer: {
+                country: 'be'
+            },
+            recipient: {
+                country: 'be'
+            }
+        }
     })
 
     if (data?.status !== INVOICE_STATUS_DRAFT) {
@@ -25,12 +36,20 @@ export const UpdateFormInvoice = () => {
 
     return (
         <Grid.Col>
-            <Box>
-                <Form useForm={form} onSubmit={updateInvoice.mutate}>
-                    <InvoiceFields />
-                    <Button isLoading={updateInvoice.isPending}>Mettre à jour</Button>
-                </Form>
-            </Box>
+            <Form useForm={form} onSubmit={updateInvoice.mutate}>
+                <Box>
+                    <Tabs defaultStep={'issuer'}>
+                        <Tabs.Head id="issuer">Expéditeur</Tabs.Head>
+                        <Tabs.Head id="recipient">Destinataire</Tabs.Head>
+                        <Tabs.Content id={'issuer'}>
+                            <IssuerFields />
+                        </Tabs.Content>
+                        <Tabs.Content id={'recipient'}>
+                            <RecipientFields />
+                        </Tabs.Content>
+                    </Tabs>
+                </Box>
+            </Form>
         </Grid.Col>
     )
 }

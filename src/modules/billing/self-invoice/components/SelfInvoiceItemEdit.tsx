@@ -5,13 +5,13 @@ import { Button, Form } from '@digico/ui'
 import { taxes } from 'data/taxes'
 import { toast } from 'sonner'
 
-import { useDestroyCreditNoteItem, useUpdateCreditNoteItem } from '@billing/credit-note/hooks/mutations'
+import { useDestroySelfInvoiceItem, useUpdateSelfInvoiceItem } from '../hooks/mutations/item'
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
 
 import { SelectCustom } from '@components/temp/SelectCustom'
 import { Icon } from 'components/Icon'
 
-import { Modal } from '../Modal'
+import { Modal } from './Modal'
 
 type Props = {
     item: BillingItemType & {
@@ -20,20 +20,20 @@ type Props = {
     }
 }
 
-export const CreditNoteItemEdit = ({ item }: Props) => {
+export const SelfInvoiceItemEdit = ({ item }: Props) => {
     const { id } = useParams()
 
     const form = useForm({
         defaultValues: item
     })
 
-    const updateCreditNoteItem = useUpdateCreditNoteItem()
-    const destroyCreditNoteItem = useDestroyCreditNoteItem()
+    const updateSelfInvoiceItem = useUpdateSelfInvoiceItem()
+    const destroySelfInvoiceItem = useDestroySelfInvoiceItem()
 
     const handleSubmit = (data: FieldValues, handleClose: any) => {
-        updateCreditNoteItem.mutate(
+        updateSelfInvoiceItem.mutate(
             {
-                credit_note_id: Number(id),
+                self_invoice_id: Number(id),
                 id: Number(item.id),
                 ...data
             },
@@ -46,9 +46,9 @@ export const CreditNoteItemEdit = ({ item }: Props) => {
     }
 
     const handleDestroy = (handleClose: any) => {
-        destroyCreditNoteItem.mutate(
+        destroySelfInvoiceItem.mutate(
             {
-                credit_note_id: Number(id),
+                self_invoice_id: Number(id),
                 id: Number(item.id)
             },
             {
@@ -86,10 +86,10 @@ export const CreditNoteItemEdit = ({ item }: Props) => {
                             <Form.Field label="Prix de vente" name="retail.subtotal" placeholder="1" id="retail.subtotal" />
 
                             <div className="flex flex-col gap-2">
-                                <Button isLoading={updateCreditNoteItem.isPending} type="submit">
+                                <Button isLoading={updateSelfInvoiceItem.isPending} type="submit">
                                     Sauvegarder
                                 </Button>
-                                <Button isLoading={destroyCreditNoteItem.isPending} onClick={() => handleDestroy(handleClose)} intent={'error'} type="button">
+                                <Button onClick={() => handleDestroy(handleClose)} intent={'error'} type="button">
                                     Supprimer
                                 </Button>
                             </div>
