@@ -12,9 +12,9 @@ export const useUpdateContact = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: (_data, variables) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['contacts', { id: variables.id }]
+                queryKey: ['contacts']
             })
             toast.success('Le contact a été modifié !')
         }

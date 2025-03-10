@@ -12,9 +12,9 @@ export const useUpdateSelfInvoice = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: (_data, variables) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['self-invoices', { id: variables.id }]
+                queryKey: ['self-invoices']
             })
             toast.success('La facture a été modifiée !')
         }
