@@ -7,4 +7,11 @@ export type ContactType = {
     vat_number?: string
     email: string
     phone?: string
+    billing_address?: {
+        street: string
+        street_number: string
+        city: string
+        zipcode: string
+        country: string
+    }
 }
