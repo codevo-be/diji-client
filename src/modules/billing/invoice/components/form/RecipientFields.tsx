@@ -15,9 +15,9 @@ export const RecipientFields = () => {
     const onSelectContact = (contact_id: number | string) => {
         const contact = data?.data.find((contact: ContactType) => contact.id === contact_id)
 
+        setValue('recipient', contact?.billing_address)
         setValue('recipient.name', contact?.display_name)
         setValue('recipient.vat_number', contact?.vat_number)
-        setValue('recipient', contact?.billing_address)
     }
 
     return (
