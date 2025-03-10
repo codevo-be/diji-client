@@ -1,10 +1,9 @@
 import { Grid } from '@digico/ui'
 
-import { TransactionsBox } from '@billing/invoice/components/TransactionBox'
-
 import { ActionSelfInvoice } from './ActionSelfInvoice'
 import { UpdateFormSelfInvoice } from './form/UpdateFormSelfInvoice'
 import { StatusBox } from './StatusBox'
+import { TransactionsBox } from './TransactionBox'
 
 export const SummarySelfInvoice = () => {
     return (

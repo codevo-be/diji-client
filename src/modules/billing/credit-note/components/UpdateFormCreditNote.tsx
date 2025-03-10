@@ -1,15 +1,16 @@
 import { useParams } from 'next/navigation'
 
 import { useForm } from 'react-hook-form'
-import { Box, Button, Form, Grid } from '@digico/ui'
+import { Box, Button, Form, Grid, Tabs } from '@digico/ui'
 
 import { useUpdateCreditNote } from '../hooks/mutations'
 import { useReadCreditNote } from '../hooks/queries'
 import { CreditNoteType } from '../types/credit-note'
 
-import { CREDIT_NOTE_STATUS_DRAFT } from '../data/credit-note-statuses'
+import { IssuerFields } from '@billing/invoice/components/form/IssuerFields'
+import { RecipientFields } from '@billing/invoice/components/form/RecipientFields'
 
-import { CreditNoteFields } from './CreditNoteFields'
+import { CREDIT_NOTE_STATUS_DRAFT } from '../data/credit-note-statuses'
 
 export const UpdateFormCreditNote = () => {
     const { id } = useParams()
@@ -26,12 +27,23 @@ export const UpdateFormCreditNote = () => {
 
     return (
         <Grid.Col>
-            <Box>
-                <Form useForm={form} onSubmit={updateCreditNote.mutate}>
-                    <CreditNoteFields />
-                    <Button isLoading={updateCreditNote.isPending}>Mettre à jour</Button>
-                </Form>
-            </Box>
+            <Form useForm={form} onSubmit={updateCreditNote.mutate}>
+                <Box>
+                    <Tabs defaultStep={'recipient'}>
+                        <Tabs.Head id="issuer">Expéditeur</Tabs.Head>
+                        <Tabs.Head id="recipient">Destinataire</Tabs.Head>
+                        <Tabs.Content id={'issuer'}>
+                            <IssuerFields />
+                        </Tabs.Content>
+                        <Tabs.Content id={'recipient'}>
+                            <RecipientFields />
+                        </Tabs.Content>
+                    </Tabs>
+                    <Button className="w-full mt-12" isLoading={updateCreditNote.isPending}>
+                        Mettre à jour
+                    </Button>
+                </Box>
+            </Form>
         </Grid.Col>
     )
 }

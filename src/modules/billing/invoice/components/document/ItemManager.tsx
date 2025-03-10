@@ -48,7 +48,8 @@ export const ItemManager = () => {
     }
 
     return (
-        <Form useForm={form} onSubmit={handleItemAdded} className="mt-12 !gap-4">
+        <Form useForm={form} onSubmit={handleItemAdded} className="mt-20 !gap-4">
+            <SheetInputName />
             <div className="flex gap-2">
                 <SheetInputQuantity />
                 <SheetInputVat />
@@ -57,8 +58,6 @@ export const ItemManager = () => {
                     Ajouter
                 </Button>
             </div>
-
-            <SheetInputName />
         </Form>
     )
 }

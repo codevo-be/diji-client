@@ -14,7 +14,7 @@ export const Header = ({ data }: Props) => {
                 {/* @ts-ignore */}
                 <DocumentInfo {...data?.issuer} />
                 {/* @ts-ignore */}
-                <DocumentInfo {...data} name={data?.contact_name} />
+                <DocumentInfo {...data?.recipient} />
             </div>
         </>
     )

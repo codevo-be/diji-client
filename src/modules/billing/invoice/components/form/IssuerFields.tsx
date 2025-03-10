@@ -13,7 +13,7 @@ export const IssuerFields = () => {
                 <Form.Field required={true} name={`issuer.name`} id="issuer.name" label="Nom" placeholder="Nom complet" />
                 <Form.Row>
                     <Form.Field
-                        prefix={watch('issuer.country')}
+                        prefix={watch('issuer.country') ? watch('issuer.country').toUpperCase() : 'BE'}
                         name={`issuer.vat_number`}
                         id="issuer.vat_number"
                         label="Numéro de tva"
@@ -21,7 +21,7 @@ export const IssuerFields = () => {
                     />
                     <Form.Field
                         required={true}
-                        prefix={watch('issuer.country')}
+                        prefix={watch('issuer.country') ? watch('issuer.country').toUpperCase() : 'BE'}
                         name={`issuer.iban`}
                         id="issuer.iban"
                         label="IBAN"

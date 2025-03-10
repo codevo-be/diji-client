@@ -7,18 +7,18 @@ import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
 import { getTenantUrl, useAuth, useRouterWithTenant } from '@digico/utils'
 
-import { useEmailInvoice } from '@billing/invoice/hooks/mutations/useEmailInvoice'
-import { useReadInvoice } from '@billing/invoice/hooks/queries'
+import { useEmailSelfInvoice } from '@billing/self-invoice/hooks/mutations/useEmailSelfInvoice'
+import { useReadSelfInvoice } from '@billing/self-invoice/hooks/queries'
 
-import { InvoiceContent } from '@billing/invoice/components/document/InvoiceContent'
+import { SelfInvoiceContent } from '@billing/self-invoice/components/document/SelfInvoiceContent'
 
 export default function Page() {
     const { id } = useParams()
     const { tenant } = useAuth()
     const routerWithTenant = useRouterWithTenant()
 
-    const { data } = useReadInvoice(Number(id))
-    const sendEmail = useEmailInvoice()
+    const { data } = useReadSelfInvoice(Number(id))
+    const sendEmail = useEmailSelfInvoice()
 
     const form = useForm({
         values: {
@@ -41,7 +41,7 @@ L'équipe ${tenant?.name}`
             },
             {
                 onSuccess: () => {
-                    routerWithTenant.push('/billing/invoice')
+                    routerWithTenant.push('/billing/self-invoice')
                 }
             }
         )
@@ -50,18 +50,18 @@ L'équipe ${tenant?.name}`
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux factures" href={getTenantUrl('/billing/invoice')}>
+                <PageHeader label="Retour aux factures" href={getTenantUrl('/billing/self-invoice')}>
                     Facture {data?.identifier}
                 </PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
                 <BillingDocument data={data}>
-                    <InvoiceContent />
+                    <SelfInvoiceContent />
                 </BillingDocument>
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>
-                    <Button intent={'text'} size={'text'} href={getTenantUrl(`/billing/invoice/${id}`)} className="mb-8">
+                    <Button intent={'text'} size={'text'} href={getTenantUrl(`/billing/self-invoice/${id}`)} className="mb-8">
                         ← Retour
                     </Button>
                     <Form useForm={form} onSubmit={onSubmit}>

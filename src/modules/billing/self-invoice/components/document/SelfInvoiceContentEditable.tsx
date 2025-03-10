@@ -2,7 +2,7 @@ import { useParams } from 'next/navigation'
 
 import { Summary } from '@billing/document/Summary'
 
-import { useReadInvoice } from '@billing/invoice/hooks/queries'
+import { useReadSelfInvoice } from '@billing/self-invoice/hooks/queries'
 
 import { Header } from './Header'
 import { ItemManager } from './ItemManager'
@@ -11,7 +11,7 @@ import { SelfInvoiceItemListEditable } from './SelfInvoiceItemListEditable'
 
 export const SelfInvoiceContentEditable = () => {
     const { id } = useParams()
-    const { data } = useReadInvoice(Number(id))
+    const { data } = useReadSelfInvoice(Number(id))
 
     return (
         <>

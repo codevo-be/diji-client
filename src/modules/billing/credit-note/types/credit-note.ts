@@ -20,6 +20,7 @@ export type CreditNoteType = {
     recipient?: {
         name: string
         vat_number?: string
+        email?: string
         street: string
         street_number: string
         city: string

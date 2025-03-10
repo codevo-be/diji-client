@@ -2,11 +2,11 @@ import { useParams } from 'next/navigation'
 
 import { DateHelper } from '@digico/utils'
 
-import { useReadInvoice } from '@billing/invoice/hooks/queries'
+import { useReadSelfInvoice } from '@billing/self-invoice/hooks/queries'
 
 export const Header = () => {
     const { id } = useParams()
-    const { data } = useReadInvoice(Number(id))
+    const { data } = useReadSelfInvoice(Number(id))
 
     return (
         <div className="mb-24">
