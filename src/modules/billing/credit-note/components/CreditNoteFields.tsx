@@ -6,8 +6,6 @@ import { countries } from 'data/countries'
 
 import { useReadContacts } from '@contact/hooks/queries'
 
-import { SelectCustom } from '@components/temp/SelectCustom'
-
 export const CreditNoteFields = () => {
     const form = useFormContext()
     const { data: contact } = useReadContacts()
@@ -33,13 +31,13 @@ export const CreditNoteFields = () => {
                     <Form.Field name={`issuer.street_number`} id="issuer.street_number" label="Numéro de rue" placeholder="17" />
                     <Form.Field name={`issuer.city`} id="issuer.city" label="Ville" placeholder="Marche-en-famenne" />
                     <Form.Field name={`issuer.zipcode`} id="issuer.zipcode" label="Code postal" placeholder="5590" />
-                    <SelectCustom name="country" label={'Pays'} options={countries} />
+                    <Form.Select name="country" label={'Pays'} options={countries} />
                     <Form.Field required={true} name={`issuer.iban`} id="issuer.iban" label="Compte bancaire" placeholder="4024.2421.4241" />
                 </Form.Row>
             </Form.Group>
             <Form.Group title="Client">
                 <Form.Row>
-                    <SelectCustom
+                    <Form.Select
                         name="contact_id"
                         label={'Contact'}
                         onChange={onChangeContact}
@@ -62,7 +60,7 @@ export const CreditNoteFields = () => {
                     <Form.Field name={`street_number`} id="street_number" label="Numéro de rue" placeholder="12" />
                     <Form.Field name={`city`} id="city" label="Ville" placeholder="Namur" />
                     <Form.Field name={`zipcode`} id="zipcode" label="Code postal" placeholder="5590" />
-                    <SelectCustom name="country" label={'Pays'} options={countries} />
+                    <Form.Select name="country" label={'Pays'} options={countries} />
                 </Form.Row>
             </Form.Group>
             <Form.Group title="Date">

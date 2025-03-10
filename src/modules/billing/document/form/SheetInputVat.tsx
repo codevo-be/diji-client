@@ -1,10 +1,9 @@
+import { Form } from '@digico/ui'
 import { taxes } from 'data/taxes'
-
-import { SelectCustom } from '@components/temp/SelectCustom'
 
 export const SheetInputVat = () => {
     return (
-        <SelectCustom
+        <Form.Select
             name="vat"
             className="!h-full !w-[10rem] flex-shrink-0"
             options={taxes.map((tax) => {

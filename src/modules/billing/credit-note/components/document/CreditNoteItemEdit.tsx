@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 import { useDestroyCreditNoteItem, useUpdateCreditNoteItem } from '@billing/credit-note/hooks/mutations'
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
 
-import { SelectCustom } from '@components/temp/SelectCustom'
 import { Icon } from 'components/Icon'
 
 import { Modal } from '../Modal'
@@ -73,7 +72,7 @@ export const CreditNoteItemEdit = ({ item }: Props) => {
                         <Form useForm={form} onSubmit={(data) => handleSubmit(data, handleClose)}>
                             <Form.Field label="Titre" name="name" placeholder="Nom" id="name" />
                             <Form.Field label="Quantité" name="quantity" placeholder="1" id="quantity" />
-                            <SelectCustom
+                            <Form.Select
                                 name="vat"
                                 label="Taux tva"
                                 options={taxes.map((tax) => {
