@@ -1,4 +1,5 @@
 import { Form } from '@digico/ui'
+import { countries } from 'data/countries'
 
 export const ContactFields = () => {
     return (
@@ -15,6 +16,16 @@ export const ContactFields = () => {
                 <Form.Row>
                     <Form.Field name={`email`} id="email" label="Adresse email" placeholder="bertrand@gmail.com" />
                     <Form.Field name={`phone`} id="phone" label="Téléphone" placeholder="0494068124" />
+                </Form.Row>
+            </Form.Group>
+
+            <Form.Group title="Adresse de facturation">
+                <Form.Row>
+                    <Form.Field name={`billing_address.street`} id="billing_address.street" label="Rue" placeholder="Route de marche" />
+                    <Form.Field name={`billing_address.street_number`} id="billing_address.street_number" label="Numéro de rue" placeholder="12" />
+                    <Form.Field name={`billing_address.city`} id="billing_address.city" label="Ville" placeholder="Namur" />
+                    <Form.Field name={`billing_address.zipcode`} id="billing_address.zipcode" label="Code postal" placeholder="5590" />
+                    <Form.Select name="billing_address.country" label={'Pays'} options={countries} />
                 </Form.Row>
             </Form.Group>
         </>

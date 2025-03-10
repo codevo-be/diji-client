@@ -17,6 +17,7 @@ export const RecipientFields = () => {
 
         setValue('recipient.name', contact?.display_name)
         setValue('recipient.vat_number', contact?.vat_number)
+        setValue('recipient', contact?.billing_address)
     }
 
     return (
