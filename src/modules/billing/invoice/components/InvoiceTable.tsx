@@ -25,7 +25,7 @@ export const InvoiceTable = ({ items }: Props) => {
             <Table.Head>Date</Table.Head>
             <Table.Head>Sous-total</Table.Head>
             <Table.Head>Total</Table.Head>
-            <Table.Head>Statut</Table.Head>
+
             <Table.Col name="identifier" />
             <Table.Col name="recipient.name" />
             <Table.Col>

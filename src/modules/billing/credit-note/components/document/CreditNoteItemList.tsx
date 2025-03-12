@@ -21,7 +21,7 @@ export const CreditNoteItemList = ({ className = '' }: Props) => {
         <Table className={className} items={queryInvoiceItem.data?.data ?? []}>
             <Table.Head>Nom</Table.Head>
             <Table.Head>Qte</Table.Head>
-            <Table.Head>Prix</Table.Head>
+            <Table.Head>Prix U. HT</Table.Head>
             <Table.Head>TVA</Table.Head>
             <Table.Head>Total HT</Table.Head>
             <Table.Col name="name" />
