@@ -5,6 +5,8 @@ import { getTenantUrl } from '@digico/utils'
 import { ButtonLogout } from '@components/auth/ButtonLogout'
 import { MenuItemSidebar } from '@components/dashboard/sidebar/MenuItemSidebar'
 
+import { ButtonSettings } from './ButtonSettings'
+
 export const MenuSidebar = () => {
     return (
         <div className="w-auto bg-main py-8 px-2">
@@ -15,7 +17,8 @@ export const MenuSidebar = () => {
 
                 <MenuItemSidebar name={'billing'} href={getTenantUrl('/billing/invoice')} />
 
-                <li className="mt-auto">
+                <li className="mt-auto flex flex-col">
+                    <ButtonSettings />
                     <ButtonLogout />
                 </li>
             </ul>
