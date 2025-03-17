@@ -1,15 +1,14 @@
 'use client'
 
-import { Grid, PageHeader } from '@digico/ui'
+import { Grid } from '@digico/ui'
 
-import { MenuSettings } from '@components/settings/MenuSettings'
+import { BoxBilling } from '@components/settings/billing/BoxBilling'
 
 export default function Page() {
     return (
         <Grid>
-            <Grid.Col>
-                <PageHeader>Paramètres</PageHeader>
-                <MenuSettings />
+            <Grid.Col column={6}>
+                <BoxBilling />
             </Grid.Col>
         </Grid>
     )

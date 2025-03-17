@@ -1,5 +1,6 @@
 'use client'
 
+import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
@@ -10,6 +11,11 @@ export const useUpdateOrCreateMeta = () => {
         mutationFn: updateOrCreateMeta,
         onError: (error) => {
             toast.error(error.message)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['metas']
+            })
         }
     })
 }

@@ -2,15 +2,13 @@ import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
-import { InputFile } from '@components/temp/FieldUpload'
-
 export const SettingsBillingFields = () => {
     const { watch } = useFormContext()
 
     return (
         <>
-            <InputFile />
             <Form.Group>
+                <Form.File name="logo" />
                 <Form.Field label="Nom" name="name" id="name" placeholder="Diji" />
                 <Form.Row>
                     <Form.Field label="Adresse email" name="email" id="email" placeholder="info@diji.be" />
