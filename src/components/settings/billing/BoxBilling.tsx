@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 import { toast } from 'sonner'
@@ -12,65 +11,62 @@ import { useReadMeta } from 'hooks/queries/meta/useReadMeta'
 import { SettingsBillingFields } from './SettingsBillingFields'
 
 export const BoxBilling = () => {
-    const [isLoading, setIsLoading] = useState(true)
-    const { data: tenant_billing_details, isLoading: isLoadingData } = useReadMeta('tenant_billing_details')
-    const { data: tenant_logo, isLoading: isLoadingLogo } = useReadMeta('tenant_logo')
-
-    useEffect(() => {
-        if (!isLoadingData && !isLoadingLogo) {
-            setIsLoading(false)
-        }
-    }, [isLoadingData, isLoadingLogo])
+    const queryMeta = useReadMeta('tenant_billing_details')
 
     const updateOrCreateMeta = useUpdateOrCreateMeta()
     const createUpload = useCreateUpload()
 
     const form = useForm({
         values: {
-            ...(tenant_billing_details
+            ...(queryMeta.data
                 ? //@ts-ignore
-                  { ...(tenant_billing_details.value ?? {}) }
+                  { ...(queryMeta.data.value ?? {}) }
                 : {
                       country: 'be'
                   }),
             logo: {
-                url: tenant_logo?.value
+                //@ts-ignore
+                url: queryMeta.data?.value?.logo ?? ''
             }
         }
     })
 
-    const onSubmit = ({ logo, ...data }: FieldValues) => {
-        updateOrCreateMeta.mutate(
-            {
-                key: 'tenant_billing_details',
-                value: data,
-                type: 'json'
-            },
-            {
-                onSuccess: () => {
-                    toast.success('Coordonnées mises à jour !')
-                }
-            }
-        )
+    const onSubmit = async ({ logo, ...data }: FieldValues) => {
+        try {
+            data.logo = logo?.url ?? ''
 
-        if (logo && logo.file) {
-            const formData = new FormData()
-            formData.append('file', logo.file)
+            if (logo?.file) {
+                const formData = new FormData()
+                formData.append('file', logo.file)
 
-            createUpload.mutate(formData, {
-                onSuccess: ({ data }) => {
-                    updateOrCreateMeta.mutate({
-                        key: 'tenant_logo',
-                        value: data.url,
-                        type: 'string'
+                const uploadedLogo = await new Promise((resolve) => {
+                    createUpload.mutate(formData, {
+                        onSuccess: ({ data: el }) => resolve(el.url)
                     })
+                })
+
+                data.logo = uploadedLogo
+            }
+
+            updateOrCreateMeta.mutate(
+                {
+                    key: 'tenant_billing_details',
+                    value: data,
+                    type: 'json'
+                },
+                {
+                    onSuccess: () => {
+                        toast.success('Coordonnées mises à jour !')
+                    }
                 }
-            })
+            )
+        } catch {
+            toast.error('Erreur lors du téléchargement du logo !')
         }
     }
 
     return (
-        <Box isLoading={isLoading} title="Coordonnées de contact">
+        <Box isLoading={queryMeta.isLoading} title="Coordonnées de contact">
             <Form useForm={form} onSubmit={onSubmit}>
                 <SettingsBillingFields />
                 <Button isLoading={updateOrCreateMeta.isPending} type="submit">

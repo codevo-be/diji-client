@@ -9,11 +9,11 @@ type Props = {
 }
 
 export const Header = ({ data }: Props) => {
-    const queryMeta = useReadMeta('tenant_logo')
-
+    const queryMeta = useReadMeta('tenant_billing_details')
     return (
         <>
-            {queryMeta.isSuccess && queryMeta.data?.value ? <img className="h-32 w-auto mb-12" src={String(queryMeta.data?.value)} alt="Logo" /> : null}
+            {/* @ts-ignore */}
+            {queryMeta.isSuccess ? <img className="h-32 w-auto mb-12" src={String(queryMeta.data?.value?.logo)} alt="Logo" /> : null}
 
             <div className="flex">
                 {/* @ts-ignore */}
