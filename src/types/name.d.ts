@@ -7,4 +7,6 @@ export type IconName =
 	| "edit"
 	| "logout"
 	| "search"
-	| "sort";
+	| "settings"
+	| "sort"
+	| "upload";

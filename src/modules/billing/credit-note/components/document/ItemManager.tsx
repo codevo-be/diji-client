@@ -23,7 +23,7 @@ export const ItemManager = () => {
     const { mutate, isPending } = useCreateCreditNoteItem()
 
     const handleItemAdded = ({ retail, ...data }: BillingItemType) => {
-        const tax = (data.vat ?? 0 / 100) * (retail?.subtotal ?? 0)
+        const tax = ((data.vat ?? 0) / 100) * (retail?.subtotal ?? 0)
 
         mutate(
             {
