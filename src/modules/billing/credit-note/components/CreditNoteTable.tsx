@@ -28,7 +28,7 @@ export const CreditNoteTable = ({ items }: Props) => {
             <Table.Head>Total</Table.Head>
             <Table.Head>Statut</Table.Head>
             <Table.Col name="identifier" />
-            <Table.Col name="contact_name" />
+            <Table.Col name="recipient.name" />
             <Table.Col>
                 {(credit_note: CreditNoteType) => {
                     return credit_note.date

@@ -6,8 +6,6 @@ import { countries } from 'data/countries'
 
 import { useReadContacts } from '@contact/hooks/queries'
 
-import { SelectCustom } from '@components/temp/SelectCustom'
-
 export const InvoiceFields = () => {
     const form = useFormContext()
     const { data: contact } = useReadContacts()
@@ -43,7 +41,7 @@ export const InvoiceFields = () => {
             </Form.Group>
             <Form.Group title="Client">
                 <Form.Row>
-                    <SelectCustom
+                    <Form.Select
                         name="contact_id"
                         label={'Contact'}
                         onChange={onChangeContact}
@@ -66,7 +64,7 @@ export const InvoiceFields = () => {
                     <Form.Field name={`street_number`} id="street_number" label="Numéro de rue" placeholder="12" />
                     <Form.Field name={`city`} id="city" label="Ville" placeholder="Namur" />
                     <Form.Field name={`zipcode`} id="zipcode" label="Code postal" placeholder="5590" />
-                    <SelectCustom name="country" label={'Pays'} options={countries} />
+                    <Form.Select name="country" label={'Pays'} options={countries} />
                 </Form.Row>
             </Form.Group>
             <Form.Group title="Date">

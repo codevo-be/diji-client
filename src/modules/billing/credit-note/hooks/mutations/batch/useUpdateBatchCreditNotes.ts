@@ -4,19 +4,21 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { updateSelfInvoice } from '@billing/self-invoice/services'
+import { updateBatchCreditNotes } from '@billing/credit-note/services/batch/update-batch-credit-notes'
 
-export const useUpdateSelfInvoice = () => {
+export const useUpdateBatchCreditNotes = () => {
     return useMutation({
-        mutationFn: updateSelfInvoice,
+        mutationFn: updateBatchCreditNotes,
         onError: (error) => {
             toast.error(error.message)
         },
         onSuccess: () => {
+            toast.success('Les factures ont été modifiées !')
+        },
+        onSettled: () => {
             queryClient.invalidateQueries({
-                queryKey: ['self-invoices']
+                queryKey: ['credit-notes']
             })
-            toast.success('La facture a été modifiée !')
         }
     })
 }

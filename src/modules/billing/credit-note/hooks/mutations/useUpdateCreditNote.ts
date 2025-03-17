@@ -12,9 +12,9 @@ export const useUpdateCreditNote = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: (_data, variables) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['credit-notes', { id: variables.id }]
+                queryKey: ['credit-notes']
             })
 
             toast.success('La note de crédit à été modifiée !')

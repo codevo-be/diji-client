@@ -68,7 +68,7 @@ export const InvoiceItemListEditable = ({ className = '' }: Props) => {
             <TableSort.Head>Tri</TableSort.Head>
             <TableSort.Head>Nom</TableSort.Head>
             <TableSort.Head>Qte</TableSort.Head>
-            <TableSort.Head>Prix</TableSort.Head>
+            <TableSort.Head>Prix U. HT</TableSort.Head>
             <TableSort.Head>TVA</TableSort.Head>
             <TableSort.Head>Total HT</TableSort.Head>
             <TableSort.Head></TableSort.Head>

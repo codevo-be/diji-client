@@ -4,19 +4,20 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { updateSelfInvoice } from '@billing/self-invoice/services'
+import { destroyBatchInvoices } from '@billing/invoice/services/batch/destroy-batch-invoices'
 
-export const useUpdateSelfInvoice = () => {
+export const useDestroyBatchInvoices = () => {
     return useMutation({
-        mutationFn: updateSelfInvoice,
+        mutationFn: destroyBatchInvoices,
         onError: (error) => {
             toast.error(error.message)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['self-invoices']
+                queryKey: ['invoices']
             })
-            toast.success('La facture a été modifiée !')
+
+            toast.success('Les factures ont été supprimées !')
         }
     })
 }

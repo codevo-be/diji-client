@@ -15,6 +15,7 @@ export const RecipientFields = () => {
     const onSelectContact = (contact_id: number | string) => {
         const contact = data?.data.find((contact: ContactType) => contact.id === contact_id)
 
+        setValue('recipient', contact?.billing_address)
         setValue('recipient.name', contact?.display_name)
         setValue('recipient.vat_number', contact?.vat_number)
     }
@@ -38,7 +39,7 @@ export const RecipientFields = () => {
                 <Form.Row>
                     <Form.Field required={true} name={`recipient.name`} id="recipient.name" label="Nom" placeholder="Nom complet" />
                     <Form.Field
-                        prefix={watch('issuer.country') ? watch('recipient.country').toUpperCase() : 'BE'}
+                        prefix={watch('recipient.country') ? watch('recipient.country').toUpperCase() : 'BE'}
                         name={`recipient.vat_number`}
                         id="recipient.vat_number"
                         label="Numéro de tva"
