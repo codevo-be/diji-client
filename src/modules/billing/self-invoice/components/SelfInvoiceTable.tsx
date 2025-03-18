@@ -22,12 +22,14 @@ export const SelfInvoiceTable = ({ items }: Props) => {
     return (
         <Table onClick={toSingle} items={items}>
             <Table.Head>ID</Table.Head>
-            <Table.Head>Client</Table.Head>
+            <Table.Head>Expéditeur</Table.Head>
+            <Table.Head>Destinataire</Table.Head>
             <Table.Head>Date</Table.Head>
             <Table.Head>Sous-total</Table.Head>
             <Table.Head>Total</Table.Head>
             <Table.Head>Statut</Table.Head>
             <Table.Col name="identifier" />
+            <Table.Col name="issuer.name" />
             <Table.Col name="recipient.name" />
             <Table.Col>
                 {(invoice: SelfInvoiceType) => {

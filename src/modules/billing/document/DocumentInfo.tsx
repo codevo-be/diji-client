@@ -29,9 +29,9 @@ export const DocumentInfo = ({ name, address, iban, street, street_number, zipco
                 </>
             )}
 
-            {vat_number && <p className="mt-4">{vat_number}</p>}
+            {vat_number && <p className="mt-4">TVA : {vat_number}</p>}
 
-            {iban && <p className="mt-4">{iban}</p>}
+            {iban && <p className="mt-4">CB/Compte banquaire : {iban}</p>}
         </div>
     )
 }
