@@ -76,7 +76,8 @@ export const SelfInvoiceBatchList = () => {
                         </Table.Head>
                         <Table.Head>ID</Table.Head>
                         <Table.Head>Numéro de facture</Table.Head>
-                        <Table.Head>Client</Table.Head>
+                        <Table.Head>Expéditeur</Table.Head>
+                        <Table.Head>Destinataire</Table.Head>
                         <Table.Head>Date</Table.Head>
                         <Table.Head>Sous-total</Table.Head>
                         <Table.Head>Total</Table.Head>
@@ -98,6 +99,7 @@ export const SelfInvoiceBatchList = () => {
 
                         <Table.Col name="id" />
                         <Table.Col name="identifier" />
+                        <Table.Col name="issuer.name" />
                         <Table.Col name="recipient.name" />
                         <Table.Col>
                             {(invoice: SelfInvoiceType) => {
