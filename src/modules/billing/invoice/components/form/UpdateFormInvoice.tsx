@@ -7,7 +7,9 @@ import { Tabs } from '@digico/ui'
 
 import { useUpdateInvoice } from '@billing/invoice/hooks/mutations'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
+import { useReadContacts } from '@contact/hooks/queries'
 import { InvoiceType } from '@billing/invoice/types/invoice'
+import { ContactType } from '@contact/types/contact'
 
 import { IssuerFields } from './IssuerFields'
 import { RecipientFields } from './RecipientFields'
@@ -16,10 +18,26 @@ export const UpdateFormInvoice = () => {
     const { id } = useParams()
     const { data } = useReadInvoice(Number(id))
     const updateInvoice = useUpdateInvoice()
+    const { data: contacts } = useReadContacts()
 
     const form = useForm<InvoiceType>({
         values: data
     })
+
+    const onSelectContact = (contact_id: number | string) => {
+        const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
+
+        if (!contact) {
+            return
+        }
+
+        //@ts-ignore
+        form.setValue('recipient', contact.billing_address)
+        form.setValue('recipient.name', contact.display_name)
+        form.setValue('recipient.email', contact.email)
+        form.setValue('recipient.phone', contact.phone)
+        form.setValue('recipient.vat_number', contact.vat_number)
+    }
 
     if (data?.status !== INVOICE_STATUS_DRAFT) {
         return null
@@ -36,6 +54,20 @@ export const UpdateFormInvoice = () => {
                             <IssuerFields />
                         </Tabs.Content>
                         <Tabs.Content id={'recipient'}>
+                            <Form.Select
+                                className="mb-8"
+                                name="contact_id"
+                                label="Contact"
+                                onChange={onSelectContact}
+                                options={
+                                    contacts?.data.map((contact: ContactType) => {
+                                        return {
+                                            label: contact.display_name,
+                                            value: contact.id
+                                        }
+                                    }) ?? []
+                                }
+                            />
                             <RecipientFields />
                         </Tabs.Content>
                     </Tabs>

@@ -21,6 +21,7 @@ export type SelfInvoiceType = {
         name: string
         vat_number?: string
         email?: string
+        phone?: string
         street: string
         street_number: string
         city: string

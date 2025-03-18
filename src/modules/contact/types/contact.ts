@@ -5,6 +5,7 @@ export type ContactType = {
     lastname?: string
     company_name?: string
     vat_number?: string
+    iban?: string
     email: string
     phone?: string
     billing_address?: {
