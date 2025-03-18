@@ -4,38 +4,12 @@ import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
-import { useReadContacts } from '@contact/hooks/queries'
-import { ContactType } from '@contact/types/contact'
-
 export const RecipientFields = () => {
-    const { watch, setValue } = useFormContext()
-
-    const { data } = useReadContacts()
-
-    const onSelectContact = (contact_id: number | string) => {
-        const contact = data?.data.find((contact: ContactType) => contact.id === contact_id)
-
-        setValue('recipient', contact?.billing_address)
-        setValue('recipient.name', contact?.display_name)
-        setValue('recipient.vat_number', contact?.vat_number)
-    }
+    const { watch } = useFormContext()
 
     return (
         <>
             <Form.Group>
-                <Form.Select
-                    name="contact_id"
-                    label="Contact"
-                    onChange={onSelectContact}
-                    options={
-                        data?.data.map((contact: ContactType) => {
-                            return {
-                                label: contact.display_name,
-                                value: contact.id
-                            }
-                        }) ?? []
-                    }
-                />
                 <Form.Row>
                     <Form.Field required={true} name={`recipient.name`} id="recipient.name" label="Nom" placeholder="Nom complet" />
                     <Form.Field
