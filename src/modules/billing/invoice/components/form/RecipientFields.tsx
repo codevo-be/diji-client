@@ -1,24 +1,17 @@
 'use client'
 
-import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
 export const RecipientFields = () => {
-    const { watch } = useFormContext()
-
     return (
         <>
             <Form.Group>
                 <Form.Row>
                     <Form.Field required={true} name={`recipient.name`} id="recipient.name" label="Nom" placeholder="Nom complet" />
-                    <Form.Field
-                        prefix={watch('recipient.country') ? watch('recipient.country').toUpperCase() : 'BE'}
-                        name={`recipient.vat_number`}
-                        id="recipient.vat_number"
-                        label="Numéro de tva"
-                        placeholder="2532.245.135"
-                    />
+                    <Form.Field name={`recipient.vat_number`} id="recipient.vat_number" label="Numéro de tva" placeholder="2532.245.135" />
+                    <Form.Field type="email" name={`recipient.email`} id="recipient.email" label="Adresse email" placeholder="info@diji.be" />
+                    <Form.Field name={`recipient.phone`} id="recipient.phone" label="Numéro de téléphone" placeholder="0593/02.52.13" />
                 </Form.Row>
             </Form.Group>
 

@@ -22,7 +22,7 @@ export default function Page() {
 
     const form = useForm({
         values: {
-            email: data?.recipient?.email,
+            to: data?.recipient?.email,
             subject: `${tenant?.name} - Facture ${data?.identifier}`,
             body: `Bonjour ${data?.recipient?.name},
 
