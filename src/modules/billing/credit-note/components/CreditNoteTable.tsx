@@ -44,7 +44,7 @@ export const CreditNoteTable = ({ items }: Props) => {
                     return formatCurrency(credit_note.total ?? 0)
                 }}
             </Table.Col>
-            <Table.Col className="flex">
+            <Table.Col>
                 {(credit_note: CreditNoteType) => {
                     const status = CREDIT_NOTE_STATUSES[credit_note.status]
 
