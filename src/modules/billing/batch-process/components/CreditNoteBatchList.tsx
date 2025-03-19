@@ -114,7 +114,7 @@ export const CreditNoteBatchList = () => {
                                 return formatCurrency(invoice.total ?? 0)
                             }}
                         </Table.Col>
-                        <Table.Col className="flex">
+                        <Table.Col>
                             {(invoice: CreditNoteType) => {
                                 const status = CREDIT_NOTE_STATUSES[invoice.status]
 

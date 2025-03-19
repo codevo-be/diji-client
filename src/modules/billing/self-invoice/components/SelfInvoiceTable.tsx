@@ -46,7 +46,7 @@ export const SelfInvoiceTable = ({ items }: Props) => {
                     return formatCurrency(invoice.total ?? 0)
                 }}
             </Table.Col>
-            <Table.Col className="flex">
+            <Table.Col>
                 {(invoice: SelfInvoiceType) => {
                     const status = SELF_INVOICE_STATUSES[invoice.status]
 
