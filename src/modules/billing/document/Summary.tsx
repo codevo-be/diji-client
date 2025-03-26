@@ -4,9 +4,10 @@ import { formatCurrency } from '@digico/utils'
 
 import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { InvoiceType } from '@billing/invoice/types/invoice'
+import { RecurringInvoiceType } from '@billing/recurring-invoice/types/recurring-invoice'
 
 type Props = {
-    data: InvoiceType | CreditNoteType | undefined
+    data: InvoiceType | CreditNoteType | RecurringInvoiceType | undefined
 }
 
 export const Summary = ({ data }: Props) => {
