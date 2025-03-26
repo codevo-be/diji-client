@@ -1,10 +1,7 @@
-import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
 export const SettingsBillingFields = () => {
-    const { watch } = useFormContext()
-
     return (
         <>
             <Form.Group>
@@ -13,8 +10,8 @@ export const SettingsBillingFields = () => {
                 <Form.Row>
                     <Form.Field label="Adresse email" name="email" id="email" placeholder="info@diji.be" />
                     <Form.Field label="Numéro de téléphone" name="phone" id="phone" placeholder="0482/24.24.19" />
-                    <Form.Field prefix={watch('country').toUpperCase()} label="Numéro de tva" name="vat_number" id="vat_number" placeholder="0456.354.131" />
-                    <Form.Field prefix={watch('country').toUpperCase()} label="IBAN" name="iban" id="iban" placeholder="45 6245 6225 1951" />
+                    <Form.Field label="Numéro de tva" name="vat_number" id="vat_number" placeholder="0456.354.131" />
+                    <Form.Field label="IBAN" name="iban" id="iban" placeholder="45 6245 6225 1951" />
                 </Form.Row>
             </Form.Group>
             <Form.Group title="Adresse">
