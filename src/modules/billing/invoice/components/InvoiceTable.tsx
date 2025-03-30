@@ -1,7 +1,9 @@
 'use client'
 
+import { useRouter, useSearchParams } from 'next/navigation'
+
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
-import { Table, Tag } from '@digico/ui'
+import { SimpleSelect, Table, Tag } from '@digico/ui'
 import { formatCurrency, useRouterWithTenant } from '@digico/utils'
 import clsx from 'clsx'
 
@@ -12,10 +14,19 @@ type Props = {
 }
 
 export const InvoiceTable = ({ items }: Props) => {
+    const searchParams = useSearchParams()
+    const router = useRouter()
     const routeWithTenant = useRouterWithTenant()
 
     const toSingle = (invoice: InvoiceType) => {
         routeWithTenant.push(`/billing/invoice/${invoice.id}`)
+    }
+
+    const onChangeStatus = ({ value }: { label: string; value: string | number }) => {
+        const params = new URLSearchParams(searchParams)
+        params.delete('search')
+        params.append('status', String(value))
+        router.push(`?${params.toString()}`)
     }
 
     return (
@@ -24,7 +35,18 @@ export const InvoiceTable = ({ items }: Props) => {
             <Table.Head>Client</Table.Head>
             <Table.Head>Date</Table.Head>
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>Total</Table.Head>
+            <Table.Head>
+                Total (
+                {formatCurrency(
+                    items.reduce((current, item) => {
+                        return current + (item.total ?? 0)
+                    }, 0)
+                )}
+                )
+            </Table.Head>
+            <Table.Head>
+                <SimpleSelect onChange={onChangeStatus} name="status" options={Object.values(INVOICE_STATUSES)} />
+            </Table.Head>
 
             <Table.Col name="identifier" />
             <Table.Col name="recipient.name" />
