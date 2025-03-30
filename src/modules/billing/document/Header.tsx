@@ -14,7 +14,7 @@ export const Header = ({ data }: Props) => {
     return (
         <>
             {/* @ts-ignore */}
-            {queryMeta.isSuccess ? <img className="h-32 w-auto mb-12" src={String(queryMeta.data?.value?.logo)} alt="Logo" /> : null}
+            {queryMeta.isSuccess ? <img className="h-32 max-w-[24rem] object-contain mb-12" src={String(queryMeta.data?.value?.logo)} alt="Logo" /> : null}
 
             <div className="flex">
                 {/* @ts-ignore */}
