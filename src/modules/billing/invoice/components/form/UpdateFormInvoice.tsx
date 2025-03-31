@@ -39,6 +39,13 @@ export const UpdateFormInvoice = () => {
         form.setValue('recipient.vat_number', contact.vat_number)
     }
 
+    const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateInvoice.mutate({
+            id: Number(id),
+            date: e.target.value
+        })
+    }
+
     if (data?.status !== INVOICE_STATUS_DRAFT) {
         return null
     }
@@ -46,6 +53,11 @@ export const UpdateFormInvoice = () => {
     return (
         <Grid.Col>
             <Form useForm={form} onSubmit={updateInvoice.mutate}>
+                <Box>
+                    <Form.Group>
+                        <Form.Field onInput={onChangeDate} name="date" id="date" type="date" label="Date de la facture" />
+                    </Form.Group>
+                </Box>
                 <Box>
                     <Tabs defaultStep={'recipient'}>
                         <Tabs.Head id="issuer">Expéditeur</Tabs.Head>
