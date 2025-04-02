@@ -14,7 +14,7 @@ export const MenuSidebar = () => {
                 <MenuItemSidebar name="app" href={getTenantUrl('/')} />
                 <MenuItemSidebar name={'contact'} href={getTenantUrl('/contact')} />
                 <MenuItemSidebar name={'billing'} href={getTenantUrl('/billing/invoice')} />
-                <MenuItemSidebar name={'task'} href={getTenantUrl('/billing/task')} />
+                <MenuItemSidebar name={'task'} href={getTenantUrl('/task')} />
 
                 <li className="mt-auto flex flex-col">
                     <ButtonSettings />
