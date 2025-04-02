@@ -1,22 +1,18 @@
 'use client'
 
+import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { queryClient } from '@/libs/react-query'
-import { updateTaskItem } from '@/modules/task/services/task-item/update-task-item'
-import { useErrorStore } from '@/store/errorStore'
-import { HttpServiceErrorProps } from '@/types/httpServiceError'
+import { updateTaskItem } from '@tasks/services/task-item/update-task-item'
 
 export const useUpdateTaskItem = () => {
-    const { setErrors } = useErrorStore()
 
     return useMutation({
         mutationFn: ({ taskId, data}: { taskId: number, data: any, previousColumnId?: number }) =>
             updateTaskItem(taskId, data),
-        onError: (error: HttpServiceErrorProps) => {
+        onError: (error) => {
             toast.error(error.message)
-            setErrors(error.errors)
         },
         onSuccess: (_, { data, previousColumnId }) => {
             // Invalider et refetch les colonnes (car elles contiennent les tâches)
