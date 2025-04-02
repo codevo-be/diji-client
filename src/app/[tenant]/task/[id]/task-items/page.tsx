@@ -1,9 +1,10 @@
 'use client'
 
-import { Button } from '@/libs/button'
-import { Grid } from '@/libs/Grid'
-import { SearchBar } from '@/libs/SearchBar'
-import { TaskItemList} from "@/modules/task/components/TaskItemList";
+
+
+
+import { Button, Grid } from '@digico/ui'
+import { TaskItemList } from '@tasks/components/TaskItemList'
 
 export default function Index() {
     return (
