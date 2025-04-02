@@ -9,7 +9,7 @@ import {
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 
-import {findBoardSectionContainer} from "@/libs/Kanban/utils/kanban";
+import { findBoardSectionContainer } from '../../utils/kanban'
 
 
 export const useKanbanDragAndDrop = (itemsByColumns: any, setItemsByColumns: (update: any) => void) => {
