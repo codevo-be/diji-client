@@ -1,6 +1,4 @@
 'use client'
-
-
 import { useParams } from 'next/navigation'
 
 import { Box, Grid } from '@digico/ui'
@@ -12,14 +10,14 @@ export default function Page() {
 
     return (
         <Grid>
-            <Grid.Item>
+            <Grid.Col>
                 <BackButton intent={'text'} />
-            </Grid.Item>
-            <Grid.Item column={9}>
+            </Grid.Col>
+            <Grid.Col column={9}>
                 <Box title={'Créer une nouvelle liste'}>
                     <TaskColumnCreateForm projectId={Number(projectId)} />
                 </Box>
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
