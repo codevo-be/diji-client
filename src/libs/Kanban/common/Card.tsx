@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { formatCurrency } from '@digico/utils'
+
+import { KanbanTaskType } from '../types/kanban-task.types'
+
+import { Icon } from '@components/Icon'
 
 import { useKanbanContext } from '../contexts/KanbanContext'
-
-import { Icon } from '@/components/Icon'
-import { KanbanTaskType } from '@/modules/kanban/types/kanban-task.types'
-import { formatCurrency } from '@/utils/helperPricing'
 
 type Props = {
     item: KanbanTaskType
