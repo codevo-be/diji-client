@@ -2,8 +2,8 @@
 
 import { useAuth } from "@/contexts/AuthContext"
 import { TaskKanban } from "@/libs/Kanban/tasks/TaskKanban"
-import { Menu } from "@/libs/Menu"
 import { routes } from "@/utils/route"
+import { Menu } from '@digico/ui'
 
 export default function Index() {
     const { workspace } = useAuth()

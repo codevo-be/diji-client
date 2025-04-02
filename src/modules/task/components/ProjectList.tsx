@@ -1,8 +1,9 @@
+
 import { ProjectTable } from './ProjectTable'
 
-import {useReadProjects} from "@/modules/task/hooks/supplier/queries/useReadProjects";
 import { useSearchQueryParams } from '@/utils/helperService'
 import { LoadingQuery } from '@/utils/LoadingQuery'
+import { useReadProjects } from '@tasks/hooks/supplier/queries/useReadProjects'
 
 export const ProjectList = () => {
     const queryProjects = useReadProjects({
