@@ -1,8 +1,10 @@
-import { Modal } from '../../Modal'
+import { TaskItemType } from '@tasks/types/task.types'
 
-import { useKanbanContext } from "@/libs/Kanban/contexts/KanbanContext"
-import { TaskItemForm } from "@/modules/task/components/TaskItemForm"
-import { TaskItemType } from "@/modules/task/types/task.types"
+import { Modal } from '@billing/invoice/components/Modal'
+import { TaskItemForm } from '@tasks/components/TaskItemForm'
+
+import { useKanbanContext } from '../contexts/KanbanContext'
+
 
 export const FormUpdateTask = () => {
     const { taskOpen, setTaskOpen } = useKanbanContext()
@@ -18,6 +20,7 @@ export const FormUpdateTask = () => {
     const formattedTask = taskOpen ? parseTaskData(taskOpen) : null
 
     return (
+        //@ts-ignore
         <Modal open={!!taskOpen} setOpen={(isOpen) => setTaskOpen(isOpen ? taskOpen : null)}>
             <Modal.Content>
                 {({ handleClose }) => (
