@@ -1,8 +1,9 @@
 import {useParams} from "next/navigation";
 
-import { Table } from '@/libs/Table'
-import { useReadTaskItem } from "@/modules/task/hooks/supplier/queries/useReadTaskItem"
-import { useSearchQueryParams } from '@/utils/helperService'
+import { Table, useQueryParams } from '@digico/ui'
+
+import { useReadTaskItem } from '@tasks/hooks/supplier/queries/useReadTaskItem'
+
 import { LoadingQuery } from '@/utils/LoadingQuery'
 
 export const TaskItemList = () => {
@@ -11,12 +12,12 @@ export const TaskItemList = () => {
 
     const query = useReadTaskItem({
         task_column_id: Number(task_column_id),
-        ...useSearchQueryParams()
+        ...useQueryParams()
     })
 
     return (
         <LoadingQuery query={query}>
-            {({ items }) => {
+            {({ items }:any) => {
 
                 return (
                     <Table items={items}>
@@ -27,12 +28,12 @@ export const TaskItemList = () => {
                         <Table.Head>Statut</Table.Head>
                         <Table.Head>Priorité</Table.Head>
 
-                        <Table.Item name={'id'} />
-                        <Table.Item name={'task_column_id'} />
-                        <Table.Item name={'name'} />
-                        <Table.Item name={'description'} />
-                        <Table.Item name={'status'} />
-                        <Table.Item name={'priority'} />
+                        <Table.Col name={'id'} />
+                        <Table.Col name={'task_column_id'} />
+                        <Table.Col name={'name'} />
+                        <Table.Col name={'description'} />
+                        <Table.Col name={'status'} />
+                        <Table.Col name={'priority'} />
                     </Table>
                 )
             }}
