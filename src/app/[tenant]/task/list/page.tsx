@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { Menu } from '@digico/ui'
+import { useAuth } from '@digico/utils'
 
-import { TaskColumnList } from "@/modules/task/components/TaskColumnList"
-import { TaskItemForm } from "@/modules/task/components/TaskItemForm"
+import { TaskItemType } from '@tasks/types/task.types'
 
-import { useAuth } from "@/contexts/AuthContext"
-import { Menu } from "@/libs/Menu"
-import { routes } from '@/utils/route'
-import { TaskItemType } from '@contact/'
+import { TaskColumnList } from '@tasks/components/TaskColumnList'
+import { TaskItemForm } from '@tasks/components/TaskItemForm'
 
 export default function Index() {
     const [selectedTask, setSelectedTask] = useState<TaskItemType | null>(null)

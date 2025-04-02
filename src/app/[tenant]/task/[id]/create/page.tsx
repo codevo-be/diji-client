@@ -1,11 +1,11 @@
 'use client'
 
+
 import { useParams } from 'next/navigation'
 
-import { Box } from '@/libs/Box'
-import { BackButton } from '@/libs/button'
-import { Grid } from '@/libs/Grid'
-import { TaskColumnCreateForm } from '@/modules/task/components/TaskColumnCreateForm'
+import { Box, Grid } from '@digico/ui'
+
+import { TaskColumnCreateForm } from '@tasks/components/TaskColumnCreateForm'
 
 export default function Page() {
     const { id: projectId } = useParams()
