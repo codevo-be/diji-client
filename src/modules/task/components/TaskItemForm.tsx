@@ -62,10 +62,10 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
                 description: '',
                 status: 'pending',
                 priority: 1,
-                task_column_id: columnId ?? null
+                task_column_id: columnId ?? null 
             })
         }
-    }, [task, columnId, form])
+    }, [task, columnId, form]) 
 
 
     const handleSubmit = (data: any) => {
