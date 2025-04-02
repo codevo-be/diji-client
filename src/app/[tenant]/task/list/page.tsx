@@ -27,7 +27,7 @@ export default function Index() {
             {/* Ajout d'un div pour encapsuler le Menu et éviter les conflits avec overflow-x-auto */}
             <div className="w-full overflow-visible">
                 <Menu
-                    // @ts-ignore
+                    //@ts-ignore
                     links={[
                         {
                             href: getTenantUrl("task/list"),

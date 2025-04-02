@@ -10,9 +10,9 @@ export default function Page() {
 
     return (
         <Grid>
-            <Grid.Col>
-                <BackButton intent={'text'} />
-            </Grid.Col>
+            {/*<Grid.Col>*/}
+            {/*    <BackButton intent={'text'} />*/}
+            {/*</Grid.Col>*/}
             <Grid.Col column={9}>
                 <Box title={'Créer une nouvelle liste'}>
                     <TaskColumnCreateForm projectId={Number(projectId)} />

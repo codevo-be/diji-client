@@ -1,8 +1,12 @@
-import { Field, Group, Row } from '@/libs/form'
-import { Select } from "@/libs/Select";
-import { TASK_PRIORITIES } from "@/modules/task/helpers/priorities"; //  Import des priorités
-import { TASK_STATUSES } from "@/modules/task/helpers/statuses";
-import { useReadTaskColumn } from "@/modules/task/hooks/supplier/queries/useReadTaskColumn";
+import Select from 'react-select/base'
+import { TASK_PRIORITIES } from '@tasks/helpers/priorities'
+import { TASK_STATUSES } from '@tasks/helpers/statuses'
+
+import { useReadTaskColumn } from '@tasks/hooks/supplier/queries/useReadTaskColumn'
+
+import { Field } from '@digico/ui/dist/types/components/Form/Field'
+import { Group } from '@digico/ui/dist/types/components/Form/Group'
+import { Row } from '@digico/ui/dist/types/components/Form/Row'
 
 export const TaskItemFields = () => {
     const { data: columnsData } = useReadTaskColumn(); // Récupérer les colonnes
