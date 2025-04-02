@@ -12,10 +12,9 @@ export const MenuSidebar = () => {
         <div className="w-auto bg-main py-8 px-2">
             <ul className="h-full flex flex-col items-center">
                 <MenuItemSidebar name="app" href={getTenantUrl('/')} />
-
                 <MenuItemSidebar name={'contact'} href={getTenantUrl('/contact')} />
-
                 <MenuItemSidebar name={'billing'} href={getTenantUrl('/billing/invoice')} />
+                <MenuItemSidebar name={'task'} href={getTenantUrl('/billing/task')} />
 
                 <li className="mt-auto flex flex-col">
                     <ButtonSettings />
