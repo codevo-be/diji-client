@@ -17,6 +17,10 @@ export const useUpdateSelfInvoiceItem = () => {
                 queryKey: ['self-invoice-items', { self_invoice_id: Number(variables.self_invoice_id) }]
             })
 
+            queryClient.invalidateQueries({
+                queryKey: ['self-invoices', { id: Number(variables.self_invoice_id) }]
+            })
+
             toast.success('La ligne à été modifiée !')
         }
     })

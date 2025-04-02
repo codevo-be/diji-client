@@ -17,6 +17,10 @@ export const useUpdateCreditNoteItem = () => {
                 queryKey: ['credit-note-items', { credit_note_id: Number(variables.credit_note_id) }]
             })
 
+            queryClient.invalidateQueries({
+                queryKey: ['credit-notes', { id: Number(variables.credit_note_id) }]
+            })
+
             toast.success('La ligne à été modifiée !')
         }
     })
