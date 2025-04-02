@@ -82,7 +82,7 @@ export const SelfInvoiceItemEdit = ({ item }: Props) => {
                                     }
                                 })}
                             />
-                            <Form.Field label="Prix de vente" name="retail.subtotal" placeholder="1" id="retail.subtotal" />
+                            <Form.Field type="number" label="Prix de vente" name="retail.subtotal" placeholder="1" id="retail.subtotal" />
 
                             <div className="flex flex-col gap-2">
                                 <Button isLoading={updateSelfInvoiceItem.isPending} type="submit">
