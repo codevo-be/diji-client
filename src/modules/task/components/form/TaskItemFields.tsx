@@ -1,4 +1,3 @@
-import Select from 'react-select/base'
 import { TASK_PRIORITIES } from '@tasks/helpers/priorities'
 import { TASK_STATUSES } from '@tasks/helpers/statuses'
 
@@ -25,25 +24,25 @@ export const TaskItemFields = () => {
 
                     {/* Liste déroulante pour le statut */}
                     <div className="w-full">
-                        <Select name="status" label="Statut" options={Object.values(TASK_STATUSES)} placeholder="Choisir un statut">
-                            <Select.Field />
-                        </Select>
+                        {/*<Select name="status" label="Statut" options={Object.values(TASK_STATUSES)} placeholder="Choisir un statut">*/}
+                        {/*    <Select.Field />*/}
+                        {/*</Select>*/}
                     </div>
                 </Row>
 
                 <Row>
                     {/* Liste déroulante pour la priorité */}
                     <div className="w-full">
-                        <Select name="priority" label="Priorité" options={Object.values(TASK_PRIORITIES)} placeholder="Sélectionner une priorité">
-                            <Select.Field />
-                        </Select>
+                        {/*<Select name="priority" label="Priorité" options={Object.values(TASK_PRIORITIES)} placeholder="Sélectionner une priorité">*/}
+                        {/*    <Select.Field />*/}
+                        {/*</Select>*/}
                     </div>
 
                     {/* Liste déroulante pour choisir une colonne */}
                     <div className="w-full">
-                        <Select name="task_column_id" label="Colonne" options={columnOptions} placeholder="Sélectionner une colonne">
-                            <Select.Field />
-                        </Select>
+                        {/*<Select name="task_column_id" label="Colonne" options={columnOptions} placeholder="Sélectionner une colonne">*/}
+                        {/*    <Select.Field />*/}
+                        {/*</Select>*/}
                     </div>
                 </Row>
 

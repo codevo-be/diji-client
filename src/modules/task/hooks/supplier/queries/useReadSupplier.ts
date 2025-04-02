@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readSupplier } from '@/modules/supplier/services/supplier/read-supplier'
+import { readSupplier } from '@tasks/services/supplier/read-supplier'
 
 type Props = {
     with?: ['contacts']
