@@ -1,8 +1,9 @@
-import { Modal } from '../../Modal'
+import { KanbanCategoryType } from '../types/kanban-category.types'
 
-import { Icon } from '@/components/Icon'
-import {KanbanCategoryType} from "@/modules/kanban/types/kanban-category.types";
-import {TaskItemForm} from "@/modules/task/components/TaskItemForm";
+import { Modal } from '@billing/invoice/components/Modal'
+import { Icon } from '@components/Icon'
+import { TaskItemForm } from '@tasks/components/TaskItemForm'
+
 
 type Props = {
     column: KanbanCategoryType | undefined

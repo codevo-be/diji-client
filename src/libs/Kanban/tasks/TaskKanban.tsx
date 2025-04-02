@@ -8,19 +8,17 @@ import {
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
+import { useKanbanDragAndDrop } from '../common/hooks/useKanbanDragAndDrop'
+import { useUpdateMultipleTasks } from '@tasks/hooks/supplier/mutations/useUpdateMultipleTasks'
+import { useReadTaskColumn } from '@tasks/hooks/supplier/queries/useReadTaskColumn'
+import { KanbanTaskType } from '../types/kanban-task.types'
+
 import { Card } from '../common/Card'
 import { KanbanCardListType, KanbanContext } from '../contexts/KanbanContext'
 import { findBoardSectionContainer, getIdOfColumn, initialize } from '../utils/kanban'
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
-
-import {useKanbanDragAndDrop} from "@/libs/Kanban/common/hooks/useKanbanDragAndDrop";
-import { KanbanTaskType } from '@/modules/kanban/types/kanban-task.types'
-import { useUpdateMultipleTasks } from '@/modules/task/hooks/supplier/mutations/useUpdateMultipleTasks'
-import { useReadTaskColumn } from '@/modules/task/hooks/supplier/queries/useReadTaskColumn'
-import { LoadingQuery } from '@/utils/LoadingQuery'
-
 
 export const TaskKanban = () => {
     const queryKanban = useReadTaskColumn()
@@ -133,39 +131,35 @@ export const TaskKanban = () => {
     const cardItem = activeTaskId ? formattedData?.item.tasks.find((task: KanbanTaskType) => task.id === activeTaskId) : null
 
     return (
-        <LoadingQuery query={queryKanban}>
-            {() => {
-                if (!formattedData) return null // Empêcher le rendu si les données ne sont pas encore prêtes
-
-                return (
-                    <KanbanContext.Provider
-                        value={{
-                            columns: formattedData.item.categories, // Utiliser formattedData
-                            data: formattedData.item.tasks,
-                            taskOpen,
-                            setTaskOpen
-                        }}>
-                        <div className="h-full">
-                            <DndContext
-                                sensors={sensors}
-                                collisionDetection={closestCorners}
-                                onDragStart={handleDragStart}
-                                onDragOver={handleDragOver}
-                                onDragEnd={handleDragEnd}>
-                                <ul className="flex gap-8 h-full overflow-y-hidden">
-                                    {Object.keys(itemsByColumns).map((key) => (
-                                        <li key={key}>
-                                            <Column id={key} items={itemsByColumns[String(key)]} />
-                                        </li>
-                                    ))}
-                                    <DragOverlay dropAnimation={defaultDropAnimation}>{cardItem ? <Card item={cardItem} /> : null}</DragOverlay>
-                                </ul>
-                            </DndContext>
-                            <FormUpdateTask />
-                        </div>
-                    </KanbanContext.Provider>
-                )
+        <KanbanContext.Provider
+            value={{
+                columns: formattedData.item.categories,
+                data: formattedData.item.tasks,
+                taskOpen,
+                setTaskOpen
             }}
-        </LoadingQuery>
+        >
+            <div className="h-full">
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCorners}
+                    onDragStart={handleDragStart}
+                    onDragOver={handleDragOver}
+                    onDragEnd={handleDragEnd}
+                >
+                    <ul className="flex gap-8 h-full overflow-y-hidden">
+                        {Object.keys(itemsByColumns).map((key) => (
+                            <li key={key}>
+                                <Column id={key} items={itemsByColumns[String(key)]} />
+                            </li>
+                        ))}
+                        <DragOverlay dropAnimation={defaultDropAnimation}>
+                            {cardItem ? <Card item={cardItem} /> : null}
+                        </DragOverlay>
+                    </ul>
+                </DndContext>
+                <FormUpdateTask />
+            </div>
+        </KanbanContext.Provider>
     )
 }
