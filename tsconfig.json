@@ -22,7 +22,8 @@
         "paths": {
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
-            "@components/*": ["./components/*"]
+            "@components/*": ["./components/*"],
+            "@tasks/*": ["./modules/task/*"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
