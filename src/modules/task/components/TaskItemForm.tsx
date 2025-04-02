@@ -62,10 +62,10 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
                 description: '',
                 status: 'pending',
                 priority: 1,
-                task_column_id: columnId ?? null // Assure que la colonne est bien pré-remplie
+                task_column_id: columnId ?? null
             })
         }
-    }, [task, columnId, form]) // ➡ Ajout de `columnId` dans les dépendances
+    }, [task, columnId, form])
 
 
     const handleSubmit = (data: any) => {
@@ -114,6 +114,7 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
     const handleDelete = () => {
         if (!task) return
 
+        // @ts-ignore
         deleteTaskMutation.mutate(task.id, {
             onSuccess: () => {
                 toast.success('Tâche supprimée !')
