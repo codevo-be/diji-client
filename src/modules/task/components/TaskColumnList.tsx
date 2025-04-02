@@ -1,13 +1,14 @@
 import { useState } from 'react'
+import { Button } from '@digico/ui'
+import { useAuth } from '@digico/utils'
 
 import { useDeleteTaskColumn } from '../hooks/supplier/mutations/useDeleteTaskColumn'
 import { useUpdateTaskColumn } from '../hooks/supplier/mutations/useUpdateTaskColumn'
 import { useReadTaskColumn } from '../hooks/supplier/queries/useReadTaskColumn'
 import { TaskColumnType, TaskItemType } from '../types/task.types'
 
-import {Icon} from "@/components/Icon";
-import { useAuth } from "@/contexts/AuthContext";
-import { Button } from '@/libs/button'
+import { Icon } from '@components/Icon'
+
 import { LoadingQuery } from '@/utils/LoadingQuery'
 import { routes } from '@/utils/route'
 
@@ -19,7 +20,7 @@ type TaskColumnListProps = {
 export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps) => {
     const query = useReadTaskColumn()
     const updateColumnMutation = useUpdateTaskColumn()
-    const deleteColumnMutation = useDeleteTaskColumn() // 🚀 Mutation pour supprimer une colonne
+    const deleteColumnMutation = useDeleteTaskColumn()
 
     const [editingColumnId, setEditingColumnId] = useState<number | null>(null)
     const [columnName, setColumnName] = useState<{ [key: number]: string }>({})
@@ -94,7 +95,6 @@ export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps)
                                 <button onClick={() => handleDeleteColumn(column.id)} className="text-red-600 hover:text-red-800 w-5 h-5 flex items-center justify-center">
                                     <Icon name="cross" className="w-full h-full" />
                                 </button>
-
                             </div>
 
                             {/* Liste des tâches */}
@@ -103,7 +103,7 @@ export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps)
                                     column.tasks.map((task: TaskItemType) => (
                                         <div key={task.id} className="p-4 bg-white rounded-lg shadow flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                {/* ✅ Checkbox pour compléter la tâche */}
+                                                {/* Checkbox pour compléter la tâche */}
                                                 <button
                                                     onClick={() => handleTaskComplete(task.id)}
                                                     className={`w-6 h-6 flex items-center justify-center rounded-full border-2 transition-all ${
@@ -112,13 +112,13 @@ export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps)
                                                     {completedTasks[task.id] && <span className="text-white text-sm">✓</span>}
                                                 </button>
 
-                                                {/* ✅ Nom de la tâche */}
+                                                {/* Nom de la tâche */}
                                                 <span className={completedTasks[task.id] ? 'line-through text-gray-500' : ''}>
                         {task.name}
                     </span>
                                             </div>
 
-                                            {/* ✅ Bouton Détails */}
+                                            {/* Bouton Détails */}
                                             <Button onClick={() => onSelectTask(task)} intent="outlinePrimary">
                                                 Détails
                                             </Button>
