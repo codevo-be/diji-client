@@ -2,17 +2,16 @@
 
 import {useEffect, useRef} from 'react'
 import { useForm } from 'react-hook-form'
+import { Button, Form } from '@digico/ui'
+import { queryClient } from '@digico/utils'
 import { toast } from 'sonner'
 
 import { useCreateItem } from '../hooks/supplier/mutations/useCreateItem'
 import { useDeleteTaskItem } from '../hooks/supplier/mutations/useDeleteTaskItem'
 import { useUpdateTaskItem } from '../hooks/supplier/mutations/useUpdateTaskItem'
+import { TaskItemType } from '@tasks/types/task.types'
 
-import { Button } from '@/libs/button'
-import { Form } from '@/libs/form'
-import { queryClient } from '@/libs/react-query'
-import { TaskItemFields } from '@/modules/task/components/form/TaskItemFields'
-import { TaskItemType } from '@/modules/task/types/task.types'
+import { TaskItemFields } from '@tasks/components/form/TaskItemFields'
 
 type TaskItemFormProps = {
     task: TaskItemType | null
@@ -36,9 +35,6 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
     const updateTaskMutation = useUpdateTaskItem()
     const deleteTaskMutation = useDeleteTaskItem()
 
-    // Utilisation de useRef pour stocker la dernière tâche sélectionnée
-    // Cela permet de comparer l'ancienne et la nouvelle valeur de `task`
-    // afin d'éviter de réinitialiser le formulaire à chaque interaction utilisateur.
     const prevTaskRef = useRef<TaskItemType | null>(null)
 
     useEffect(() => {
@@ -60,7 +56,7 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
                 task_column_id: task.task_column_id
             })
         } else {
-            // Cas de la création : on utilise `columnId` pour pré-remplir la colonne
+            // Cas de la création : on utilise `columnId` pour préremplir la colonne
             form.reset({
                 name: '',
                 description: '',
@@ -85,6 +81,7 @@ export const TaskItemForm = ({ task, columnId, onDeleteSuccess, onUpdateSuccess 
             )
         } else {
             createTaskMutation.mutate(data, {
+                // @ts-ignore
                 onSuccess: ({ task_item }) => {
                     toast.success('Tâche ajoutée !')
 

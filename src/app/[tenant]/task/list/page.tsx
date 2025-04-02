@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Menu } from '@digico/ui'
-import { useAuth } from '@digico/utils'
+import { getTenantUrl } from '@digico/utils'
 
 import { TaskItemType } from '@tasks/types/task.types'
 
@@ -12,7 +12,6 @@ import { TaskItemForm } from '@tasks/components/TaskItemForm'
 export default function Index() {
     const [selectedTask, setSelectedTask] = useState<TaskItemType | null>(null)
     const [selectedColumnId, setSelectedColumnId] = useState<number | null>(null)
-    const { workspace } = useAuth()
 
     const handleAddTask = (columnId: number) => {
         setSelectedTask(null)
@@ -28,14 +27,15 @@ export default function Index() {
             {/* Ajout d'un div pour encapsuler le Menu et éviter les conflits avec overflow-x-auto */}
             <div className="w-full overflow-visible">
                 <Menu
+                    // @ts-ignore
                     links={[
                         {
-                            href: routes.workspace.taskColumns.list(workspace.slug),
+                            href: getTenantUrl("task/list"),
                             label: 'Tâches',
                             active: true
                         },
                         {
-                            href: routes.workspace.taskColumns.kanban(workspace.slug),
+                            href: getTenantUrl("task/kanban"),
                             label: 'Kanban'
                         }
                     ]}

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@digico/ui'
-import { useAuth } from '@digico/utils'
+import { getTenantUrl } from '@digico/utils'
 
 import { useDeleteTaskColumn } from '../hooks/supplier/mutations/useDeleteTaskColumn'
 import { useUpdateTaskColumn } from '../hooks/supplier/mutations/useUpdateTaskColumn'
@@ -8,8 +8,6 @@ import { useReadTaskColumn } from '../hooks/supplier/queries/useReadTaskColumn'
 import { TaskColumnType, TaskItemType } from '../types/task.types'
 
 import { Icon } from '@components/Icon'
-
-import { routes } from '@/utils/route'
 
 type TaskColumnListProps = {
     onSelectTask: (task: TaskItemType | null) => void
@@ -23,7 +21,6 @@ export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps)
 
     const [editingColumnId, setEditingColumnId] = useState<number | null>(null)
     const [columnName, setColumnName] = useState<{ [key: number]: string }>({})
-    const { workspace } = useAuth()
 
     const projectId = query.data?.items?.[0]?.project_id ?? null
 
@@ -64,7 +61,7 @@ export const TaskColumnList = ({ onSelectTask, onAddTask }: TaskColumnListProps)
             {/* Bouton pour ajouter une colonne */}
             <div className="flex justify-start mb-4">
                 {projectId && (
-                    <Button href={routes.workspace.taskColumns.create(workspace.slug, projectId)}>
+                    <Button href={getTenantUrl(`task-columns/create?project_id=${projectId}`)}>
                         Ajouter une nouvelle liste
                     </Button>
                 )}
