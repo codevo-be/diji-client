@@ -1,23 +1,21 @@
 'use client'
 
-
-
-
 import { Button, Grid } from '@digico/ui'
+
 import { TaskItemList } from '@tasks/components/TaskItemList'
 
 export default function Index() {
     return (
         <Grid>
-            <Grid.Item>
+            <Grid.Col>
                 <div className="flex gap-4 justify-end">
-                    <SearchBar />
+                    {/*<SearchBar />*/}
                     <Button href={'task/create'}>Ajouter une colonne</Button>
                 </div>
-            </Grid.Item>
-            <Grid.Item>
+            </Grid.Col>
+            <Grid.Col>
                 <TaskItemList />
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
