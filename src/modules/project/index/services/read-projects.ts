@@ -1,11 +1,11 @@
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@projects/index/services/index'
 
 type Props = {
     with?: ['invoices' | 'estimates']
 }
 
 export const readProjects = async (params?: Props) => {
-    const data = await httpService.get('/api/projects', params)
+    const data = await HttpService.get('/api/projects', params)
 
     return {
         ...data,

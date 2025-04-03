@@ -1,5 +1,5 @@
 import { FieldValues } from 'react-hook-form'
 
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@projects/index/services/index'
 
-export const createProject = (data: FieldValues | undefined) => httpService.post(`/api/projects`, data ?? {})
+export const createProject = (data: FieldValues | undefined) => HttpService.post(`/api/projects`, data ?? {})

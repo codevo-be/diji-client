@@ -1,19 +1,16 @@
+import { useQueryParams } from '@digico/ui'
+
+import { useReadProjects } from '@projects/index/hooks/queries/useReadProjects'
+
 import { ProjectTable } from './ProjectTable'
 
-import {useReadProjects} from "@/modules/task/hooks/supplier/queries/useReadProjects";
-import { useSearchQueryParams } from '@/utils/helperService'
-import { LoadingQuery } from '@/utils/LoadingQuery'
 
 export const ProjectList = () => {
     const queryProjects = useReadProjects({
-        ...useSearchQueryParams()
+        ...useQueryParams()
     })
 
     return (
-        <LoadingQuery query={queryProjects}>
-            {(data) => {
-                return <ProjectTable items={data.items} />
-            }}
-        </LoadingQuery>
+        <ProjectTable items={queryProjects.data.items} />
     )
 }

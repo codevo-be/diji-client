@@ -1,7 +1,7 @@
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@projects/index/services/index'
 
 export const readProjectHistory = async (project_id: number) => {
-    const data = await httpService.get(`/api/projects/${project_id}/history`)
+    const data = await HttpService.get(`/api/projects/${project_id}/history`)
 
     return {
         ...data,
