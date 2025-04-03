@@ -2,19 +2,17 @@
 
 import { useRouter } from 'next/navigation'
 
-import { useAuth } from '@/contexts/AuthContext'
-import { Box } from '@/libs/Box'
-import { Button } from '@/libs/button'
-import { Grid } from '@/libs/Grid'
-import { SearchBar } from '@/libs/SearchBar'
-import { ProjectBoxTotalAccepted } from '@/modules/project/index/components/ProjectBoxTotalAccepted'
-import { ProjectBoxTotalPayed } from '@/modules/project/index/components/ProjectBoxTotalPayed'
-import { ProjectList } from '@/modules/project/index/components/ProjectList'
-import { ProjectsMenu } from '@/modules/project/index/components/ProjectsMenu'
-import { useCreateProject } from '@/modules/project/index/hooks/mutations/useCreateProject'
-import { useReadProjects } from '@/modules/project/index/hooks/queries/useReadProjects'
-import { useSearchQueryParams } from '@/utils/helperService'
-import { routes } from '@/utils/route'
+import { Box, Button, Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
+import { useAuth } from '@digico/utils'
+
+import { useCreateProject } from '@projects/index/hooks/mutations/useCreateProject'
+import { useReadProjects } from '@projects/index/hooks/queries/useReadProjects'
+
+import { ProjectBoxTotalAccepted } from '@projects/index/components/ProjectBoxTotalAccepted'
+import { ProjectBoxTotalPayed } from '@projects/index/components/ProjectBoxTotalPayed'
+import { ProjectsMenu } from '@projects/index/components/ProjectsMenu'
+import { ProjectList } from '@tasks/components/ProjectList'
+
 
 export default function Home() {
     const { workspace } = useAuth()
@@ -22,7 +20,7 @@ export default function Home() {
     const mutationProject = useCreateProject()
 
     const queryProjects = useReadProjects({
-        ...useSearchQueryParams()
+        ...useQueryParams()
     })
 
     const handleCreateProject = () => {
@@ -35,28 +33,28 @@ export default function Home() {
 
     return (
         <Grid>
-            <Grid.Item column={6}>
+            <Grid.Col column={6}>
                 <ProjectsMenu />
-            </Grid.Item>
-            <Grid.Item column={6}>
+            </Grid.Col>
+            <Grid.Col column={6}>
                 <div className="flex gap-4 justify-end">
-                    <SearchBar />
+                    <QuerySearchBar />
                     <Button isLoading={mutationProject.isPending} onClick={handleCreateProject}>
                         Ajouter un projet
                     </Button>
                 </div>
-            </Grid.Item>
-            <Grid.Item className="flex gap-4">
+            </Grid.Col>
+            <Grid.Col className="flex gap-4">
                 <Box className="px-10 py-6">
                     <p className="text-xs font-medium text-grey-600 whitespace-nowrap mb-4">Projet</p>
                     <p className="text-md font-bold">{queryProjects.isSuccess ? queryProjects.data.items.length : '...'}</p>
                 </Box>
                 <ProjectBoxTotalAccepted />
                 <ProjectBoxTotalPayed />
-            </Grid.Item>
-            <Grid.Item>
+            </Grid.Col>
+            <Grid.Col>
                 <ProjectList />
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
