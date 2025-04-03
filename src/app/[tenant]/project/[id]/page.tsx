@@ -2,21 +2,18 @@
 
 import { useParams } from 'next/navigation'
 
+import { Box, Form, Grid } from '@digico/ui'
+import { PROJECT_STATUSES } from '@projects/index/helpers/statuses'
 import { toast } from 'sonner'
 
-import { Box } from '@/libs/Box'
-import { Grid } from '@/libs/Grid'
-import { Select } from '@/libs/Select'
-import { GeneralForm } from '@/modules/project/index/components/GeneralForm'
-import { ProjectHistory } from '@/modules/project/index/components/ProjectHistory'
-import { ProjectMenu } from '@/modules/project/index/components/ProjectMenu'
-import { PROJECT_STATUSES } from '@/modules/project/index/helpers/statuses'
-import { useUpdateProject } from '@/modules/project/index/hooks/mutations/useUpdateProject'
-import { useReadProject } from '@/modules/project/index/hooks/queries/useReadProject'
+import { useUpdateProject } from '@projects/index/hooks/mutations/useUpdateProject'
+
+import { GeneralForm } from '@projects/index/components/GeneralForm'
+import { ProjectHistory } from '@projects/index/components/ProjectHistory'
+import { ProjectMenu } from '@projects/index/components/ProjectMenu'
 
 export default function Page() {
     const { id } = useParams()
-    const queryProject = useReadProject(Number(id))
     const mutationProject = useUpdateProject()
 
     const handleStatus = ({ value }: any) => {
@@ -35,31 +32,24 @@ export default function Page() {
 
     return (
         <Grid>
-            <Grid.Item>
+            <Grid.Col>
                 <ProjectMenu />
-            </Grid.Item>
-            <Grid.Item column={9}>
+            </Grid.Col>
+            <Grid.Col column={9}>
                 <GeneralForm />
-            </Grid.Item>
-            <Grid.Item column={3}>
+            </Grid.Col>
+            <Grid.Col column={3}>
                 <Grid>
-                    <Grid.Item>
+                    <Grid.Col>
                         <Box>
-                            <Select
-                                label="Statut"
-                                options={Object.values(PROJECT_STATUSES)}
-                                onChange={handleStatus}
-                                placeholder="Sélectionner un statut"
-                                defaultValue={queryProject.data?.status}>
-                                <Select.Field />
-                            </Select>
+                            <Form.Select name={"Statut"} options={Object.values(PROJECT_STATUSES)} label={"Statut"} onChange={handleStatus}/>
                         </Box>
-                    </Grid.Item>
-                    <Grid.Item>
+                    </Grid.Col>
+                    <Grid.Col>
                         <ProjectHistory />
-                    </Grid.Item>
+                    </Grid.Col>
                 </Grid>
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
