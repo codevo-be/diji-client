@@ -69,7 +69,6 @@ L'équipe ${tenant?.name}`
                         <Form.Field name="cc" label="cc" placeholder="info@jardipro.app" />
                         <Form.Field name="to" label="Envoyer à" placeholder="info@jardipro.app" required={true} />
                         <Form.Field rows={9} type="textarea" name="body" label="Contenu de l'email" placeholder="Bonjour, Suite à votre ..." />
-
                         <Button isLoading={sendEmail.isPending} type="submit">
                             Envoyé
                         </Button>

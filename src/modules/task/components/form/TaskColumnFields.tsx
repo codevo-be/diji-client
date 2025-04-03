@@ -1,9 +1,6 @@
 import { useParams} from "next/navigation";
 
-import { Field } from '@digico/ui/dist/types/components/Form/Field'
-import { Group } from '@digico/ui/dist/types/components/Form/Group'
-import { Row } from '@digico/ui/dist/types/components/Form/Row'
-
+import { Field, Group, Row } from '@/libs/form'
 
 export const TaskColumnFields = () => {
     const { project_id } = useParams()

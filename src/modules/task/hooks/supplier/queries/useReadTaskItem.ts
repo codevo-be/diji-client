@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readTaskItem } from '@tasks/services/supplier/read-task-item'
+import { readTaskItem } from '@/modules/task/services/supplier/read-task-item'
 
 type Props = {
     task_column_id: number

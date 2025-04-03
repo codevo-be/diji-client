@@ -1,23 +1,24 @@
 'use client'
 
-import { Menu } from '@digico/ui'
-import { getTenantUrl } from '@digico/utils'
-
-import { TaskKanban } from '../../../../libs/Kanban/tasks/TaskKanban'
+import { useAuth } from "@/contexts/AuthContext"
+import { TaskKanban } from "@/libs/Kanban/tasks/TaskKanban"
+import { Menu } from "@/libs/Menu"
+import { routes } from "@/utils/route"
 
 export default function Index() {
+    const { workspace } = useAuth()
+
     return (
         <div className="flex flex-col gap-6 h-screen">
             <div className="w-full overflow-visible">
                 <Menu
-                    //@ts-ignore
                     links={[
                         {
-                            href: getTenantUrl("task/list"),
+                            href: routes.workspace.taskColumns.list(workspace.slug),
                             label: 'Tâches'
                         },
                         {
-                            href: getTenantUrl("task/kanban"),
+                            href: routes.workspace.taskColumns.kanban(workspace.slug),
                             label: 'Kanban',
                             active: true
                         }

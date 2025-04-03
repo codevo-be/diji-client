@@ -1,8 +1,7 @@
 import { FieldValues } from 'react-hook-form'
 
-import { HttpService } from '@tasks/services/task'
-
+import { httpService } from '@/utils/httpService'
 
 export const updateTaskColumn = (taskColumnId: number, data: FieldValues) => {
-    return HttpService.put(`/api/task-columns/${taskColumnId}`, data)
+    return httpService.put(`/api/task-columns/${taskColumnId}`, data)
 }
