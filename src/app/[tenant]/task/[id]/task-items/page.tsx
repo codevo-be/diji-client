@@ -1,22 +1,21 @@
 'use client'
 
-import { Button } from '@/libs/button'
-import { Grid } from '@/libs/Grid'
-import { SearchBar } from '@/libs/SearchBar'
-import { TaskItemList} from "@/modules/task/components/TaskItemList";
+import { Button, Grid, QuerySearchBar } from '@digico/ui'
+
+import { TaskItemList } from '@tasks/components/TaskItemList'
 
 export default function Index() {
     return (
         <Grid>
-            <Grid.Item>
+            <Grid.Col>
                 <div className="flex gap-4 justify-end">
-                    <SearchBar />
+                    <QuerySearchBar />
                     <Button href={'task/create'}>Ajouter une colonne</Button>
                 </div>
-            </Grid.Item>
-            <Grid.Item>
+            </Grid.Col>
+            <Grid.Col>
                 <TaskItemList />
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
