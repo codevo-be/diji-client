@@ -1,19 +1,18 @@
-import { Box } from '@/libs/Box'
-import { BackButton } from '@/libs/button'
-import { Grid } from '@/libs/Grid'
-import { TaskItemCreateForm } from "@/modules/task/components/TaskItemCreateForm";
+import { Box, Grid } from '@digico/ui'
+import { TaskItemCreateForm } from '@tasks/components/TaskItemCreateForm'
+
 
 export default function Page() {
     return (
         <Grid>
-            <Grid.Item>
-                <BackButton intent={'text'} />
-            </Grid.Item>
-            <Grid.Item column={9}>
+            <Grid.Col>
+                {/*<BackButton intent={'text'} />*/} {/*todo: trouver comment c'est géré*/}
+            </Grid.Col>
+            <Grid.Col column={9}>
                 <Box title={'Créer une nouvelle tâche'}>
                     <TaskItemCreateForm />
                 </Box>
-            </Grid.Item>
+            </Grid.Col>
         </Grid>
     )
 }
