@@ -1,4 +1,4 @@
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@tasks/services/task'
 
 export const updateMultipleTaskItems = (response: any) => {
     const tasks = response.tasks ?? [];
@@ -17,6 +17,6 @@ export const updateMultipleTaskItems = (response: any) => {
         order: task.order
     }));
 
-    return httpService.put('/api/task-items/bulk-update', { tasks: formattedTasks });
+    return HttpService.put('/api/task-items/bulk-update', { tasks: formattedTasks });
 };
 

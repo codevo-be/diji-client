@@ -1,4 +1,4 @@
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@tasks/services/task/index'
 
 type Props = {
     with?: ['contacts'],
@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const readTaskItem = async (params: Props) => {
-    const data = await httpService.get(`/api/task-columns/${params.task_column_id}/task-items`, params)
+    const data = await HttpService.get(`/api/task-columns/${params.task_column_id}/task-items`, params)
     return {
         items: data,
     }
