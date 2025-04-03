@@ -1,5 +1,5 @@
-import { httpService } from '@/utils/httpService'
+import { HttpService } from '@tasks/services/task'
 
 export const deleteTaskColumn = async (taskId: number) => {
-    return httpService.delete(`/api/task-columns/${taskId}`)
+    return HttpService.delete(`/api/task-columns/${taskId}`)
 }
