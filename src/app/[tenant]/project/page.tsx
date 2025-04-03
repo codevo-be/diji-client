@@ -1,9 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-
 import { Box, Button, Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
-import { useAuth } from '@digico/utils'
+import { useRouterWithTenant } from '@digico/utils'
 
 import { useCreateProject } from '@projects/index/hooks/mutations/useCreateProject'
 import { useReadProjects } from '@projects/index/hooks/queries/useReadProjects'
@@ -15,9 +13,8 @@ import { ProjectList } from '@tasks/components/ProjectList'
 
 
 export default function Home() {
-    const { workspace } = useAuth()
-    const router = useRouter()
     const mutationProject = useCreateProject()
+    const routeWithTenant = useRouterWithTenant()
 
     const queryProjects = useReadProjects({
         ...useQueryParams()
@@ -25,8 +22,9 @@ export default function Home() {
 
     const handleCreateProject = () => {
         mutationProject.mutate(undefined, {
+            //@ts-ignore
             onSuccess: ({ item }) => {
-                router.push(routes.workspace.project.edit.index(workspace.slug, item.id))
+                routeWithTenant.push(`/project/${item.id}`)
             }
         })
     }
