@@ -4,7 +4,7 @@ import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digic
 
 import { useReadProjects } from '@task/hooks/queries'
 
-import { ContactTable } from '@contact/components/ContactTable'
+import { ProjectTable } from '@task/components/project/ProjectTable'
 
 export default function Page() {
     const queryProjects = useReadProjects(useQueryParams())
@@ -22,7 +22,7 @@ export default function Page() {
             </Grid.Col>
             <Grid.Col>
                 {/* @ts-ignore */}
-                <ContactTable items={queryProjects.data?.data ?? []} />
+                <ProjectTable items={queryProjects.data?.data ?? []} />
             </Grid.Col>
         </Grid>
     )
