@@ -39,10 +39,10 @@ export const UpdateFormInvoice = () => {
         form.setValue('recipient.vat_number', contact.vat_number)
     }
 
-    const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
         updateInvoice.mutate({
             id: Number(id),
-            date: e.target.value
+            [key]: e.target.value
         })
     }
 
@@ -55,7 +55,22 @@ export const UpdateFormInvoice = () => {
             <Form useForm={form} onSubmit={updateInvoice.mutate}>
                 <Box>
                     <Form.Group>
-                        <Form.Field onInput={onChangeDate} name="date" id="date" type="date" label="Date de la facture" />
+                        <Form.Row>
+                            <Form.Field
+                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateField(e, 'date')}
+                                name="date"
+                                id="date"
+                                type="date"
+                                label="Date de la facture"
+                            />
+                            <Form.Field
+                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateField(e, 'date')}
+                                name="due_date"
+                                id="due_date"
+                                type="date"
+                                label="Date d'échéance"
+                            />
+                        </Form.Row>
                     </Form.Group>
                 </Box>
                 <Box>

@@ -4,6 +4,7 @@ import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 
 import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 
+import { BoxStats } from '@billing/credit-note/components/BoxStats'
 import { ButtonCreateCreditNote } from '@billing/credit-note/components/ButtonCreateCreditNote'
 import { CreditNoteTable } from '@billing/credit-note/components/CreditNoteTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
@@ -25,6 +26,9 @@ export default function Page() {
                         <QuerySearchBar />
                     </div>
                 </div>
+            </Grid.Col>
+            <Grid.Col column={4}>
+                <BoxStats />
             </Grid.Col>
             <Grid.Col>
                 <CreditNoteTable items={queryCreditNotes.data?.data ?? []} />

@@ -61,15 +61,7 @@ export const CreditNoteTable = ({ items }: Props) => {
                 <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
             </Table.Head>
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>
-                Total (
-                {formatCurrency(
-                    items.reduce((current, item) => {
-                        return current + (item.total ?? 0)
-                    }, 0)
-                )}
-                )
-            </Table.Head>
+            <Table.Head>Total</Table.Head>
             <Table.Head>
                 <SimpleSelect onChange={onChangeStatus} name="status" placeholder="Statut de la note de crédit" options={Object.values(CREDIT_NOTE_STATUSES)} />
             </Table.Head>

@@ -5,6 +5,7 @@ import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 import { useReadRecurringInvoices } from '@billing/recurring-invoice/hooks/queries'
 
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
+import { BoxStats } from '@billing/recurring-invoice/components/BoxStats'
 import { ButtonCreateRecurringInvoice } from '@billing/recurring-invoice/components/ButtonCreateRecurringInvoice'
 import { RecurringInvoiceTable } from '@billing/recurring-invoice/components/RecurringInvoiceTable'
 
@@ -24,6 +25,9 @@ export default function Page() {
                         <ButtonCreateRecurringInvoice />
                     </div>
                 </div>
+            </Grid.Col>
+            <Grid.Col column={4}>
+                <BoxStats />
             </Grid.Col>
             <Grid.Col>
                 <RecurringInvoiceTable items={queryRecurringInvoices.data?.data ?? []} />

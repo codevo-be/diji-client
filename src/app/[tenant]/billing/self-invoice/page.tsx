@@ -5,6 +5,7 @@ import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 import { useReadSelfInvoices } from '@billing/self-invoice/hooks/queries'
 
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
+import { BoxStats } from '@billing/self-invoice/components/BoxStats'
 import { ButtonCreateSelfInvoice } from '@billing/self-invoice/components/ButtonCreateSelfInvoice'
 import { SelfInvoiceTable } from '@billing/self-invoice/components/SelfInvoiceTable'
 import { Paginate } from '@components/helpers/Paginate'
@@ -25,6 +26,9 @@ export default function Page() {
                         <ButtonCreateSelfInvoice />
                     </div>
                 </div>
+            </Grid.Col>
+            <Grid.Col column={4}>
+                <BoxStats />
             </Grid.Col>
             <Grid.Col>
                 <SelfInvoiceTable items={querySelfInvoices.data?.data ?? []} />
