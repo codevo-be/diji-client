@@ -1,0 +1,29 @@
+'use client'
+
+import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
+
+import { useReadProjects } from '@task/hooks/queries'
+
+import { ProjectTable } from '@task/components/project/ProjectTable'
+
+export default function Page() {
+    const queryProjects = useReadProjects(useQueryParams())
+
+    return (
+        <Grid>
+            <Grid.Col>
+                <div className="flex justify-between">
+                    <PageHeader>Projets ID</PageHeader>
+                    <div className="flex gap-2 flex-shrink-0">
+                        <QuerySearchBar />
+                        <Button href={'project/create'}>Ajouter un projet</Button>
+                    </div>
+                </div>
+            </Grid.Col>
+            <Grid.Col>
+                {/* @ts-ignore */}
+                <ProjectTable items={queryProjects.data?.data ?? []} />
+            </Grid.Col>
+        </Grid>
+    )
+}
