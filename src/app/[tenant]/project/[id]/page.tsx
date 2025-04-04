@@ -2,9 +2,9 @@
 
 import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
 
-import { useReadProjects } from '@task/hooks/queries'
+import { useReadProjects } from '@task/project/hooks/queries'
 
-import { ProjectTable } from '@task/components/project/ProjectTable'
+import { ProjectTable } from '@task/project/components/ProjectTable'
 
 export default function Page() {
     const queryProjects = useReadProjects(useQueryParams())
