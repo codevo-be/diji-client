@@ -9,4 +9,5 @@ export type IconName =
 	| "search"
 	| "settings"
 	| "sort"
+	| "task"
 	| "upload";

@@ -14,6 +14,10 @@ export const MenuHome = () => {
             <MenuItemHome name={'billing'} href={getTenantUrl('/billing/invoice')}>
                 Finances
             </MenuItemHome>
+
+            <MenuItemHome name={'task'} href={getTenantUrl('/task')}>
+                Tâches
+            </MenuItemHome>
         </ul>
     )
 }
