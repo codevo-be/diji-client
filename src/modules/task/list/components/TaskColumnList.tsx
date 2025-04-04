@@ -1,6 +1,6 @@
 'use client'
 
-import { Table } from '@digico/ui'
+import { Box } from '@digico/ui'
 
 type Props = {
     items: {
@@ -13,14 +13,12 @@ type Props = {
 
 export const TaskColumnList = ({ items }: Props) => {
     return (
-        <Table items={items}>
-            <Table.Head>ID</Table.Head>
-            <Table.Head>Nom</Table.Head>
-            <Table.Head>Ordre</Table.Head>
-
-            <Table.Col name="id" />
-            <Table.Col name="name" />
-            <Table.Col name="order" />
-        </Table>
+        <div>
+            {items.map((col) => (
+                <Box key={col.id} size="default" className="p-4 flex flex-col gap-2" intent="info">
+                    <div className="text-lg font-semibold">{col.name}</div>
+                </Box>
+            ))}
+        </div>
     )
 }
