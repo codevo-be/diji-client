@@ -14,7 +14,7 @@ export default function Page() {
     return (
         <Grid>
             <Grid.Col>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-12">
                     <MenuInvoice />
                     <div className="flex gap-2 flex-shrink-0">
                         <QuerySearchBar />

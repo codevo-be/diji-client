@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation'
 
 import { BillingDocument } from '@billing/document'
 import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
-import { Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl } from '@digico/utils'
+import { Grid } from '@digico/ui'
+import { PageHeader } from '@helpers/PageHeader'
 
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
@@ -20,9 +20,7 @@ export default function Page() {
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux factures" href={getTenantUrl('/billing/invoice')}>
-                    Facture {data?.identifier}
-                </PageHeader>
+                <PageHeader label="Retour aux factures">Facture {data?.identifier}</PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
                 <BillingDocument data={data}>{data?.status === INVOICE_STATUS_DRAFT ? <InvoiceContentEditable /> : <InvoiceContent />}</BillingDocument>

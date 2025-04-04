@@ -7,6 +7,7 @@ import { readRecurringInvoices } from '@billing/recurring-invoice/services'
 export const useReadRecurringInvoices = (params?: Record<string, any>) => {
     return useQuery({
         queryKey: ['recurring-invoices', { ...params }],
-        queryFn: () => readRecurringInvoices(params)
+        queryFn: () => readRecurringInvoices(params),
+        placeholderData: (previousData) => previousData
     })
 }
