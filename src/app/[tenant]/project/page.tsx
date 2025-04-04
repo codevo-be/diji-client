@@ -2,27 +2,27 @@
 
 import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
 
-import { useReadContacts } from '@contact/hooks/queries'
+import { useReadProjects } from '@task/hooks/queries'
 
 import { ContactTable } from '@contact/components/ContactTable'
 
 export default function Page() {
-    const queryContacts = useReadContacts(useQueryParams())
+    const queryProjects = useReadProjects(useQueryParams())
 
     return (
         <Grid>
             <Grid.Col>
                 <div className="flex justify-between">
-                    <PageHeader>Contacts</PageHeader>
+                    <PageHeader>Projets</PageHeader>
                     <div className="flex gap-2 flex-shrink-0">
                         <QuerySearchBar />
-                        <Button href={'contact/create'}>Ajouter un client</Button>
+                        <Button href={'project/create'}>Ajouter un projet</Button>
                     </div>
                 </div>
             </Grid.Col>
             <Grid.Col>
                 {/* @ts-ignore */}
-                <ContactTable items={queryContacts.data?.data ?? []} />
+                <ContactTable items={queryProjects.data?.data ?? []} />
             </Grid.Col>
         </Grid>
     )

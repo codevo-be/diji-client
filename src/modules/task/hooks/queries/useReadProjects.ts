@@ -2,11 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readContacts } from '@contact/services'
+import { readProjects } from '@task/services'
 
-export const useReadContacts = (params?: Record<string, any>) => {
+export const useReadProjects = (params?: Record<string, any>) => {
     return useQuery({
         queryKey: ['projects', { ...params }],
-        queryFn: () => readContacts(params)
+        queryFn: () => readProjects(params)
     })
 }
