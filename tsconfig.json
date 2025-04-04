@@ -22,6 +22,7 @@
         "paths": {
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
+            "@task/*": ["./modules/task/*"],
             "@components/*": ["./components/*"]
         }
     },
