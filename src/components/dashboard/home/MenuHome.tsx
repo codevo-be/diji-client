@@ -15,7 +15,7 @@ export const MenuHome = () => {
                 Finances
             </MenuItemHome>
 
-            <MenuItemHome name={'task'} href={getTenantUrl('/task/kanban')}>
+            <MenuItemHome name={'task'} href={getTenantUrl('/project')}>
                 Tâches
             </MenuItemHome>
         </ul>
