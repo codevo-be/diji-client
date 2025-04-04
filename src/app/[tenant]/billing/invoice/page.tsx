@@ -10,7 +10,10 @@ import { InvoiceTable } from '@billing/invoice/components/InvoiceTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
 
 export default function Page() {
-    const queryInvoices = useReadInvoices(useQueryParams())
+    const queryInvoices = useReadInvoices({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>

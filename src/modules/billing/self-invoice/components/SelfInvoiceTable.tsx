@@ -57,7 +57,6 @@ export const SelfInvoiceTable = ({ items }: Props) => {
             <Table.Head>ID</Table.Head>
             <Table.Head>Expéditeur</Table.Head>
             <Table.Head>Destinataire</Table.Head>
-            <Table.Head>Date</Table.Head>
             <Table.Head>
                 <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
             </Table.Head>

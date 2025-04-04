@@ -9,7 +9,10 @@ import { ButtonCreateRecurringInvoice } from '@billing/recurring-invoice/compone
 import { RecurringInvoiceTable } from '@billing/recurring-invoice/components/RecurringInvoiceTable'
 
 export default function Page() {
-    const queryRecurringInvoices = useReadRecurringInvoices(useQueryParams())
+    const queryRecurringInvoices = useReadRecurringInvoices({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>

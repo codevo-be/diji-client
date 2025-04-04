@@ -10,7 +10,10 @@ import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
 import { Paginate } from '@components/helpers/Paginate'
 
 export default function Page() {
-    const queryCreditNotes = useReadCreditNotes(useQueryParams())
+    const queryCreditNotes = useReadCreditNotes({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>

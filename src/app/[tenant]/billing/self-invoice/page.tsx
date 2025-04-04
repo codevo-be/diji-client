@@ -10,7 +10,10 @@ import { SelfInvoiceTable } from '@billing/self-invoice/components/SelfInvoiceTa
 import { Paginate } from '@components/helpers/Paginate'
 
 export default function Page() {
-    const querySelfInvoices = useReadSelfInvoices(useQueryParams())
+    const querySelfInvoices = useReadSelfInvoices({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>
