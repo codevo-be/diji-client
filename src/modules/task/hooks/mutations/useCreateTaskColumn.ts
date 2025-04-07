@@ -4,11 +4,11 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createItem } from '@task/services'
+import { createColumn } from '@task/services/create-column'
 
-export const useCreateItem = () => {
+export const useCreateTaskColumn = () => {
     return useMutation({
-        mutationFn: createItem,
+        mutationFn: createColumn,
         onError: (error) => {
             toast.error(error.message)
         },

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 import { useRouterWithTenant } from '@digico/utils'
 
-import { useCreateContact } from '@contact/hooks/mutations'
+import { useCreateTaskColumn } from '@task/hooks/mutations/useCreateTaskColumn'
 import { ContactType } from '@contact/types/contact'
 
 import { ColumnFields } from '@task/list/components/ColumnFields'
@@ -11,7 +11,7 @@ export const CreateColumnForm = () => {
     const routerWithTenant = useRouterWithTenant()
     const form = useForm<ContactType>()
 
-    const createTaskColumn = useCreateContact()
+    const createTaskColumn = useCreateTaskColumn()
 
     const handleSubmit = (data: ContactType) => {
         createTaskColumn.mutate(data, {
