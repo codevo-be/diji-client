@@ -26,6 +26,7 @@ export default function Page() {
                         <TaskColumnList items={queryColumns.data?.data ?? []} />
                     </div>
                     <div className="w-1/3 bg-gray-100 p-4 rounded-lg h-screen overflow-y-auto sticky top-0">
+                        {/* @ts-ignore */}
                         <TaskItemForm id={1} />
                     </div>
                 </div>
