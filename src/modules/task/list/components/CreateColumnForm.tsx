@@ -1,3 +1,5 @@
+import { useParams } from 'next/navigation'
+
 import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 import { useRouterWithTenant } from '@digico/utils'
@@ -6,7 +8,6 @@ import { useCreateTaskColumn } from '@task/hooks/mutations/useCreateTaskColumn'
 import { ContactType } from '@contact/types/contact'
 
 import { ColumnFields } from '@task/list/components/ColumnFields'
-import { useParams } from 'next/navigation'
 
 export const CreateColumnForm = () => {
     const { id } = useParams()
