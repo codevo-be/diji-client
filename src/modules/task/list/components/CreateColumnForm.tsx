@@ -21,7 +21,7 @@ export const CreateColumnForm = () => {
         data['project_id'] = Number(id)
         createTaskColumn.mutate(data, {
             onSuccess: () => {
-                routerWithTenant.push('/contact') // todo : changer pour aller vers http://localhost:3001/codevo/project/1/list
+                routerWithTenant.push(`/project/${id}/list`)
                 return
             }
         })
