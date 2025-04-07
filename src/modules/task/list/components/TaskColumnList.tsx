@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@digico/ui'
+import { Box, Button } from '@digico/ui'
 
 type Props = {
     items: {
@@ -37,6 +37,10 @@ export const TaskColumnList = ({ items }: Props) => {
                             <li className="text-gray-400 italic">Aucun item</li>
                         )}
                     </div>
+
+                    <Button>
+                        Ajouter une tâche
+                    </Button>
                 </div>
             ))}
         </div>
