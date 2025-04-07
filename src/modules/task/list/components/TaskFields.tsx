@@ -1,0 +1,30 @@
+import { Form } from '@digico/ui'
+import { TASK_PRIORITIES } from '@task/helpers/priorities'
+import { TASK_STATUSES } from '@task/helpers/statuses'
+
+import { useReadColumns } from '@task/hooks/queries'
+
+export const TaskFields = () => {
+    const { data: columnsData } = useReadColumns(1);
+
+    const columnOptions = columnsData?.data.map((column: { id: number; name: string }) => ({
+        label: column.name,
+        value: column.id,
+    })) || [];
+
+    return (
+        <>
+            <Form.Group title="Ajouter une tâche">
+                <Form.Row>
+                    <Form.Field name="name" label={'Nom de la tâche'} />
+                    <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
+                </Form.Row>
+                <Form.Row>
+                    <Form.Select name="priority" label={'Priorité'} options={Object.values(TASK_PRIORITIES)} />
+                    <Form.Select name="task_column_id" label={'Colonne'} options={columnOptions} />
+                </Form.Row>
+                <Form.Field type={"textarea"} name="description" label={'Description'} />
+            </Form.Group>
+        </>
+    )
+}
