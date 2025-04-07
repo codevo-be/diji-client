@@ -11,12 +11,12 @@ export const CreateColumnForm = () => {
     const routerWithTenant = useRouterWithTenant()
     const form = useForm<ContactType>()
 
-    const createContact = useCreateContact()
+    const createTaskColumn = useCreateContact()
 
     const handleSubmit = (data: ContactType) => {
-        createContact.mutate(data, {
+        createTaskColumn.mutate(data, {
             onSuccess: () => {
-                routerWithTenant.push('/contact')
+                routerWithTenant.push('/contact') // todo : changer pour aller vers http://localhost:3001/codevo/project/1/list
                 return
             }
         })
@@ -26,7 +26,7 @@ export const CreateColumnForm = () => {
         <Box>
             <Form useForm={form} onSubmit={handleSubmit}>
                 <ColumnFields />
-                <Button isLoading={createContact.isPending} type="submit">
+                <Button isLoading={createTaskColumn.isPending} type="submit">
                     Ajouter la colonne
                 </Button>
             </Form>
