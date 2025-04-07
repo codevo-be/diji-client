@@ -2,7 +2,8 @@
 
 import { useParams } from 'next/navigation'
 
-import { Grid } from '@digico/ui'
+import { Button, Grid } from '@digico/ui'
+import { getTenantUrl } from '@digico/utils'
 
 import { useReadColumns } from '@task/hooks/queries'
 
@@ -18,6 +19,11 @@ export default function Page() {
         <Grid>
             <Grid.Col>
                 <MenuTask />
+            </Grid.Col>
+            <Grid.Col>
+                <Button href={getTenantUrl(`/project/${id}/list/create`)}>
+                    Nouvelle liste
+                </Button>
             </Grid.Col>
             <Grid.Col>
                 <div className="flex gap-6 flex-1">
