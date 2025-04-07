@@ -3,7 +3,7 @@ import { Box, Button, Form } from '@digico/ui'
 
 import { useUpdateContact } from '@contact/hooks/mutations'
 import { useReadContact } from '@contact/hooks/queries'
-import { useCreateItem } from '@task/hooks/mutations'
+import { useCreateTaskItem } from '@task/hooks/mutations'
 import { ContactType } from '@contact/types/contact'
 
 import { TaskFields } from '@task/list/components/TaskFields'
@@ -11,7 +11,7 @@ import { TaskFields } from '@task/list/components/TaskFields'
 export const TaskItemForm = (id: number) => {
     const { data } = useReadContact(Number(id))
     const updateContact = useUpdateContact()
-    const createItem = useCreateItem()
+    const createItem = useCreateTaskItem()
 
     const form = useForm({
         values: data?.data
