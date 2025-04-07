@@ -17,9 +17,10 @@ type Props = {
             order: number
         }[]
     }[]
+    onAddTask?: (columnId: number) => void
 }
 
-export const TaskColumnList = ({ items }: Props) => {
+export const TaskColumnList = ({ items, onAddTask }: Props) => {
     return (
         <div className="space-y-6">
             {items.map((col) => (
@@ -38,7 +39,7 @@ export const TaskColumnList = ({ items }: Props) => {
                         )}
                     </div>
 
-                    <Button>
+                    <Button onClick={() => onAddTask?.(col.id)}>
                         Ajouter une tâche
                     </Button>
                 </div>

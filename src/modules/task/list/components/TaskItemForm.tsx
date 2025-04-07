@@ -1,18 +1,16 @@
 import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 
-import { useReadContact } from '@contact/hooks/queries'
 import { useCreateTaskItem } from '@task/hooks/mutations'
 import { ContactType } from '@contact/types/contact'
 
 import { TaskFields } from '@task/list/components/TaskFields'
 
-export const TaskItemForm = (id: number) => {
-    const { data } = useReadContact(Number(id))
+export const TaskItemForm = () => {
     const createItem = useCreateTaskItem()
 
     const form = useForm({
-        values: data?.data
+        values: "",
     })
 
     const handleSubmit = (data: ContactType) => {
