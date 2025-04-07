@@ -1,3 +1,5 @@
+import { useParams } from 'next/navigation'
+
 import { Form } from '@digico/ui'
 import { TASK_PRIORITIES } from '@task/helpers/priorities'
 import { TASK_STATUSES } from '@task/helpers/statuses'
@@ -5,7 +7,9 @@ import { TASK_STATUSES } from '@task/helpers/statuses'
 import { useReadColumns } from '@task/hooks/queries'
 
 export const TaskFields = () => {
-    const { data: columnsData } = useReadColumns(1);
+    const { id } = useParams()
+    // @ts-ignore
+    const { data: columnsData } = useReadColumns(id);
 
     const columnOptions = columnsData?.data.map((column: { id: number; name: string }) => ({
         label: column.name,
