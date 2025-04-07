@@ -1,6 +1,7 @@
 import { HttpRequestBuilder } from '@digico/utils'
 
-export const HttpService = new HttpRequestBuilder(String(process.env.NEXT_PUBLIC_API_URL) + '/api/task-projects')
+export const HttpService = new HttpRequestBuilder(String(process.env.NEXT_PUBLIC_API_URL) + '/api/task-items')
 
+export * from './create-item'
 export * from './read-columns'
 
