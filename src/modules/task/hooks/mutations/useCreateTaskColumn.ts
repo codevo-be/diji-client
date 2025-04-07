@@ -17,7 +17,7 @@ export const useCreateTaskColumn = () => {
                 queryKey: ['task_columns']
             })
 
-            toast.success('Le contact a été créé !')
+            toast.success('La liste a été créée !')
         }
     })
 }
