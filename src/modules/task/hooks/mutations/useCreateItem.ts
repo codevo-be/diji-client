@@ -14,7 +14,7 @@ export const useCreateItem = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['items']
+                queryKey: ['task_columns']
             })
 
             toast.success('Le contact a été créé !')
