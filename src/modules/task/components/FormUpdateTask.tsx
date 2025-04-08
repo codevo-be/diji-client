@@ -1,10 +1,9 @@
-import { TaskItemType } from "@/modules/task/types/task.types"
+import { useKanbanContext } from '@task/contexts/KanbanContext'
 
-import { TaskItemForm } from "@/modules/task/components/TaskItemForm"
+import { TaskItemType } from '@task/types/task.types' // todo : vérifier pourquoi dans billing
 
-import { Modal } from '../../Modal'
-
-import { useKanbanContext } from "@/libs/Kanban/contexts/KanbanContext"
+import { Modal } from '@billing/invoice/components/Modal'
+import { TaskItemForm } from '@task/list/components/TaskItemForm'
 
 export const FormUpdateTask = () => {
     const { taskOpen, setTaskOpen } = useKanbanContext()

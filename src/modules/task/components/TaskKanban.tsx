@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { closestCorners, defaultDropAnimation, DndContext, DragEndEvent, DragOverlay } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
-import { useUpdateMultipleTasks } from '@/modules/task/hooks/supplier/mutations/useUpdateMultipleTasks'
-import { useReadTaskColumn } from '@/modules/task/hooks/supplier/queries/useReadTaskColumn'
+import { useUpdateMultipleTasks } from '@task/hooks/mutations/useUpdateMultipleTasks'
+import { useReadColumns } from '@task/hooks/queries'
 import { useKanbanDragAndDrop } from '@task/hooks/useKanbanDragAndDrop'
 import { KanbanTaskType } from '@task/types/kanban-task.types'
 
@@ -16,7 +16,7 @@ import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
 
 export const TaskKanban = () => {
-    const queryKanban = useReadTaskColumn()
+    const queryKanban = useReadColumns(1) // todo : mettre une vrai id
 
     const parseTaskData = (rawData: any) => {
         return {
