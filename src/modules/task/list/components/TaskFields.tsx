@@ -1,8 +1,8 @@
 import { useParams } from 'next/navigation'
 
 import { Form } from '@digico/ui'
-import { TASK_PRIORITIES } from '@task/helpers/priorities'
-import { TASK_STATUSES } from '@task/helpers/statuses'
+import { TASK_PRIORITIES } from '@task/data/priorities'
+import { TASK_STATUSES } from '@task/data/statuses'
 
 import { useReadColumns } from '@task/hooks/queries'
 
