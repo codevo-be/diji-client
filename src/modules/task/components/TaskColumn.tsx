@@ -41,7 +41,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         }
 
         updateColumnMutation.mutate(
-            { columnId: status.id, data: { name: columnTitle } },
+            { columnId: status.id, name: columnTitle },
             {
                 onSuccess: () => {
                     setIsEditing(false)
