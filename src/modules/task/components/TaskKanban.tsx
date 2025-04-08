@@ -16,9 +16,12 @@ import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
 
 export const TaskKanban = () => {
-    const queryKanban = useReadColumns(1) // todo : mettre une vrai id
+    console.log(" *** Composant TaskKanban *** ")
+    const queryKanban = useReadColumns(1)
 
     const parseTaskData = (rawData: any) => {
+        const columns = rawData.data ?? []
+
         return {
             item: {
                 id: 1,
@@ -26,11 +29,12 @@ export const TaskKanban = () => {
                 slug: 'tasks',
                 created_at: null,
                 updated_at: null,
-                tasks: rawData.items.flatMap((column: any) =>
-                    column.tasks.map((task: any) => ({
+
+                tasks: columns.flatMap((column: any) =>
+                    column.items.map((task: any) => ({
                         id: task.id,
                         kanban_id: 1,
-                        category_id: task.task_column_id,
+                        category_id: column.id,
                         title: task.name,
                         content: task.description ?? null,
                         sum: null,
@@ -41,7 +45,8 @@ export const TaskKanban = () => {
                         priority: task.priority
                     }))
                 ),
-                categories: rawData.items.map((column: any) => ({
+
+                categories: columns.map((column: any) => ({
                     id: column.id,
                     kanban_id: 1,
                     name: column.name,
@@ -124,8 +129,11 @@ export const TaskKanban = () => {
     }
 
     const cardItem = activeTaskId ? formattedData?.item.tasks.find((task: KanbanTaskType) => task.id === activeTaskId) : null
-
+    if (!formattedData) {
+        return
+    }
     return (
+
         <KanbanContext.Provider
             value={{
                 columns: formattedData.item.categories,
