@@ -32,7 +32,7 @@ export const TaskItemForm = ({ task }: Props) => {
                 ...task,
             })
         }
-    }, [task])
+    }, [form, task])
 
     const handleSubmit = (data: TaskItem) => {
         if (data.id) {

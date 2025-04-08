@@ -7,11 +7,11 @@ import { Button, Grid } from '@digico/ui'
 import { getTenantUrl } from '@digico/utils'
 
 import { useReadColumns } from '@task/hooks/queries'
+import { TaskItem } from '@task/types/task_item'
 
 import { MenuTask } from '@task/components/MenuTask'
 import { TaskColumnList } from '@task/list/components/TaskColumnList'
 import { TaskItemForm } from '@task/list/components/TaskItemForm'
-import { TaskItem } from '@task/types/task_item'
 
 export default function Page() {
     const { id } = useParams()
