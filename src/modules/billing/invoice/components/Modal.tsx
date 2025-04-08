@@ -12,10 +12,21 @@ type ModalProps = {
     children: React.ReactNode
     className?: string
     stateDefault?: boolean
+    open?: boolean
+    setOpen?: (open: boolean) => void
 }
 
-const Modal = ({ children, className = '', stateDefault = false }: ModalProps) => {
-    const [open, setOpen] = useState(stateDefault)
+const Modal = ({
+                   children,
+                   className = '',
+                   stateDefault = false,
+                   open: controlledOpen,
+                   setOpen: controlledSetOpen,
+               }: ModalProps) => {
+    const [internalOpen, internalSetOpen] = useState(stateDefault)
+
+    const open = controlledOpen ?? internalOpen
+    const setOpen = controlledSetOpen ?? internalSetOpen
 
     return (
         <ModalContext.Provider value={{ open, setOpen }}>

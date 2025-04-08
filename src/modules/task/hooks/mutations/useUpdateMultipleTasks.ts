@@ -3,6 +3,7 @@
 import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
+
 import { updateMultipleTasks } from '@task/services/update-multiple-tasks'
 
 export const useUpdateMultipleTasks = () => {

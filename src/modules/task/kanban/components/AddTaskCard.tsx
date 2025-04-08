@@ -20,7 +20,7 @@ export const AddCard = ({ column }: Props) => {
             <Modal.Content>
                 {({ handleClose }) => (
                     <TaskItemForm
-                        task={null} // Mode création
+                        task={null}
                         columnId={column?.id || null}
                         onDeleteSuccess={handleClose}
                         onUpdateSuccess={handleClose}

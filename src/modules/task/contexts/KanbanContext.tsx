@@ -1,7 +1,7 @@
-import { createContext, useContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
-import { KanbanCategoryType } from '@/modules/kanban/types/kanban-category.types'
-import { KanbanTaskType } from '@/modules/kanban/types/kanban-task.types'
+import { KanbanCategoryType } from '@task/types/kanban-category.types'
+import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 export type KanbanCardListType = {
     [name: string]: KanbanTaskType[]

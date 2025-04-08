@@ -17,7 +17,7 @@ export const FormUpdateTask = () => {
     })
 
     const formattedTask = taskOpen ? parseTaskData(taskOpen) : null
-
+    console.log("On ouvre la modale")
     return (
         <Modal open={!!taskOpen} setOpen={(isOpen) => setTaskOpen(isOpen ? taskOpen : null)}>
             <Modal.Content>
@@ -37,6 +37,5 @@ export const FormUpdateTask = () => {
                 )}
             </Modal.Content>
         </Modal>
-
     )
 }

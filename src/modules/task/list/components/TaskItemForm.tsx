@@ -10,6 +10,9 @@ import { TaskFields } from '@task/list/components/TaskFields'
 
 type Props = {
     task?: TaskItem | null
+    columnId?: number | null
+    onDeleteSuccess?: () => void
+    onUpdateSuccess?: () => void
 }
 
 export const TaskItemForm = ({ task }: Props) => {
