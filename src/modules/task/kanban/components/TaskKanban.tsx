@@ -14,9 +14,12 @@ import { findBoardSectionContainer, getIdOfColumn, initialize } from '../../util
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
+import { useParams } from 'next/navigation'
 
 export const TaskKanban = () => {
-    const queryKanban = useReadColumns(1)
+    const { id } = useParams()
+    // @ts-ignore
+    const queryKanban = useReadColumns(id)
 
     const parseTaskData = (rawData: any) => {
         const columns = rawData.data ?? []
