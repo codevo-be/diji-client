@@ -4,6 +4,7 @@ export type IconName =
 	| "app"
 	| "billing"
 	| "contact"
+	| "cross"
 	| "edit"
 	| "logout"
 	| "search"
