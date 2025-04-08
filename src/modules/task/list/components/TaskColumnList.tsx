@@ -2,6 +2,8 @@
 
 import { Box, Button } from '@digico/ui'
 
+import { TaskItem } from '@task/types/task_item'
+
 type Props = {
     items: {
         id: number
@@ -17,10 +19,10 @@ type Props = {
             order: number
         }[]
     }[]
-    onAddTask?: (columnId: number) => void
+    onSelectTask?: (task: TaskItem) => void
 }
 
-export const TaskColumnList = ({ items, onAddTask }: Props) => {
+export const TaskColumnList = ({ items, onSelectTask }: Props) => {
     return (
         <div className="space-y-6">
             {items.map((col) => (
@@ -30,7 +32,16 @@ export const TaskColumnList = ({ items, onAddTask }: Props) => {
                     <div className="pl-4 space-y-1 text-sm text-gray-700">
                         {col.items.length > 0 ? (
                             col.items.map((item) => (
-                                <Box key={item.id} className="border-b border-gray-100 py-4">
+                                <Box
+                                    key={item.id}
+                                    className="border-b border-gray-100 py-4 cursor-pointer hover:bg-gray-50"
+                                    onClick={() =>
+                                        onSelectTask?.({
+                                            ...item,
+                                            task_column_id: col.id,
+                                        })
+                                    }
+                                >
                                     {item.name}
                                 </Box>
                             ))
@@ -39,7 +50,13 @@ export const TaskColumnList = ({ items, onAddTask }: Props) => {
                         )}
                     </div>
 
-                    <Button onClick={() => onAddTask?.(col.id)}>
+                    <Button
+                        onClick={() =>
+                            onSelectTask?.({
+                                task_column_id: col.id,
+                            })
+                        }
+                    >
                         Ajouter une tâche
                     </Button>
                 </div>

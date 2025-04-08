@@ -11,12 +11,13 @@ import { useReadColumns } from '@task/hooks/queries'
 import { MenuTask } from '@task/components/MenuTask'
 import { TaskColumnList } from '@task/list/components/TaskColumnList'
 import { TaskItemForm } from '@task/list/components/TaskItemForm'
+import { TaskItem } from '@task/types/task_item'
 
 export default function Page() {
     const { id } = useParams()
     const queryColumns = useReadColumns(Number(id))
 
-    const [selectedColumnId, setSelectedColumnId] = useState<number | undefined>(undefined)
+    const [selectedTask, setSelectedTask] = useState<TaskItem | null>(null)
 
     return (
         <Grid>
@@ -31,15 +32,13 @@ export default function Page() {
             <Grid.Col>
                 <div className="flex gap-6 flex-1">
                     <div className="flex-1 overflow-y-auto">
-                        {/* @ts-ignore */}
                         <TaskColumnList
                             items={queryColumns.data?.data ?? []}
-                            onAddTask={setSelectedColumnId}
+                            onSelectTask={setSelectedTask}
                         />
                     </div>
                     <div className="w-1/3 bg-gray-100 p-4 rounded-lg h-screen overflow-y-auto sticky top-0">
-                        {/* @ts-ignore */}
-                        <TaskItemForm columnId={selectedColumnId} />
+                        <TaskItemForm task={selectedTask} />
                     </div>
                 </div>
             </Grid.Col>
