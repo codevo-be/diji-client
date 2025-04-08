@@ -3,7 +3,7 @@
 import { Grid } from '@digico/ui'
 
 import { MenuTask } from '@task/components/MenuTask'
-import { TaskKanban } from '@task/components/TaskKanban'
+import { TaskKanban } from '@task/kanban/components/TaskKanban'
 
 export default function Page() {
     return (

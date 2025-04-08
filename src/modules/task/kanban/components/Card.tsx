@@ -5,7 +5,7 @@ import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 import { Icon } from '@components/Icon'
 
-import { useKanbanContext } from '../contexts/KanbanContext'
+import { useKanbanContext } from '../../contexts/KanbanContext'
 
 type Props = {
     item: KanbanTaskType

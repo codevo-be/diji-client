@@ -7,10 +7,10 @@ import { useReadColumns } from '@task/hooks/queries'
 import { useKanbanDragAndDrop } from '@task/hooks/useKanbanDragAndDrop'
 import { KanbanTaskType } from '@task/types/kanban-task.types'
 
-import { Card } from '@task/components/Card'
+import { Card } from '@task/kanban/components/Card'
 
-import { KanbanCardListType, KanbanContext } from '../contexts/KanbanContext'
-import { findBoardSectionContainer, getIdOfColumn, initialize } from '../utils/kanban'
+import { KanbanCardListType, KanbanContext } from '../../contexts/KanbanContext'
+import { findBoardSectionContainer, getIdOfColumn, initialize } from '../../utils/kanban'
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
