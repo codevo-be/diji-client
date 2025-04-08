@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readProjects } from '@task/project/services'
+import { readProjects } from '@task/services/taskProjects'
 
 export const useReadProjects = (params?: Record<string, any>) => {
     return useQuery({

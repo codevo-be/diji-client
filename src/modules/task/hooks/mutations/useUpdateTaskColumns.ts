@@ -4,7 +4,7 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { updateColumn } from '@task/services/update-column'
+import { updateColumn } from '@task/services/taskColumns/update-column'
 
 
 export const useUpdateTaskColumn = () => {

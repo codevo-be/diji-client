@@ -1,4 +1,4 @@
-import { HttpService } from '@task/services'
+import { HttpService } from '@task/services/taskItems/index'
 import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 export const updateMultipleTasks = async (tasks: KanbanTaskType[]) => {

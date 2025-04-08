@@ -4,7 +4,7 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { updateItem } from '@task/services/update-item'
+import { updateItem } from '@task/services/taskItems/update-item'
 
 export const useUpdateTaskItem = () => {
     return useMutation({

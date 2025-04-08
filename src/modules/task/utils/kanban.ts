@@ -1,7 +1,7 @@
+import { KanbanCardListType } from '@task/kanban/contexts/KanbanContext'
+
 import { KanbanCategoryType } from '@task/types/kanban-category.types'
 import { KanbanTaskType } from '@task/types/kanban-task.types'
-
-import { KanbanCardListType } from '../contexts/KanbanContext'
 
 export const initialize = (data: KanbanTaskType[], columns: KanbanCategoryType[]) => {
     const items: KanbanCardListType = {};

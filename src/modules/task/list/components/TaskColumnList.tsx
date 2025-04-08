@@ -35,6 +35,7 @@ export const TaskColumnList = ({ items, onSelectTask }: Props) => {
                                 <Box
                                     key={item.id}
                                     className="border-b border-gray-100 py-4 cursor-pointer hover:bg-gray-50"
+                                    // @ts-ignore
                                     onClick={() =>
                                         onSelectTask?.({
                                             ...item,

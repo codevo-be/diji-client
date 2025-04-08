@@ -4,7 +4,7 @@ import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createColumn } from '@task/services/create-column'
+import { createColumn } from '@task/services/taskColumns/create-column'
 
 export const useCreateTaskColumn = () => {
     return useMutation({

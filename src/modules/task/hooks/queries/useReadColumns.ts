@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readColumns } from '@task/services'
+import { readColumns } from '@task/services/taskItems'
 
 export const useReadColumns = (id: number, params?: Record<string, any>) => {
     return useQuery({

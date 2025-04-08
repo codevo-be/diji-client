@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { closestCorners, defaultDropAnimation, DndContext, DragEndEvent, DragOverlay } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
+import { KanbanCardListType, KanbanContext } from '@task/kanban/contexts/KanbanContext'
 
 import { useUpdateMultipleTasks } from '@task/hooks/mutations/useUpdateMultipleTasks'
 import { useReadColumns } from '@task/hooks/queries'
@@ -9,7 +10,6 @@ import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 import { Card } from '@task/kanban/components/Card'
 
-import { KanbanCardListType, KanbanContext } from '../../contexts/KanbanContext'
 import { findBoardSectionContainer, getIdOfColumn, initialize } from '../../utils/kanban'
 
 import { FormUpdateTask } from './FormUpdateTask'
