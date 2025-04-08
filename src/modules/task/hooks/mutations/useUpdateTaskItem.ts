@@ -17,7 +17,7 @@ export const useUpdateTaskItem = () => {
                 queryKey: ['task_columns']
             })
 
-            toast.success('Le contact a été créé !')
+            toast.success('Tâche mise à jour avec succès !')
         }
     })
 }

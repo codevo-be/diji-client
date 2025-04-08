@@ -16,7 +16,6 @@ import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
 
 export const TaskKanban = () => {
-    console.log(" *** Composant TaskKanban *** ")
     const queryKanban = useReadColumns(1)
 
     const parseTaskData = (rawData: any) => {
@@ -133,7 +132,6 @@ export const TaskKanban = () => {
         return
     }
     return (
-
         <KanbanContext.Provider
             value={{
                 columns: formattedData.item.categories,
