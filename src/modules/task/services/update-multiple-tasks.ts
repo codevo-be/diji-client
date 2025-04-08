@@ -1,6 +1,14 @@
 import { HttpService } from '@task/services'
-import { TaskItem } from '@task/types/task_item'
+import { KanbanTaskType } from '@task/types/kanban-task.types' // ou ton type local
 
-export const updateMultipleTasks = async (data: TaskItem) =>
-    HttpService.post<{ data: TaskItem }>(`/${data.id}`, data)
+export const updateMultipleTasks = async (tasks: KanbanTaskType[]) => {
+    const formattedTasks = tasks.map(task => ({
+        id: task.id,
+        name: task.title,
+        description: task.content,
+        task_column_id: task.category_id,
+        order: task.order,
+    }))
 
+    return HttpService.put('/bulk-update', { tasks: formattedTasks })
+}
