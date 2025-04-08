@@ -1,28 +1,43 @@
 'use client'
 
-import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
+import { useParams } from 'next/navigation'
 
-import { useReadProjects } from '@task/project/hooks/queries'
+import { useForm } from 'react-hook-form'
+import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
+import { getTenantUrl } from '@digico/utils'
 
-import { ProjectTable } from '@task/project/components/ProjectTable'
+import { useUpdateContact } from '@contact/hooks/mutations'
+import { useReadProject } from '@task/project/hooks/queries/useReadProject'
+
+import { ProjectFields } from '@task/project/components/ProjectFields'
 
 export default function Page() {
-    const queryProjects = useReadProjects(useQueryParams())
+    const { id } = useParams()
+    const data = useReadProject(Number(id))
+    const updateContact = useUpdateContact()
+
+    console.log("Données du projet : ", data.data)
+
+    const form = useForm({
+        values: data?.data
+    })
 
     return (
         <Grid>
             <Grid.Col>
-                <div className="flex justify-between">
-                    <PageHeader>Projets ID</PageHeader>
-                    <div className="flex gap-2 flex-shrink-0">
-                        <QuerySearchBar />
-                        <Button href={'project/create'}>Ajouter un projet</Button>
-                    </div>
-                </div>
+                <PageHeader label="Retour" href={getTenantUrl(`/project`)}>
+                    Projet
+                </PageHeader>
             </Grid.Col>
             <Grid.Col>
-                {/* @ts-ignore */}
-                <ProjectTable items={queryProjects.data?.data ?? []} />
+                <Box>
+                   <Form useForm={form} onSubmit={updateContact.mutate}>
+                        <ProjectFields />
+                        <Button isLoading={updateContact.isPending} type="submit">
+                            Mettre à jour
+                        </Button>
+                    </Form>
+                </Box>
             </Grid.Col>
         </Grid>
     )

@@ -43,7 +43,7 @@ export const TaskColumnList = ({ items, onSelectTask }: Props) => {
                                         })
                                     }
                                 >
-                                    <Form.Field type={"checkbox"} /> {item.name}
+                                    <Form.Checkbox type={"checkbox"} label={item.name} id={item.id.toString()}/>
                                 </Box>
                             ))
                         ) : (
