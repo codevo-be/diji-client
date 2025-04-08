@@ -1,19 +1,24 @@
 'use client'
 
+import { queryClient } from '@digico/utils'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
+import { updateColumn } from '@task/services/update-column'
+
+
 export const useUpdateTaskColumn = () => {
     return useMutation({
-        mutationFn: async (tasks: { id: number, order: number }[]) => {
-            console.log('[MOCK] Mise à jour simulée des tâches :', tasks) // todo
-            return new Promise((resolve) => setTimeout(resolve, 300)) // petit délai simulé
-        },
-        onError: () => {
-            toast.error("Erreur simulée.")
+        mutationFn: updateColumn,
+        onError: (error) => {
+            toast.error(error.message)
         },
         onSuccess: () => {
-            toast.success("Les tâches ont été mises à jour avec succès !")
-        },
+            queryClient.invalidateQueries({
+                queryKey: ['task_columns']
+            })
+
+            toast.success('Liste des tâches mise à jour avec succès !')
+        }
     })
 }
