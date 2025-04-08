@@ -1,3 +1,5 @@
+import { useParams } from 'next/navigation'
+
 import React, { useEffect, useState } from 'react'
 import { closestCorners, defaultDropAnimation, DndContext, DragEndEvent, DragOverlay } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
@@ -14,7 +16,6 @@ import { findBoardSectionContainer, getIdOfColumn, initialize } from '../../util
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
-import { useParams } from 'next/navigation'
 
 export const TaskKanban = () => {
     const { id } = useParams()
