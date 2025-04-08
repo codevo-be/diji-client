@@ -3,6 +3,8 @@ import { formatCurrency } from '@digico/utils'
 
 import { KanbanTaskType } from '@task/types/kanban-task.types'
 
+import { Icon } from '@components/Icon'
+
 import { useKanbanContext } from '../contexts/KanbanContext'
 
 type Props = {
@@ -36,8 +38,7 @@ export const Card = ({ item }: Props) => {
             <div className="flex justify-between gap-4">
                 <p className="font-medium text-xs">{item.title}</p>
                 <button onClick={() => setTaskOpen(item)}>
-                    Edit {/* todo */}
-                    {/*<Icon name="edit" className="size-6 fill-grey-600 transition-all hover:fill-primary" />*/}
+                    <Icon name="edit" className="size-6 fill-grey-600 transition-all hover:fill-primary" />
                 </button>
             </div>
             {item.sum ? <div className="font-medium text-grey-600 text-xs">{formatCurrency(item.sum)}</div> : null}

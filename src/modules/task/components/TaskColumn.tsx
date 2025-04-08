@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
-import { Card } from '../common/Card'
-import SortableTaskItem from '../common/SortableTaskItem'
+import { useUpdateTaskColumn } from '@task/hooks/mutations/useUpdateTaskColumns'
+import { KanbanTaskType } from '@task/types/kanban-task.types'
+
+import { Card } from '@task/components/Card'
+import SortableTaskItem from '@task/components/SortableTaskItem'
+
 import { useKanbanContext } from '../contexts/KanbanContext'
 import { getIdOfColumn } from '../utils/kanban'
 
 import { AddCard } from './AddTaskCard'
-
-import { KanbanTaskType } from '@/modules/kanban/types/kanban-task.types'
-import { useUpdateTaskColumn } from '@/modules/task/hooks/supplier/mutations/useUpdateTaskColumn'
 
 type ColumnProps = {
     id: string
