@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
 import { getTenantUrl } from '@digico/utils'
 
-import { useUpdateContact } from '@contact/hooks/mutations'
+import { useUpdateProject } from '@task/project/hooks/mutations/useUpdateProject'
 import { useReadProject } from '@task/project/hooks/queries/useReadProject'
 
 import { ProjectFields } from '@task/project/components/ProjectFields'
@@ -14,7 +14,7 @@ import { ProjectFields } from '@task/project/components/ProjectFields'
 export default function Page() {
     const { id } = useParams()
     const data = useReadProject(Number(id))
-    const updateContact = useUpdateContact()
+    const updateProject = useUpdateProject()
 
     console.log("Données du projet : ", data.data)
 
@@ -31,9 +31,9 @@ export default function Page() {
             </Grid.Col>
             <Grid.Col>
                 <Box>
-                   <Form useForm={form} onSubmit={updateContact.mutate}>
+                   <Form useForm={form} onSubmit={updateProject.mutate}>
                         <ProjectFields />
-                        <Button isLoading={updateContact.isPending} type="submit">
+                        <Button isLoading={updateProject.isPending} type="submit">
                             Mettre à jour
                         </Button>
                     </Form>
