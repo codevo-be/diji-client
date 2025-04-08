@@ -82,7 +82,7 @@ export const TaskKanban = () => {
 
     const { activeTaskId, sensors, handleDragStart, handleDragOver } = useKanbanDragAndDrop(itemsByColumns, setItemsByColumns)
 
-    const updateMultipleTasks = (tasks: { id: number; order: number }[]) => {
+    const updateMultipleTasks = (tasks: KanbanTaskType[]) => {
         updateKanbanTask.mutate(tasks)
     }
 

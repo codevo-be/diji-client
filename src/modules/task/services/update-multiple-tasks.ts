@@ -1,5 +1,5 @@
 import { HttpService } from '@task/services'
-import { KanbanTaskType } from '@task/types/kanban-task.types' // ou ton type local
+import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 export const updateMultipleTasks = async (tasks: KanbanTaskType[]) => {
     const formattedTasks = tasks.map(task => ({
