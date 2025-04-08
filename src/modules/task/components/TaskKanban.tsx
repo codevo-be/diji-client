@@ -5,16 +5,15 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { useUpdateMultipleTasks } from '@/modules/task/hooks/supplier/mutations/useUpdateMultipleTasks'
 import { useReadTaskColumn } from '@/modules/task/hooks/supplier/queries/useReadTaskColumn'
 import { useKanbanDragAndDrop } from '@task/hooks/useKanbanDragAndDrop'
-import { KanbanTaskType } from '@/modules/kanban/types/kanban-task.types'
+import { KanbanTaskType } from '@task/types/kanban-task.types'
 
-import { Card } from '../common/Card'
+import { Card } from '@task/components/Card'
+
 import { KanbanCardListType, KanbanContext } from '../contexts/KanbanContext'
 import { findBoardSectionContainer, getIdOfColumn, initialize } from '../utils/kanban'
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
-
-import { LoadingQuery } from '@/utils/LoadingQuery'
 
 export const TaskKanban = () => {
     const queryKanban = useReadTaskColumn()
