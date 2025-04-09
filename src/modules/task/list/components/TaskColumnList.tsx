@@ -17,15 +17,35 @@ type Props = {
             status: string
             priority: number
             order: number
+            done: boolean
         }[]
     }[]
     onSelectTask?: (task: TaskItem) => void
 }
 
 export const TaskColumnList = ({ items, onSelectTask }: Props) => {
+    const doneTasks = items.flatMap(col =>
+        col.items.filter(item => item.done)
+    )
+
+    const activeColumns = items.map(col => ({
+        ...col,
+        items: col.items.filter(item => !item.done),
+    }))
+
+    const doneColumn = {
+        id: -1,
+        name: 'Tâches terminées',
+        order: 999,
+        project_id: -1,
+        items: doneTasks,
+    }
+
+    const finalColumns = [...activeColumns, ...(doneTasks.length ? [doneColumn] : [])]
+
     return (
         <div className="space-y-6">
-            {items.map((col) => (
+            {finalColumns.map((col) => (
                 <div key={col.id}>
                     <div className="text-lg font-semibold mb-2">{col.name}</div>
 
@@ -51,15 +71,17 @@ export const TaskColumnList = ({ items, onSelectTask }: Props) => {
                         )}
                     </div>
 
-                    <Button
-                        onClick={() =>
-                            onSelectTask?.({
-                                task_column_id: col.id,
-                            })
-                        }
-                    >
-                        Ajouter une tâche
-                    </Button>
+                    {col.id !== -1 && (
+                        <Button
+                            onClick={() =>
+                                onSelectTask?.({
+                                    task_column_id: col.id,
+                                })
+                            }
+                        >
+                            Ajouter une tâche
+                        </Button>
+                    )}
                 </div>
             ))}
         </div>

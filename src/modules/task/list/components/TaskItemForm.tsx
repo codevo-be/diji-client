@@ -41,10 +41,15 @@ export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
     }, [form, task])
 
     const handleSubmit = (data: TaskItem) => {
+        const updatedData = {
+            ...data,
+            done: task?.task_column_id === -1 ? false : data.done,
+        }
+
         if (data.id) {
-            updateItem.mutate({ id: data.id, ...data }, {onSuccess: onDeleteSuccess})
+            updateItem.mutate({ id: data.id, ...updatedData }, { onSuccess: onDeleteSuccess })
         } else {
-            createItem.mutate(data)
+            createItem.mutate(updatedData)
         }
     }
 
@@ -58,14 +63,18 @@ export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
         }
     }
 
-    const isEdit = !!task?.id
+    const isEdit = task?.id
 
     return (
         <Form useForm={form} onSubmit={handleSubmit}>
             <TaskFields />
             <div className="flex flex-col gap-2">
                 <Button type="submit">
-                    {isEdit ? 'Mettre à jour' : 'Ajouter une tâche'}
+                    {isEdit
+                        ? task?.task_column_id === -1
+                            ? 'Restaurer la tâche'
+                            : 'Mettre à jour'
+                        : 'Ajouter une tâche'}
                 </Button>
                 {isEdit && (
                     <Button intent="error" type="button" onClick={handleDelete}>
