@@ -1,13 +1,13 @@
 import { cookiesNext } from '@digico/utils'
 
-interface downloadBatchCreditNotesProps {
+interface downloadBatchSelfInvoicesProps {
     ids: number[];
 }
 
-export default async function downloadBatchCreditNotes(data: downloadBatchCreditNotesProps) {
+export default async function downloadBachSelfInvoice(data: downloadBatchSelfInvoicesProps) {
     const cookies = await cookiesNext();
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/credit-notes/batch/pdf`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/self-invoices/batch/pdf`, {
         method: 'POST',
         headers: {
             Accept: 'application/zip',
@@ -22,7 +22,7 @@ export default async function downloadBatchCreditNotes(data: downloadBatchCredit
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement('a')
             a.href = url
-            a.download = 'credit-notes.zip'
+            a.download = 'autofacturations.zip'
             document.body.appendChild(a)
             a.click()
             a.remove()

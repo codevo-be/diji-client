@@ -8,6 +8,7 @@ import { formatCurrency, useAuth } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useDestroyBatchSelfInvoices'
+import useDownloadBatchSelfInvoice from '@billing/self-invoice/hooks/mutations/batch/useDownloadBatchSelfInvoice'
 import { useUpdateBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useUpdateBatchSelfInvoices'
 import { useReadSelfInvoices } from '@billing/self-invoice/hooks/queries'
 import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
@@ -19,6 +20,7 @@ export const SelfInvoiceBatchList = () => {
     const querySelfInvoices = useReadSelfInvoices(useQueryParams())
     const destroySelfInvoices = useDestroyBatchSelfInvoices()
     const updateBatchSelfInvoices = useUpdateBatchSelfInvoices()
+    const downloadBatchSelfInvoice = useDownloadBatchSelfInvoice();
 
     const form = useForm()
 
@@ -64,6 +66,12 @@ export const SelfInvoiceBatchList = () => {
         destroySelfInvoices.mutate({
             self_invoice_ids: formList.watch('invoices').map((id) => Number(id))
         })
+    }
+
+    const onDownload = () => {
+        downloadBatchSelfInvoice.mutate({
+            ids: formList.watch('invoices').map((id) => Number(id))
+        });
     }
 
     return (
@@ -145,6 +153,9 @@ export const SelfInvoiceBatchList = () => {
                                         </span>
                                         <Button type="submit" className="w-full" isLoading={updateBatchSelfInvoices.isPending}>
                                             Appliquer les modifications
+                                        </Button>
+                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchSelfInvoice.isPending} onClick={onDownload}>
+                                            Télécharger
                                         </Button>
                                         <Button type="button" className="w-full" intent={'error'} onClick={onDestroy} isLoading={destroySelfInvoices.isPending}>
                                             Supprimer
