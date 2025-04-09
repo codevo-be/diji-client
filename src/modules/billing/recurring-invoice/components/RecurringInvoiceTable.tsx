@@ -1,10 +1,12 @@
 'use client'
 
 import { Table, Tag } from '@digico/ui'
-import { formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { RecurringInvoiceType } from '../types/recurring-invoice'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { RECURRING_INVOICE_STATUSES } from '../data/recurring-invoice-statuses'
 
@@ -13,7 +15,7 @@ type Props = {
 }
 
 export const RecurringInvoiceTable = ({ items }: Props) => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
 
     const toSingle = (recurring_invoice: RecurringInvoiceType) => {
         routeWithTenant.push(`/billing/recurring-invoice/${recurring_invoice.id}`)

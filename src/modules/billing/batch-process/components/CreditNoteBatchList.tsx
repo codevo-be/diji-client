@@ -4,13 +4,15 @@ import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { CREDIT_NOTE_STATUSES } from '@billing/credit-note/data/credit-note-statuses'
 import { Box, Button, Form, Grid, Table, Tag, useQueryParams } from '@digico/ui'
-import { formatCurrency, useAuth } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useDestroyBatchCreditNotes'
 import { useUpdateBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useUpdateBatchCreditNotes'
 import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 import { CreditNoteType } from '@billing/credit-note/types/credit-note'
+
+import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const CreditNoteBatchList = () => {
     const { tenant } = useAuth()

@@ -5,17 +5,18 @@ import { useParams } from 'next/navigation'
 import { FieldValues, useForm } from 'react-hook-form'
 import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl, useAuth, useRouterWithTenant } from '@digico/utils'
 
 import { useEmailInvoice } from '@billing/invoice/hooks/mutations/useEmailInvoice'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
 import { InvoiceContent } from '@billing/invoice/components/document/InvoiceContent'
+import { useAuth } from 'helpers/auth-context/useAuth'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 export default function Page() {
     const { id } = useParams()
     const { tenant } = useAuth()
-    const routerWithTenant = useRouterWithTenant()
+    const routeTenant = useRouteTenant()
 
     const { data } = useReadInvoice(Number(id))
     const sendEmail = useEmailInvoice()
@@ -41,7 +42,7 @@ L'équipe ${tenant?.name}`
             },
             {
                 onSuccess: () => {
-                    routerWithTenant.push('/billing/invoice')
+                    routeTenant.push('/billing/invoice')
                 }
             }
         )
@@ -50,7 +51,7 @@ L'équipe ${tenant?.name}`
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux factures" href={getTenantUrl('/billing/invoice')}>
+                <PageHeader label="Retour aux factures" href={routeTenant.get('/billing/invoice')}>
                     Facture {data?.identifier}
                 </PageHeader>
             </Grid.Col>
@@ -61,7 +62,7 @@ L'équipe ${tenant?.name}`
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>
-                    <Button intent={'text'} size={'text'} href={getTenantUrl(`/billing/invoice/${id}`)} className="mb-8">
+                    <Button intent={'text'} size={'text'} href={routeTenant.get(`/billing/invoice/${id}`)} className="mb-8">
                         ← Retour
                     </Button>
                     <Form useForm={form} onSubmit={onSubmit}>
@@ -71,7 +72,7 @@ L'équipe ${tenant?.name}`
                         <Form.Field rows={9} type="textarea" name="body" label="Contenu de l'email" placeholder="Bonjour, Suite à votre ..." />
 
                         <Button isLoading={sendEmail.isPending} type="submit">
-                            Envoyé
+                            Envoyer
                         </Button>
                     </Form>
                 </Box>

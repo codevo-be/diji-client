@@ -1,19 +1,23 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { Table } from '@digico/ui'
-import { useRouterWithTenant } from '@digico/utils'
 
 import { ContactType } from '@contact/types/contact'
+
+import { useAuth } from 'helpers/auth-context/useAuth'
 
 type Props = {
     items: ContactType[]
 }
 
 export const ContactTable = ({ items }: Props) => {
-    const routeWithTenant = useRouterWithTenant()
+    const router = useRouter()
+    const { tenant } = useAuth()
 
     const toSingle = (contact: ContactType) => {
-        routeWithTenant.push(`/contact/${contact.id}`)
+        router.push(`/${tenant.id}/contact/${contact.id}`)
     }
 
     return (

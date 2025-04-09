@@ -1,10 +1,11 @@
 import { Button } from '@digico/ui'
-import { useRouterWithTenant } from '@digico/utils'
 
 import { useCreateInvoice } from '@billing/invoice/hooks/mutations'
 
+import { useRouteTenant } from 'helpers/route-tenant'
+
 export const ButtonCreateInvoice = () => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
     const { mutate, isPending, isSuccess } = useCreateInvoice()
 
     const onCreateInvoice = () => {
