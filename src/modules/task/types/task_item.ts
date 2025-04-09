@@ -7,4 +7,5 @@ export type TaskItem = {
     order?: number
     task_column_id?: number
     done?: boolean
+    task_number?: string | number
 }

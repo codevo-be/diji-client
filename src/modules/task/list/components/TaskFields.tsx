@@ -18,7 +18,7 @@ export const TaskFields = () => {
 
     return (
         <>
-            <Form.Group title="Ajouter une tâche">
+            <Form.Group title="Tâche">
                 <Form.Row>
                     <Form.Field name="name" label={'Nom de la tâche'} />
                     <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
