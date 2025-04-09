@@ -71,7 +71,7 @@ L'équipe ${tenant?.name}`
                         <Form.Field rows={9} type="textarea" name="body" label="Contenu de l'email" placeholder="Bonjour, Suite à votre ..." />
 
                         <Button isLoading={sendEmail.isPending} type="submit">
-                            Envoyé
+                            Envoyer
                         </Button>
                     </Form>
                 </Box>
