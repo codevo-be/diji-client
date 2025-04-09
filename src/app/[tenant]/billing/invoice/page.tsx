@@ -1,6 +1,7 @@
 'use client'
 
 import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
+import { Paginate } from '@helpers/Paginate'
 
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 
@@ -14,7 +15,7 @@ export default function Page() {
     return (
         <Grid>
             <Grid.Col>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-12">
                     <MenuInvoice />
                     <div className="flex gap-2 flex-shrink-0">
                         <QuerySearchBar />
@@ -22,9 +23,12 @@ export default function Page() {
                     </div>
                 </div>
             </Grid.Col>
-            <Grid.Col>
-                <InvoiceTable items={queryInvoices.data?.data ?? []} />
-            </Grid.Col>
+            {queryInvoices.data && (
+                <Grid.Col>
+                    <InvoiceTable items={queryInvoices.data.data ?? []} />
+                    <Paginate className="mt-12" paginate={queryInvoices.data.meta} />
+                </Grid.Col>
+            )}
         </Grid>
     )
 }
