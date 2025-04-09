@@ -4,13 +4,15 @@ import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
 import { Box, Button, Form, Grid, Table, Tag, useQueryParams } from '@digico/ui'
-import { formatCurrency, useAuth } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useDestroyBatchInvoices'
 import { useUpdateBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useUpdateBatchInvoices'
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 import { InvoiceType } from '@billing/invoice/types/invoice'
+
+import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const InvoiceBatchList = () => {
     const { tenant } = useAuth()

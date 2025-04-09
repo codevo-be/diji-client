@@ -4,13 +4,15 @@ import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { SELF_INVOICE_STATUSES } from '@billing/self-invoice/data/self-invoice-statuses'
 import { Box, Button, Form, Grid, Table, Tag, useQueryParams } from '@digico/ui'
-import { formatCurrency, useAuth } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useDestroyBatchSelfInvoices'
 import { useUpdateBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useUpdateBatchSelfInvoices'
 import { useReadSelfInvoices } from '@billing/self-invoice/hooks/queries'
 import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
+
+import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const SelfInvoiceBatchList = () => {
     const { tenant } = useAuth()

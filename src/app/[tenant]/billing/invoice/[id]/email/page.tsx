@@ -5,12 +5,12 @@ import { useParams } from 'next/navigation'
 import { FieldValues, useForm } from 'react-hook-form'
 import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
-import { useAuth } from '@digico/utils'
 
 import { useEmailInvoice } from '@billing/invoice/hooks/mutations/useEmailInvoice'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
 import { InvoiceContent } from '@billing/invoice/components/document/InvoiceContent'
+import { useAuth } from 'helpers/auth-context/useAuth'
 import { useRouteTenant } from 'helpers/route-tenant'
 
 export default function Page() {
