@@ -6,4 +6,5 @@ export type TaskItem = {
     priority?: number
     order?: number
     task_column_id?: number
+    done?: boolean
 }

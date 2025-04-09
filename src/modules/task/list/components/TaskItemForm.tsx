@@ -28,6 +28,7 @@ export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
             status: 'pending',
             priority: 1,
             task_column_id: task?.task_column_id,
+            done: false,
         },
     })
 

@@ -28,6 +28,7 @@ export const TaskFields = () => {
                     <Form.Select name="task_column_id" label={'Colonne'} options={columnOptions} />
                 </Form.Row>
                 <Form.Field type={"textarea"} name="description" label={'Description'} />
+                <Form.Checkbox name="done" label="Tâche terminée" id={"1"}/>
             </Form.Group>
         </>
     )

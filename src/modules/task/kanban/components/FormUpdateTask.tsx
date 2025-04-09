@@ -13,7 +13,8 @@ export const FormUpdateTask = () => {
         description: task.content,
         status: task.status,
         priority: task.priority,
-        task_column_id: task.category_id
+        task_column_id: task.category_id,
+        done: task.done,
     })
 
     const formattedTask = taskOpen ? parseTaskData(taskOpen) : null

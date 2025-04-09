@@ -7,4 +7,5 @@ export const TaskItemSchema = z.object({
     status: z.enum(['pending', 'in_progress', 'completed']),
     priority: z.number().min(1).max(5),
     task_column_id: z.number(),
+    done: z.boolean(),
 })
