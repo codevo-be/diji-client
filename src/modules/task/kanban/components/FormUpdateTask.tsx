@@ -1,6 +1,6 @@
 import { useKanbanContext } from '@task/kanban/contexts/KanbanContext'
 
-import { TaskItemType } from '@task/types/task.types' // todo : vérifier pourquoi dans billing
+import { TaskItemType } from '@task/types/task.types'
 
 import { Modal } from '@billing/invoice/components/Modal'
 import { TaskItemForm } from '@task/list/components/TaskItemForm'
