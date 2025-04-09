@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, Form } from '@digico/ui'
+import { Box, Button } from '@digico/ui'
 
 import { TaskItem } from '@task/types/task_item'
 
@@ -43,7 +43,7 @@ export const TaskColumnList = ({ items, onSelectTask }: Props) => {
                                         })
                                     }
                                 >
-                                    <Form.Checkbox type={"checkbox"} label={item.name} id={item.id.toString()}/>
+                                    {item.name}
                                 </Box>
                             ))
                         ) : (
