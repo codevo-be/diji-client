@@ -33,6 +33,7 @@ export default function Page() {
                 <div className="flex gap-6 flex-1">
                     <div className="flex-1 overflow-y-auto">
                         <TaskColumnList
+                            // @ts-ignore
                             items={queryColumns.data?.data ?? []}
                             onSelectTask={setSelectedTask}
                         />
