@@ -1,5 +1,6 @@
 import { cookiesNext } from '@digico/utils'
 
+import { ModuleType } from 'types/module.types'
 import { TenantType } from 'types/tenant.types'
 import { UserType } from 'types/user.types'
 
@@ -15,6 +16,7 @@ export const getAuthenticatedUser = async (tenant?: string) => {
             data: {
                 user: UserType
                 tenant: TenantType
+                modules: ModuleType[]
             }
         }>(`/auth/user`)
         .then((response) => {

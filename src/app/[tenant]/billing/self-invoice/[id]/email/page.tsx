@@ -5,17 +5,18 @@ import { useParams } from 'next/navigation'
 import { FieldValues, useForm } from 'react-hook-form'
 import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl, useAuth, useRouterWithTenant } from '@digico/utils'
 
 import { useEmailSelfInvoice } from '@billing/self-invoice/hooks/mutations/useEmailSelfInvoice'
 import { useReadSelfInvoice } from '@billing/self-invoice/hooks/queries'
 
 import { SelfInvoiceContent } from '@billing/self-invoice/components/document/SelfInvoiceContent'
+import { useAuth } from 'helpers/auth-context/useAuth'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 export default function Page() {
     const { id } = useParams()
     const { tenant } = useAuth()
-    const routerWithTenant = useRouterWithTenant()
+    const routeTenant = useRouteTenant()
 
     const { data } = useReadSelfInvoice(Number(id))
     const sendEmail = useEmailSelfInvoice()
@@ -41,7 +42,7 @@ L'équipe ${tenant?.name}`
             },
             {
                 onSuccess: () => {
-                    routerWithTenant.push('/billing/self-invoice')
+                    routeTenant.push('/billing/self-invoice')
                 }
             }
         )
@@ -50,7 +51,7 @@ L'équipe ${tenant?.name}`
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux factures" href={getTenantUrl('/billing/self-invoice')}>
+                <PageHeader label="Retour aux factures" href={routeTenant.get('/billing/self-invoice')}>
                     Facture {data?.identifier}
                 </PageHeader>
             </Grid.Col>
@@ -61,7 +62,7 @@ L'équipe ${tenant?.name}`
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>
-                    <Button intent={'text'} size={'text'} href={getTenantUrl(`/billing/self-invoice/${id}`)} className="mb-8">
+                    <Button intent={'text'} size={'text'} href={routeTenant.get(`/billing/self-invoice/${id}`)} className="mb-8">
                         ← Retour
                     </Button>
                     <Form useForm={form} onSubmit={onSubmit}>

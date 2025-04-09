@@ -1,15 +1,16 @@
 'use client'
 
 import { Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl } from '@digico/utils'
 
 import { CreateContactForm } from '@contact/components/form/CreateContactForm'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 export default function Page() {
+    const routerTenant = useRouteTenant()
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour" href={getTenantUrl('/contact')}>
+                <PageHeader label="Retour" href={routerTenant.get('/contact')}>
                     Contacts
                 </PageHeader>
             </Grid.Col>

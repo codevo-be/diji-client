@@ -3,11 +3,15 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Table, Tag } from '@digico/ui'
-import { DateHelper, formatCurrency, useRouterWithTenant } from '@digico/utils'
+
+import { formatCurrency } from '@digico/utils'
+import { DateHelper, formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 import { months } from 'data/date'
 
 import { SelfInvoiceType } from '../types/self-invoice'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { SimpleSelect } from '@components/helpers/SimpleSelect'
 
@@ -18,9 +22,9 @@ type Props = {
 }
 
 export const SelfInvoiceTable = ({ items }: Props) => {
+    const routeWithTenant = useRouteTenant()
     const searchParams = useSearchParams()
     const router = useRouter()
-    const routeWithTenant = useRouterWithTenant()
 
     const toSingle = (self_invoice: SelfInvoiceType) => {
         routeWithTenant.push(`/billing/self-invoice/${self_invoice.id}`)

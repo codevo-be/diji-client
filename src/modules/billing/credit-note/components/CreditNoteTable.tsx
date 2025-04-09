@@ -3,12 +3,13 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Table, Tag } from '@digico/ui'
-import { DateHelper, formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { DateHelper, formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 import { months } from 'data/date'
 
 import { CreditNoteType } from '../types/credit-note'
 
+import { useRouteTenant } from 'helpers/route-tenant'
 import { SimpleSelect } from '@components/helpers/SimpleSelect'
 
 import { CREDIT_NOTE_STATUSES } from '../data/credit-note-statuses'
@@ -18,9 +19,9 @@ type Props = {
 }
 
 export const CreditNoteTable = ({ items }: Props) => {
+    const routeWithTenant = useRouteTenant()
     const searchParams = useSearchParams()
     const router = useRouter()
-    const routeWithTenant = useRouterWithTenant()
 
     const toSingle = (credit_note: CreditNoteType) => {
         routeWithTenant.push(`/billing/credit-note/${credit_note.id}`)
