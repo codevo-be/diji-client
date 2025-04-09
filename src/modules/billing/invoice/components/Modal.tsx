@@ -69,8 +69,7 @@ const Content = ({ children }: ContentProps) => {
 
     return (
         <div
-            className={`bg-white/30 backdrop-blur-sm
- border p-12 border-grey-400 w-full h-screen fixed top-0 left-0 z-[100] bg-secondary/70 flex justify-center items-center cursor-pointer pointer`}>
+            className={`bg-white/30 backdrop-blur-sm  border p-12 border-grey-400 w-full h-screen fixed top-0 left-0 z-[100] bg-secondary/70 flex justify-center items-center cursor-pointer pointer`}>
             <Box className="cursor-default min-w-[46rem]">
                 <div className="mb-8 flex justify-end">
                     <Button intent={'main'} onClick={handleClose}>

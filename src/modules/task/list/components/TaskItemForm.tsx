@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Box, Button, Form } from '@digico/ui'
+import { Button, Form } from '@digico/ui'
 
 import { useCreateTaskItem } from '@task/hooks/mutations'
 import { useDestroyTaskItem } from '@task/hooks/mutations/useDestroyContact'
@@ -60,20 +60,18 @@ export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
     const isEdit = !!task?.id
 
     return (
-        <Box>
-            <Form useForm={form} onSubmit={handleSubmit}>
-                <TaskFields />
-                <div className="flex flex-col gap-2">
-                    <Button type="submit">
-                        {isEdit ? 'Mettre à jour' : 'Ajouter une tâche'}
+        <Form useForm={form} onSubmit={handleSubmit}>
+            <TaskFields />
+            <div className="flex flex-col gap-2">
+                <Button type="submit">
+                    {isEdit ? 'Mettre à jour' : 'Ajouter une tâche'}
+                </Button>
+                {isEdit && (
+                    <Button intent="error" type="button" onClick={handleDelete}>
+                        Supprimer
                     </Button>
-                    {isEdit && (
-                        <Button intent="error" type="button" onClick={handleDelete}>
-                            Supprimer
-                        </Button>
-                    )}
-                </div>
-            </Form>
-        </Box>
+                )}
+            </div>
+        </Form>
     )
 }

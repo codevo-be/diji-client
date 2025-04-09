@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 
 import { useState } from 'react'
-import { Button, Grid } from '@digico/ui'
+import { Box, Button, Grid } from '@digico/ui'
 import { getTenantUrl } from '@digico/utils'
 
 import { useReadColumns } from '@task/hooks/queries'
@@ -38,7 +38,9 @@ export default function Page() {
                         />
                     </div>
                     <div className="w-1/3 bg-gray-100 p-4 rounded-lg h-screen overflow-y-auto sticky top-0">
-                        <TaskItemForm task={selectedTask} />
+                        <Box>
+                            <TaskItemForm task={selectedTask} />
+                        </Box>
                     </div>
                 </div>
             </Grid.Col>
