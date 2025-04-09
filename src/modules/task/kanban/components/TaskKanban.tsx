@@ -45,7 +45,8 @@ export const TaskKanban = () => {
                         updated_at: task.updated_at,
                         order: task.order,
                         status: task.status,
-                        priority: task.priority
+                        priority: task.priority,
+                        done: task.done,
                     }))
                 ),
 
@@ -55,7 +56,7 @@ export const TaskKanban = () => {
                     name: column.name,
                     created_at: column.created_at,
                     updated_at: column.updated_at,
-                    order: column.order
+                    order: column.order,
                 }))
             }
         }

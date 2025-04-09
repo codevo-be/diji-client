@@ -6,7 +6,8 @@ export const KanbanTaskSchema = z.object({
     title: z.string(),
     content: z.string().nullable(),
     sum: z.number().nullable(),
-    order: z.number()
+    order: z.number(),
+    done: z.boolean(),
 })
 
 export const KanbanTasksSchema = z.array(KanbanTaskSchema)

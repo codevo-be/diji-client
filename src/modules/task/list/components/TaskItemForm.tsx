@@ -42,7 +42,7 @@ export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
 
     const handleSubmit = (data: TaskItem) => {
         if (data.id) {
-            updateItem.mutate({ id: data.id, ...data })
+            updateItem.mutate({ id: data.id, ...data }, {onSuccess: onDeleteSuccess})
         } else {
             createItem.mutate(data)
         }
