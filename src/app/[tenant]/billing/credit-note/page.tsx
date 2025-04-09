@@ -7,6 +7,7 @@ import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 import { ButtonCreateCreditNote } from '@billing/credit-note/components/ButtonCreateCreditNote'
 import { CreditNoteTable } from '@billing/credit-note/components/CreditNoteTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
+import { Paginate } from '@components/helpers/Paginate'
 
 export default function Page() {
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
@@ -14,7 +15,7 @@ export default function Page() {
     return (
         <Grid>
             <Grid.Col>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-12">
                     <MenuInvoice />
                     <div className="flex gap-2 flex-shrink-0">
                         <ButtonCreateCreditNote />
@@ -24,6 +25,7 @@ export default function Page() {
             </Grid.Col>
             <Grid.Col>
                 <CreditNoteTable items={queryCreditNotes.data?.data ?? []} />
+                <Paginate className="mt-12" paginate={queryCreditNotes.data?.meta} />
             </Grid.Col>
         </Grid>
     )
