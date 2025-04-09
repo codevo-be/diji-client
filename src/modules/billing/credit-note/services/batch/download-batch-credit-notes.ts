@@ -4,10 +4,10 @@ interface downloadBatchInvoicesProps {
     ids: number[];
 }
 
-export default async function downloadBatchInvoices(data: downloadBatchInvoicesProps) {
+export default async function downloadBatchCreditNotes(data: downloadBatchInvoicesProps) {
     const cookies = await cookiesNext();
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/invoices/batch/pdf`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/credit-notes/batch/pdf`, {
         method: 'POST',
         headers: {
             Accept: 'application/zip',
@@ -22,7 +22,7 @@ export default async function downloadBatchInvoices(data: downloadBatchInvoicesP
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement('a')
             a.href = url
-            a.download = 'factures.zip'
+            a.download = 'credit-notes.zip'
             document.body.appendChild(a)
             a.click()
             a.remove()
