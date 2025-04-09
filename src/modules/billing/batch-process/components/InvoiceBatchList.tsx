@@ -8,10 +8,10 @@ import { formatCurrency, useAuth } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useDestroyBatchInvoices'
+import useDownloadBatchInvoices from '@billing/invoice/hooks/mutations/batch/useDownloadBatchInvoices'
 import { useUpdateBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useUpdateBatchInvoices'
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 import { InvoiceType } from '@billing/invoice/types/invoice'
-import useDownloadBatchInvoices from '@billing/invoice/hooks/mutations/batch/useDownloadBatchInvoices'
 
 export const InvoiceBatchList = () => {
     const { tenant } = useAuth()
