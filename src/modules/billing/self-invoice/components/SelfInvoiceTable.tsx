@@ -3,17 +3,14 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Table, Tag } from '@digico/ui'
-
-import { formatCurrency } from '@digico/utils'
 import { DateHelper, formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 import { months } from 'data/date'
 
 import { SelfInvoiceType } from '../types/self-invoice'
 
-import { useRouteTenant } from 'helpers/route-tenant'
-
 import { SimpleSelect } from '@components/helpers/SimpleSelect'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { SELF_INVOICE_STATUSES } from '../data/self-invoice-statuses'
 

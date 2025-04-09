@@ -3,15 +3,14 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
-import { SimpleSelect, Table, Tag } from '@digico/ui'
 import { Table, Tag } from '@digico/ui'
 import { DateHelper, formatCurrency } from '@digico/utils'
-import { SimpleSelect } from '@helpers/SimpleSelect'
 import clsx from 'clsx'
 import { months } from 'data/date'
 
 import { InvoiceType } from '@billing/invoice/types/invoice'
 
+import { SimpleSelect } from '@helpers/SimpleSelect'
 import { useRouteTenant } from 'helpers/route-tenant'
 
 type Props = {
