@@ -19,6 +19,9 @@ export const TaskFields = () => {
     return (
         <>
             <Form.Group title="Tâche">
+                <div className="text-sm text-gray-500">
+                    Créé par Thibaut le 09/04/2025
+                </div>
                 <Form.Row>
                     <Form.Field name="name" label={'Nom de la tâche'} />
                     <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
