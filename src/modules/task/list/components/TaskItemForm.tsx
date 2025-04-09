@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 
 import { useCreateTaskItem } from '@task/hooks/mutations'
+import { useDestroyTaskItem } from '@task/hooks/mutations/useDestroyContact'
 import { useUpdateTaskItem } from '@task/hooks/mutations/useUpdateTaskItem'
 import { TaskItem } from '@task/types/task_item'
 
@@ -15,9 +16,10 @@ type Props = {
     onUpdateSuccess?: () => void
 }
 
-export const TaskItemForm = ({ task }: Props) => {
+export const TaskItemForm = ({ task, onDeleteSuccess }: Props) => {
     const createItem = useCreateTaskItem()
     const updateItem = useUpdateTaskItem()
+    const deleteItem = useDestroyTaskItem()
 
     const form = useForm<TaskItem>({
         defaultValues: {
@@ -43,7 +45,16 @@ export const TaskItemForm = ({ task }: Props) => {
         } else {
             createItem.mutate(data)
         }
+    }
 
+    const handleDelete = () => {
+        if (task?.id) {
+            deleteItem.mutate(task.id, {
+                onSuccess: () => {
+                    onDeleteSuccess?.()
+                },
+            })
+        }
     }
 
     const isEdit = !!task?.id
@@ -52,9 +63,16 @@ export const TaskItemForm = ({ task }: Props) => {
         <Box>
             <Form useForm={form} onSubmit={handleSubmit}>
                 <TaskFields />
-                <Button type="submit">
-                    {isEdit ? 'Mettre à jour' : 'Ajouter une tâche'}
-                </Button>
+                <div className="flex flex-col gap-2">
+                    <Button type="submit">
+                        {isEdit ? 'Mettre à jour' : 'Ajouter une tâche'}
+                    </Button>
+                    {isEdit && (
+                        <Button intent="error" type="button" onClick={handleDelete}>
+                            Supprimer
+                        </Button>
+                    )}
+                </div>
             </Form>
         </Box>
     )
