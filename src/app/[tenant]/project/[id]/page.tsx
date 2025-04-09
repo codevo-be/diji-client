@@ -13,10 +13,8 @@ import { ProjectFields } from '@task/project/components/ProjectFields'
 
 export default function Page() {
     const { id } = useParams()
-    const data = useReadProject(Number(id))
+    const { data } = useReadProject(Number(id))
     const updateProject = useUpdateProject()
-
-    console.log("Données du projet : ", data.data)
 
     const form = useForm({
         values: data?.data

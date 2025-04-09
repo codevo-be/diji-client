@@ -3,5 +3,5 @@ import { ProjectType } from '@task/types/project'
 
 export const readProject = async (id: number) =>
     HttpService.get<{
-        data: ProjectType[]
+        data: ProjectType
     }>(`/${id}`)

@@ -17,7 +17,7 @@ export const useUpdateProject = () => {
             queryClient.invalidateQueries({
                 queryKey: ['task_projects']
             })
-            toast.success('Le contact a été modifié !')
+            toast.success('Le projet a été modifié !')
         }
     })
 }
