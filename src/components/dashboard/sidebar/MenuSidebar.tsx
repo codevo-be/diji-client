@@ -1,21 +1,33 @@
 'use client'
 
-import { getTenantUrl } from '@digico/utils'
+import { modulesClient } from 'data/modules'
 
 import { ButtonLogout } from '@components/auth/ButtonLogout'
 import { MenuItemSidebar } from '@components/dashboard/sidebar/MenuItemSidebar'
+import { useAuth } from 'helpers/auth-context/useAuth'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { ButtonSettings } from './ButtonSettings'
 
 export const MenuSidebar = () => {
+    const { modules } = useAuth()
+    const routerTenant = useRouteTenant()
+
     return (
         <div className="w-auto bg-main py-8 px-2">
             <ul className="h-full flex flex-col items-center">
-                <MenuItemSidebar name="app" href={getTenantUrl('/')} />
+                <MenuItemSidebar icon="app" href={routerTenant.get('/')} />
 
-                <MenuItemSidebar name={'contact'} href={getTenantUrl('/contact')} />
+                {modules.map((module) => {
+                    //@ts-ignore
+                    const moduleClient = modulesClient[module.slug]
 
-                <MenuItemSidebar name={'billing'} href={getTenantUrl('/billing/invoice')} />
+                    if (!moduleClient) {
+                        return null
+                    }
+
+                    return <MenuItemSidebar key={module.id} icon={moduleClient.icon} href={routerTenant.get(moduleClient.href)} />
+                })}
 
                 <li className="mt-auto flex flex-col">
                     <ButtonSettings />

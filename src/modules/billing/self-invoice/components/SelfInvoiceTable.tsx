@@ -1,10 +1,12 @@
 'use client'
 
 import { Table, Tag } from '@digico/ui'
-import { formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { SelfInvoiceType } from '../types/self-invoice'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { SELF_INVOICE_STATUSES } from '../data/self-invoice-statuses'
 
@@ -13,7 +15,7 @@ type Props = {
 }
 
 export const SelfInvoiceTable = ({ items }: Props) => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
 
     const toSingle = (self_invoice: SelfInvoiceType) => {
         routeWithTenant.push(`/billing/self-invoice/${self_invoice.id}`)

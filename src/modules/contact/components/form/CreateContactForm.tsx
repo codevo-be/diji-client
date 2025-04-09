@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
-import { useRouterWithTenant } from '@digico/utils'
 
 import { useCreateContact } from '@contact/hooks/mutations'
 import { ContactType } from '@contact/types/contact'
 
+import { useRouteTenant } from 'helpers/route-tenant'
+
 import { ContactFields } from './ContactFields'
 
 export const CreateContactForm = () => {
-    const routerWithTenant = useRouterWithTenant()
+    const routerTenant = useRouteTenant()
     const form = useForm<ContactType>()
 
     const createContact = useCreateContact()
@@ -16,7 +17,7 @@ export const CreateContactForm = () => {
     const handleSubmit = (data: ContactType) => {
         createContact.mutate(data, {
             onSuccess: () => {
-                routerWithTenant.push('/contact')
+                routerTenant.push('/contact')
                 return
             }
         })

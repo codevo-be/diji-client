@@ -5,17 +5,18 @@ import { useParams } from 'next/navigation'
 import { FieldValues, useForm } from 'react-hook-form'
 import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl, useAuth, useRouterWithTenant } from '@digico/utils'
+import { useAuth } from '@digico/utils'
 
 import { useEmailCreditNote } from '@billing/credit-note/hooks/mutations/useEmailCreditNote'
 import { useReadCreditNote } from '@billing/credit-note/hooks/queries'
 
 import { CreditNoteContent } from '@billing/credit-note/components/document/CreditNoteContent'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 export default function Page() {
     const { id } = useParams()
     const { tenant } = useAuth()
-    const routerWithTenant = useRouterWithTenant()
+    const routerTenant = useRouteTenant()
 
     const { data } = useReadCreditNote(Number(id))
     const sendEmail = useEmailCreditNote()
@@ -41,7 +42,7 @@ L'équipe ${tenant?.name}`
             },
             {
                 onSuccess: () => {
-                    routerWithTenant.push('/billing/credit-note')
+                    routerTenant.push('/billing/credit-note')
                 }
             }
         )
@@ -50,7 +51,7 @@ L'équipe ${tenant?.name}`
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux notes de crédit" href={getTenantUrl('/billing/credit-note')}>
+                <PageHeader label="Retour aux notes de crédit" href={routerTenant.get('/billing/credit-note')}>
                     Note de crédit {data?.identifier}
                 </PageHeader>
             </Grid.Col>
@@ -61,7 +62,7 @@ L'équipe ${tenant?.name}`
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>
-                    <Button intent={'text'} size={'text'} href={getTenantUrl(`/billing/credit-note/${id}`)} className="mb-8">
+                    <Button intent={'text'} size={'text'} href={routerTenant.get(`/billing/credit-note/${id}`)} className="mb-8">
                         ← Retour
                     </Button>
                     <Form useForm={form} onSubmit={onSubmit}>

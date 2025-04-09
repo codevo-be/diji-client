@@ -4,10 +4,12 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
 import { SimpleSelect, Table, Tag } from '@digico/ui'
-import { formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { InvoiceType } from '@billing/invoice/types/invoice'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 type Props = {
     items: InvoiceType[]
@@ -16,7 +18,7 @@ type Props = {
 export const InvoiceTable = ({ items }: Props) => {
     const searchParams = useSearchParams()
     const router = useRouter()
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
 
     const toSingle = (invoice: InvoiceType) => {
         routeWithTenant.push(`/billing/invoice/${invoice.id}`)

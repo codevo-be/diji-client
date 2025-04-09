@@ -1,10 +1,12 @@
 'use client'
 
 import { Table, Tag } from '@digico/ui'
-import { formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { CreditNoteType } from '../types/credit-note'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { CREDIT_NOTE_STATUSES } from '../data/credit-note-statuses'
 
@@ -13,7 +15,7 @@ type Props = {
 }
 
 export const CreditNoteTable = ({ items }: Props) => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
 
     const toSingle = (credit_note: CreditNoteType) => {
         routeWithTenant.push(`/billing/credit-note/${credit_note.id}`)
