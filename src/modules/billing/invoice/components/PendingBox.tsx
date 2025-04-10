@@ -6,6 +6,7 @@ import { useRouteTenant } from 'helpers/route-tenant'
 
 import { ButtonDownloadInvoice } from './ButtonDownloadInvoice'
 import { ButtonPrintInvoice } from './ButtonPrintInvoice'
+import { ButtonSendToPeppol } from '@billing/invoice/components/ButtonSendToPeppol'
 
 export const PendingBox = () => {
     const { id } = useParams()
@@ -17,6 +18,7 @@ export const PendingBox = () => {
                 <ButtonPrintInvoice className="flex-1" />
                 <ButtonDownloadInvoice className="flex-1" />
             </div>
+            <ButtonSendToPeppol className="flex-1" />
             <Button href={routeTenant.get(`/billing/invoice/${id}/email`)} className="flex-1" intent={'main'}>
                 Envoyer par email
             </Button>
