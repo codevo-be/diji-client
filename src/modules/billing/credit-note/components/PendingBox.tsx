@@ -2,6 +2,7 @@ import { useParams } from 'next/navigation'
 
 import { Box, Button } from '@digico/ui'
 
+import { ButtonSendToPeppol } from '@billing/credit-note/components/ButtonSendToPeppol'
 import { useRouteTenant } from 'helpers/route-tenant'
 
 import { ButtonDownloadCreditNote } from './ButtonDownloadCreditNote'
@@ -17,6 +18,7 @@ export const PendingBox = () => {
                 <ButtonPrintCreditNote className="flex-1" />
                 <ButtonDownloadCreditNote className="flex-1" />
             </div>
+            <ButtonSendToPeppol className="flex-1" />
             <Button href={routeTenant.get(`/billing/credit-note/${id}/email`)} className="flex-1" intent={'main'}>
                 Envoyer par email
             </Button>
