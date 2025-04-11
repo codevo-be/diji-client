@@ -1,15 +1,15 @@
 'use client'
 
-import { Table, Tag } from '@digico/ui'
-import { formatCurrency } from '@digico/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
+
+import { Table, Tag, useQueryParams } from '@digico/ui'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { RecurringInvoiceType } from '../types/recurring-invoice'
 
-
-import { useRouteTenant } from 'helpers/route-tenant'
 import { SimpleSelect } from '@components/helpers/SimpleSelect'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { RECURRING_INVOICE_STATUSES } from '../data/recurring-invoice-statuses'
 
