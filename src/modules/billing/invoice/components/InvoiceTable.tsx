@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
-import { Table, Tag } from '@digico/ui'
+import { Table, Tag, useQueryParams } from '@digico/ui'
 import { DateHelper, formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 import { months } from 'data/date'
