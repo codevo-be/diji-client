@@ -10,7 +10,7 @@ export const INVOICE_STATUSES = {
         color: 'primary'
     },
     payed: {
-        label: 'Payé',
+        label: 'Payée',
         value: 'payed',
         color: 'success'
     },

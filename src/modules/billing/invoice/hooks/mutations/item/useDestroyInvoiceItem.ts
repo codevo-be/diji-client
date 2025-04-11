@@ -12,9 +12,13 @@ export const useDestroyInvoiceItem = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: () => {
+        onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({
                 queryKey: ['invoice-items']
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: ['invoices', { id: Number(variables.invoice_id) }]
             })
 
             toast.success('La ligne a été supprimée !')

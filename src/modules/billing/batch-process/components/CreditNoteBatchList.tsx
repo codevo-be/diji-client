@@ -4,13 +4,16 @@ import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { CREDIT_NOTE_STATUSES } from '@billing/credit-note/data/credit-note-statuses'
 import { Box, Button, Form, Grid, Table, Tag, useQueryParams } from '@digico/ui'
-import { formatCurrency, useAuth } from '@digico/utils'
+import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useDestroyBatchCreditNotes'
+import useDownloadBatchCreditNotes from '@billing/credit-note/hooks/mutations/batch/useDownloadBatchCreditNotes'
 import { useUpdateBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useUpdateBatchCreditNotes'
 import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 import { CreditNoteType } from '@billing/credit-note/types/credit-note'
+
+import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const CreditNoteBatchList = () => {
     const { tenant } = useAuth()
@@ -19,6 +22,7 @@ export const CreditNoteBatchList = () => {
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
     const destroyBatchCreditNotes = useDestroyBatchCreditNotes()
     const updateBatchCreditNotes = useUpdateBatchCreditNotes()
+    const downloadBatchCreditsNotes = useDownloadBatchCreditNotes();
 
     const form = useForm()
 
@@ -63,6 +67,12 @@ export const CreditNoteBatchList = () => {
     const onDestroy = () => {
         destroyBatchCreditNotes.mutate({
             credit_note_ids: formList.watch('invoices').map((id) => Number(id))
+        })
+    }
+
+    const onDownload = () => {
+        downloadBatchCreditsNotes.mutate({
+            ids: formList.watch('invoices').map((id) => Number(id))
         })
     }
 
@@ -143,6 +153,9 @@ export const CreditNoteBatchList = () => {
                                         </span>
                                         <Button type="submit" className="w-full" isLoading={updateBatchCreditNotes.isPending}>
                                             Appliquer les modifications
+                                        </Button>
+                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchCreditsNotes.isPending} onClick={onDownload} >
+                                            Télécharger
                                         </Button>
                                         <Button
                                             type="button"

@@ -5,16 +5,21 @@ import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 import { useReadSelfInvoices } from '@billing/self-invoice/hooks/queries'
 
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
+import { BoxStats } from '@billing/self-invoice/components/BoxStats'
 import { ButtonCreateSelfInvoice } from '@billing/self-invoice/components/ButtonCreateSelfInvoice'
 import { SelfInvoiceTable } from '@billing/self-invoice/components/SelfInvoiceTable'
+import { Paginate } from '@components/helpers/Paginate'
 
 export default function Page() {
-    const querySelfInvoices = useReadSelfInvoices(useQueryParams())
+    const querySelfInvoices = useReadSelfInvoices({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>
             <Grid.Col>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-12">
                     <MenuInvoice />
                     <div className="flex gap-2 flex-shrink-0">
                         <QuerySearchBar />
@@ -22,8 +27,12 @@ export default function Page() {
                     </div>
                 </div>
             </Grid.Col>
+            <Grid.Col column={4}>
+                <BoxStats />
+            </Grid.Col>
             <Grid.Col>
                 <SelfInvoiceTable items={querySelfInvoices.data?.data ?? []} />
+                <Paginate className="mt-12" paginate={querySelfInvoices.data?.meta} />
             </Grid.Col>
         </Grid>
     )

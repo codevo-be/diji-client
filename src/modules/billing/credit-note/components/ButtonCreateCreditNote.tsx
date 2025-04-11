@@ -1,10 +1,11 @@
 import { Button } from '@digico/ui'
-import { useRouterWithTenant } from '@digico/utils'
 
 import { useCreateCreditNote } from '../hooks/mutations'
 
+import { useRouteTenant } from 'helpers/route-tenant'
+
 export const ButtonCreateCreditNote = () => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
     const { mutate, isPending, isSuccess } = useCreateCreditNote()
 
     const onCreateCreditNote = () => {

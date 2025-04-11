@@ -1,15 +1,16 @@
 import { useParams } from 'next/navigation'
 
 import { Box, Button } from '@digico/ui'
-import { useRouterWithTenant } from '@digico/utils'
 
 import { useDestroyInvoice, useUpdateInvoice } from '../hooks/mutations'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { INVOICE_STATUS_PENDING } from '../data/invoice-statuses'
 
 export const DraftBox = () => {
     const { id } = useParams()
-    const router = useRouterWithTenant()
+    const router = useRouteTenant()
 
     const destroyInvoice = useDestroyInvoice()
     const updateInvoice = useUpdateInvoice()

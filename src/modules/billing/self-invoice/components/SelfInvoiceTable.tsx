@@ -1,10 +1,16 @@
 'use client'
 
+import { useRouter, useSearchParams } from 'next/navigation'
+
 import { Table, Tag } from '@digico/ui'
-import { formatCurrency, useRouterWithTenant } from '@digico/utils'
+import { DateHelper, formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
+import { months } from 'data/date'
 
 import { SelfInvoiceType } from '../types/self-invoice'
+
+import { SimpleSelect } from '@components/helpers/SimpleSelect'
+import { useRouteTenant } from 'helpers/route-tenant'
 
 import { SELF_INVOICE_STATUSES } from '../data/self-invoice-statuses'
 
@@ -13,10 +19,38 @@ type Props = {
 }
 
 export const SelfInvoiceTable = ({ items }: Props) => {
-    const routeWithTenant = useRouterWithTenant()
+    const routeWithTenant = useRouteTenant()
+    const searchParams = useSearchParams()
+    const router = useRouter()
 
     const toSingle = (self_invoice: SelfInvoiceType) => {
         routeWithTenant.push(`/billing/self-invoice/${self_invoice.id}`)
+    }
+
+    const onChangeStatus = (data: { label: string; value: string | number } | null) => {
+        const params = new URLSearchParams(searchParams)
+
+        if (!data) {
+            params.delete('status')
+        } else {
+            params.delete('search')
+            params.set('status', String(data.value))
+        }
+
+        router.push(`?${params.toString()}`)
+    }
+
+    const onChangeDate = (data: { label: string; value: string | number } | null) => {
+        const params = new URLSearchParams(searchParams)
+
+        if (!data) {
+            params.delete('month')
+        } else {
+            params.delete('search')
+            params.set('month', String(data.value))
+        }
+
+        router.push(`?${params.toString()}`)
     }
 
     return (
@@ -24,16 +58,20 @@ export const SelfInvoiceTable = ({ items }: Props) => {
             <Table.Head>ID</Table.Head>
             <Table.Head>Expéditeur</Table.Head>
             <Table.Head>Destinataire</Table.Head>
-            <Table.Head>Date</Table.Head>
+            <Table.Head>
+                <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
+            </Table.Head>
             <Table.Head>Sous-total</Table.Head>
             <Table.Head>Total</Table.Head>
-            <Table.Head>Statut</Table.Head>
+            <Table.Head>
+                <SimpleSelect onChange={onChangeStatus} name="status" placeholder="Statut de la facture" options={Object.values(SELF_INVOICE_STATUSES)} />
+            </Table.Head>
             <Table.Col name="identifier" />
             <Table.Col name="issuer.name" />
             <Table.Col name="recipient.name" />
             <Table.Col>
                 {(invoice: SelfInvoiceType) => {
-                    return invoice.date
+                    return DateHelper.format(invoice.date)
                 }}
             </Table.Col>
             <Table.Col>

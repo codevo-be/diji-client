@@ -1,14 +1,16 @@
 import { Menu } from '@digico/ui'
-import { getTenantUrl } from '@digico/utils'
+
+import { useRouteTenant } from 'helpers/route-tenant'
 
 export const MenuInvoice = () => {
+    const routeTenant = useRouteTenant()
     return (
         <Menu>
-            <Menu.Item href={getTenantUrl('/billing/invoice')}>Factures</Menu.Item>
-            <Menu.Item href={getTenantUrl('/billing/credit-note')}>Notes de crédits</Menu.Item>
-            <Menu.Item href={getTenantUrl('/billing/self-invoice')}>Autofacturations</Menu.Item>
-            <Menu.Item href={getTenantUrl('/billing/recurring-invoice')}>Factures récurrentes</Menu.Item>
-            <Menu.Item href={getTenantUrl('/billing/batch')}>Traitement des documents</Menu.Item>
+            <Menu.Item href={routeTenant.get('/billing/invoice')}>Factures</Menu.Item>
+            <Menu.Item href={routeTenant.get('/billing/credit-note')}>Notes de crédits</Menu.Item>
+            <Menu.Item href={routeTenant.get('/billing/self-invoice')}>Autofacturations</Menu.Item>
+            <Menu.Item href={routeTenant.get('/billing/recurring-invoice')}>Factures récurrentes</Menu.Item>
+            <Menu.Item href={routeTenant.get('/billing/batch')}>Traitement des documents</Menu.Item>
         </Menu>
     )
 }

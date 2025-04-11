@@ -17,6 +17,10 @@ export const useUpdateInvoiceItem = () => {
                 queryKey: ['invoice-items', { invoice_id: Number(variables.invoice_id) }]
             })
 
+            queryClient.invalidateQueries({
+                queryKey: ['invoices', { id: Number(variables.invoice_id) }]
+            })
+
             toast.success('La ligne à été modifiée !')
         }
     })

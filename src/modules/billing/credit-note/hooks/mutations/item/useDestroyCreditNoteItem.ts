@@ -12,9 +12,13 @@ export const useDestroyCreditNoteItem = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: () => {
+        onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({
                 queryKey: ['credit-note-items']
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: ['credit-notes', { id: Number(variables.credit_note_id) }]
             })
 
             toast.success('La ligne a été supprimée !')

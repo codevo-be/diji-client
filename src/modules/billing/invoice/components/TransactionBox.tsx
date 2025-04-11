@@ -56,7 +56,7 @@ export const TransactionsBox = () => {
 
                 {data.status === INVOICE_STATUS_PENDING && (
                     <Button isLoading={updateInvoice.isPending} onClick={onChangeStatusToPayed} className="w-full mt-12" intent={'success'}>
-                        Facture payé
+                        Facture payée
                     </Button>
                 )}
             </Box>
