@@ -1,7 +1,6 @@
 'use client'
 
 import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
-import { Paginate } from '@helpers/Paginate'
 
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 
@@ -9,6 +8,7 @@ import { BoxStats } from '@billing/invoice/components/BoxStats'
 import { ButtonCreateInvoice } from '@billing/invoice/components/ButtonCreateInvoice'
 import { InvoiceTable } from '@billing/invoice/components/InvoiceTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
+import { Paginate } from '@helpers/Paginate'
 
 export default function Page() {
     const queryInvoices = useReadInvoices({

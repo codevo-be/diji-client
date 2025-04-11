@@ -13,7 +13,7 @@
                     ["^node:"], // 2. Modules Node.js
                     ["^react", "^@?\\w"], // 3. Importations externes (modules de node_modules, y compris 'class-variance-authority')
                     ["services", "hooks", "types"], // 3. Imports aliasés (absolus) avec priorités spécifiques
-                    ["layouts", "components"], // 3. Imports aliasés (absolus) avec priorités spécifiques
+                    ["layouts", "components", "helpers"], // 3. Imports aliasés (absolus) avec priorités spécifiques
                     ["^\\../"], // 4. Imports relatifs à un niveau supérieur
                     ["^\\./"] // 5. Imports relatifs du même niveau
                 ]
