@@ -10,7 +10,7 @@ import { useRouteTenant } from 'helpers/route-tenant'
 import { ButtonSettings } from './ButtonSettings'
 
 export const MenuSidebar = () => {
-    const { modules } = useAuth()
+    const { modules = [] } = useAuth()
     const routerTenant = useRouteTenant()
 
     return (
@@ -28,8 +28,6 @@ export const MenuSidebar = () => {
 
                     return <MenuItemSidebar key={module.id} icon={moduleClient.icon} href={routerTenant.get(moduleClient.href)} />
                 })}
-
-                <MenuItemSidebar name={'task'} href={getTenantUrl('/project')} />
 
                 <li className="mt-auto flex flex-col">
                     <ButtonSettings />

@@ -8,5 +8,10 @@ export const modulesClient = {
         icon: 'billing',
         name: 'Finance',
         href: '/billing/invoice'
+    },
+    task: {
+        icon: 'task',
+        name: 'Tâche',
+        href: '/task/invoice'
     }
 }
