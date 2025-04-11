@@ -2,11 +2,11 @@ import { useParams } from 'next/navigation'
 
 import { Box, Button } from '@digico/ui'
 
+import { ButtonSendToPeppol } from '@billing/invoice/components/ButtonSendToPeppol'
 import { useRouteTenant } from 'helpers/route-tenant'
 
 import { ButtonDownloadInvoice } from './ButtonDownloadInvoice'
 import { ButtonPrintInvoice } from './ButtonPrintInvoice'
-import { ButtonSendToPeppol } from '@billing/invoice/components/ButtonSendToPeppol'
 
 export const PendingBox = () => {
     const { id } = useParams()
