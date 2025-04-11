@@ -19,6 +19,7 @@ type Props = {
 
 export const InvoiceTable = ({ items }: Props) => {
     const searchParams = useSearchParams()
+    const params = useQueryParams()
     const router = useRouter()
     const routeWithTenant = useRouteTenant()
 
@@ -58,21 +59,18 @@ export const InvoiceTable = ({ items }: Props) => {
             <Table.Head>Client</Table.Head>
             <Table.Head>Adresse</Table.Head>
             <Table.Head>
-                <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
+                <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} defaultValue={Number(params.month)} />
             </Table.Head>
 
             <Table.Head>Sous-total</Table.Head>
+            <Table.Head>Total</Table.Head>
             <Table.Head>
-                Total (
-                {formatCurrency(
-                    items.reduce((current, item) => {
-                        return current + (item.total ?? 0)
-                    }, 0)
-                )}
-                )
-            </Table.Head>
-            <Table.Head>
-                <SimpleSelect onChange={onChangeStatus} placeholder="Statut de la facture" options={Object.values(INVOICE_STATUSES)} />
+                <SimpleSelect
+                    onChange={onChangeStatus}
+                    placeholder="Statut de la facture"
+                    defaultValue={params.status}
+                    options={Object.values(INVOICE_STATUSES)}
+                />
             </Table.Head>
 
             <Table.Col name="identifier" />

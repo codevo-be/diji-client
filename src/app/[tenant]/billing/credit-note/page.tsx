@@ -4,13 +4,17 @@ import { Grid, QuerySearchBar, useQueryParams } from '@digico/ui'
 
 import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 
+import { BoxStats } from '@billing/credit-note/components/BoxStats'
 import { ButtonCreateCreditNote } from '@billing/credit-note/components/ButtonCreateCreditNote'
 import { CreditNoteTable } from '@billing/credit-note/components/CreditNoteTable'
 import { MenuInvoice } from '@billing/invoice/components/MenuInvoice'
 import { Paginate } from '@components/helpers/Paginate'
 
 export default function Page() {
-    const queryCreditNotes = useReadCreditNotes(useQueryParams())
+    const queryCreditNotes = useReadCreditNotes({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>
@@ -22,6 +26,9 @@ export default function Page() {
                         <QuerySearchBar />
                     </div>
                 </div>
+            </Grid.Col>
+            <Grid.Col column={4}>
+                <BoxStats />
             </Grid.Col>
             <Grid.Col>
                 <CreditNoteTable items={queryCreditNotes.data?.data ?? []} />
