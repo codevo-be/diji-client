@@ -62,7 +62,6 @@ export const SelfInvoiceTable = ({ items }: Props) => {
                 <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
             </Table.Head>
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>Total</Table.Head>
             <Table.Head>
                 <SimpleSelect onChange={onChangeStatus} name="status" placeholder="Statut de la facture" options={Object.values(SELF_INVOICE_STATUSES)} />
             </Table.Head>
@@ -77,11 +76,6 @@ export const SelfInvoiceTable = ({ items }: Props) => {
             <Table.Col>
                 {(invoice: SelfInvoiceType) => {
                     return formatCurrency(invoice.subtotal ?? 0)
-                }}
-            </Table.Col>
-            <Table.Col>
-                {(invoice: SelfInvoiceType) => {
-                    return formatCurrency(invoice.total ?? 0)
                 }}
             </Table.Col>
             <Table.Col>

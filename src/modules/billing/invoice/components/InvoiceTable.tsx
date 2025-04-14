@@ -63,7 +63,6 @@ export const InvoiceTable = ({ items }: Props) => {
             </Table.Head>
 
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>Total</Table.Head>
             <Table.Head>
                 <SimpleSelect
                     onChange={onChangeStatus}
@@ -91,11 +90,6 @@ export const InvoiceTable = ({ items }: Props) => {
             <Table.Col>
                 {(invoice: InvoiceType) => {
                     return formatCurrency(invoice.subtotal ?? 0)
-                }}
-            </Table.Col>
-            <Table.Col>
-                {(invoice: InvoiceType) => {
-                    return formatCurrency(invoice.total ?? 0)
                 }}
             </Table.Col>
             <Table.Col className="flex">
