@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CREDIT_NOTE_STATUSES } from '@billing/credit-note/data/credit-note-statuses'
 import { INVOICE_STATUSES } from '@billing/invoice/data/invoice-statuses'
 import { SELF_INVOICE_STATUSES } from '@billing/self-invoice/data/self-invoice-statuses'
@@ -17,22 +17,26 @@ import { SimpleSelect } from '@components/helpers/SimpleSelect'
 export default function Page() {
     const searchParams = useSearchParams()
     const router = useRouter()
-    const [type, setType] = useState('invoice')
+    const [date, setDate] = useState()
+    const [dateEnd, setDateEnd] = useState()
     const [statuses, setStatuses] = useState(Object.values(INVOICE_STATUSES))
 
-    const onSetFilter = (e: any) => {
+    const onSetDate = (e: any) => {
         const date = e.target.value
-        const params = new URLSearchParams(searchParams)
-        params.set('date', date)
-        router.push(`?${params.toString()}`)
+        setDate(date)
+    }
+
+    const onSetDateEnd = (e: any) => {
+        const date = e.target.value
+        setDateEnd(date)
     }
 
     const onChangeType = (option: { label: string; value: string | number } | null) => {
+        const params = new URLSearchParams(searchParams)
+
         if (!option) {
             return
         }
-
-        setType(String(option.value))
 
         if (option.value === 'invoice') {
             setStatuses(Object.values(INVOICE_STATUSES))
@@ -41,6 +45,9 @@ export default function Page() {
         } else if (option.value === 'credit_note') {
             setStatuses(Object.values(CREDIT_NOTE_STATUSES))
         }
+
+        params.set('type', String(option.value))
+        router.push(`?${params.toString()}`)
     }
 
     const onChangeStatut = (option: { label: string; value: string | number } | null) => {
@@ -55,6 +62,17 @@ export default function Page() {
         router.push(`?${params.toString()}`)
     }
 
+    useEffect(() => {
+        if (!date || !dateEnd) {
+            return
+        }
+
+        const params = new URLSearchParams(searchParams)
+        params.set('date_from', String(date))
+        params.set('date_to', String(dateEnd))
+        router.push(`?${params.toString()}`)
+    }, [searchParams, router, date, dateEnd])
+
     return (
         <Grid>
             <Grid.Col>
@@ -63,8 +81,8 @@ export default function Page() {
 
             <Grid.Col className="flex gap-16 border-b border-b-grey-600 py-4">
                 <SimpleSelect
+                    defaultValue={searchParams.get('type') ?? 'invoice'}
                     onChange={onChangeType}
-                    defaultValue={'invoice'}
                     label="Type de document"
                     required={true}
                     options={[
@@ -82,13 +100,25 @@ export default function Page() {
                         }
                     ]}
                 />
-                <Form.Field onChange={onSetFilter} type="date" name="date" label="Filtrer par date" />
-                <SimpleSelect label="Status" onChange={onChangeStatut} placeholder="Sélectionner un status" options={statuses} />
+                <div className="flex flex-col gap-2">
+                    <span className="text-sm font-medium text-gray-700">Filtre par date</span>
+                    <div className="flex gap-2">
+                        <Form.Field onChange={onSetDate} type="date" defaultValue={searchParams.get('date_from') ?? ''} />
+                        <Form.Field onChange={onSetDateEnd} type="date" defaultValue={searchParams.get('date_to') ?? ''} />
+                    </div>
+                </div>
+                <SimpleSelect
+                    label="Status"
+                    onChange={onChangeStatut}
+                    placeholder="Sélectionner un status"
+                    defaultValue={searchParams.get('status') ?? ''}
+                    options={statuses}
+                />
             </Grid.Col>
 
-            {type === 'invoice' && <InvoiceBatchList />}
-            {type === 'self_invoice' && <SelfInvoiceBatchList />}
-            {type === 'credit_note' && <CreditNoteBatchList />}
+            {(searchParams.get('type') === 'invoice' || !searchParams.get('type')) && <InvoiceBatchList />}
+            {searchParams.get('type') === 'self_invoice' && <SelfInvoiceBatchList />}
+            {searchParams.get('type') === 'credit_note' && <CreditNoteBatchList />}
         </Grid>
     )
 }
