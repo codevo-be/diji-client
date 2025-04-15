@@ -19,10 +19,11 @@ export default async function downloadBachSelfInvoice(data: downloadBatchSelfInv
     })
         .then((response) => response.blob())
         .then((blob) => {
+            const date = new Date().toISOString().split('T')[0];
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement('a')
             a.href = url
-            a.download = 'autofacturations.zip'
+            a.download = `autofacturations-${date}.zip`
             document.body.appendChild(a)
             a.click()
             a.remove()
