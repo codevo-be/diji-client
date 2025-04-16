@@ -6,6 +6,7 @@ export const MenuInvoice = () => {
     const routeTenant = useRouteTenant()
     return (
         <Menu>
+            <Menu.Item href={routeTenant.get('/billing/estimate')}>Devis</Menu.Item>
             <Menu.Item href={routeTenant.get('/billing/invoice')}>Factures</Menu.Item>
             <Menu.Item href={routeTenant.get('/billing/credit-note')}>Notes de crédits</Menu.Item>
             <Menu.Item href={routeTenant.get('/billing/self-invoice')}>Autofacturations</Menu.Item>

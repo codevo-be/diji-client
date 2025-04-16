@@ -15,7 +15,7 @@ export const InvoiceFooter = ({ data }: Props) => {
                     <strong>{DateHelper.format(data.due_date)}</strong> en mentionnant la référence{' '}
                     <strong>{formatStructuredCommunication(data.structured_communication)}</strong>
                 </p>
-                <p className="mt-4">Merci de votre confiance !</p>
+                <p className="mt-4">Merci pour votre confiance !</p>
             </div>
         )
     )
