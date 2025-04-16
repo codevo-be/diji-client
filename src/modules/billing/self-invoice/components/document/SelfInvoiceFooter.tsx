@@ -14,7 +14,7 @@ export const SelfInvoiceFooter = ({ data }: Props) => {
                     Le montant <strong>{formatCurrency(data.total ?? 0)}</strong> sera versé sur le compte {(data.issuer?.iban ?? '').toUpperCase()} par{' '}
                     {data.recipient?.name}
                 </p>
-                <p className="mt-4">Merci de votre confiance !</p>
+                <p className="mt-4">Merci pour votre confiance !</p>
             </div>
         )
     )
