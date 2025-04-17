@@ -36,6 +36,5 @@ export const ExpenseTable = ({ items }: Props) => {
             <Table.Col name="total" />
             <Table.Col name="document_type" />
         </Table>
-
     )
 }
