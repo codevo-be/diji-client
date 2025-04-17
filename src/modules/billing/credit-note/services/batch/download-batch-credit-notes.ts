@@ -19,10 +19,11 @@ export default async function downloadBatchCreditNotes(data: downloadBatchCredit
     })
         .then((response) => response.blob())
         .then((blob) => {
+            const date = new Date().toISOString().split('T')[0];
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement('a')
             a.href = url
-            a.download = 'credit-notes.zip'
+            a.download = `credit-notes-${date}.zip`
             document.body.appendChild(a)
             a.click()
             a.remove()

@@ -45,7 +45,6 @@ export const RecurringInvoiceTable = ({ items }: Props) => {
             <Table.Head>ID</Table.Head>
             <Table.Head>Client</Table.Head>
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>Total</Table.Head>
             <Table.Head>
                 <SimpleSelect
                     onChange={onChangeStatus}
@@ -60,11 +59,6 @@ export const RecurringInvoiceTable = ({ items }: Props) => {
             <Table.Col>
                 {(invoice: RecurringInvoiceType) => {
                     return formatCurrency(invoice.subtotal ?? 0)
-                }}
-            </Table.Col>
-            <Table.Col>
-                {(invoice: RecurringInvoiceType) => {
-                    return formatCurrency(invoice.total ?? 0)
                 }}
             </Table.Col>
             <Table.Col>

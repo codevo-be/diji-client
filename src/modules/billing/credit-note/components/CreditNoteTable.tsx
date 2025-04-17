@@ -62,7 +62,6 @@ export const CreditNoteTable = ({ items }: Props) => {
                 <SimpleSelect onChange={onChangeDate} placeholder="Mois" options={months} />
             </Table.Head>
             <Table.Head>Sous-total</Table.Head>
-            <Table.Head>Total</Table.Head>
             <Table.Head>
                 <SimpleSelect onChange={onChangeStatus} name="status" placeholder="Statut de la note de crédit" options={Object.values(CREDIT_NOTE_STATUSES)} />
             </Table.Head>
@@ -84,11 +83,6 @@ export const CreditNoteTable = ({ items }: Props) => {
             <Table.Col>
                 {(credit_note: CreditNoteType) => {
                     return formatCurrency(credit_note.subtotal ?? 0)
-                }}
-            </Table.Col>
-            <Table.Col>
-                {(credit_note: CreditNoteType) => {
-                    return formatCurrency(credit_note.total ?? 0)
                 }}
             </Table.Col>
             <Table.Col>

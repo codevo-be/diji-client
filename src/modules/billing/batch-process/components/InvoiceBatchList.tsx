@@ -22,7 +22,7 @@ export const InvoiceBatchList = () => {
     const queryInvoices = useReadInvoices(useQueryParams())
     const destroyInvoices = useDestroyBatchInvoices()
     const updateBatchInvoices = useUpdateBatchInvoices()
-    const downloadBatchInvoices = useDownloadBatchInvoices();
+    const downloadBatchInvoices = useDownloadBatchInvoices()
 
     const form = useForm()
 
@@ -65,10 +65,11 @@ export const InvoiceBatchList = () => {
     }
 
     const downloadInvoices = () => {
-        downloadBatchInvoices.mutate({ ids: formList.watch('invoices').map((id) => Number(id)) },
+        downloadBatchInvoices.mutate(
+            { ids: formList.watch('invoices').map((id) => Number(id)) },
             {
                 onError: (error: any) => {
-                    setErrors(error.errors);
+                    setErrors(error.errors)
                 }
             }
         )
@@ -93,7 +94,6 @@ export const InvoiceBatchList = () => {
                         <Table.Head>Client</Table.Head>
                         <Table.Head>Date</Table.Head>
                         <Table.Head>Sous-total</Table.Head>
-                        <Table.Head>Total</Table.Head>
 
                         <Table.Col>
                             {({ id }: InvoiceType) => {
@@ -121,11 +121,6 @@ export const InvoiceBatchList = () => {
                         <Table.Col>
                             {(invoice: InvoiceType) => {
                                 return formatCurrency(invoice.subtotal ?? 0)
-                            }}
-                        </Table.Col>
-                        <Table.Col>
-                            {(invoice: InvoiceType) => {
-                                return formatCurrency(invoice.total ?? 0)
                             }}
                         </Table.Col>
                         <Table.Col>
@@ -158,7 +153,12 @@ export const InvoiceBatchList = () => {
                                         <Button type="submit" className="w-full" isLoading={updateBatchInvoices.isPending}>
                                             Appliquer les modifications
                                         </Button>
-                                        <Button type='button' intent='grey200' className="w-full" onClick={downloadInvoices} isLoading={downloadBatchInvoices.isPending}>
+                                        <Button
+                                            type="button"
+                                            intent="grey200"
+                                            className="w-full"
+                                            onClick={downloadInvoices}
+                                            isLoading={downloadBatchInvoices.isPending}>
                                             Télécharger
                                         </Button>
                                         <Button type="button" className="w-full" intent={'error'} onClick={onDestroy} isLoading={destroyInvoices.isPending}>
