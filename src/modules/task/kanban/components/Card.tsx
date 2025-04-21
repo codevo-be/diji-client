@@ -2,12 +2,10 @@ import { useState } from 'react'
 import { formatCurrency } from '@digico/utils'
 import { useKanbanContext } from '@task/kanban/contexts/KanbanContext'
 
-import { KanbanTaskType } from '@task/types/kanban-task.types'
-
 import { Icon } from '@components/Icon'
 
 type Props = {
-    item: KanbanTaskType
+    item: any
 }
 
 export const Card = ({ item }: Props) => {
@@ -15,9 +13,11 @@ export const Card = ({ item }: Props) => {
     const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null)
 
     const handleMouseDown = () => {
-        setClickTimer(setTimeout(() => {
-            setClickTimer(null)
-        }, 200))
+        setClickTimer(
+            setTimeout(() => {
+                setClickTimer(null)
+            }, 200)
+        )
     }
 
     const handleMouseUp = () => {
@@ -29,11 +29,7 @@ export const Card = ({ item }: Props) => {
     }
 
     return (
-        <div
-            className="relative rounded bg-white border border-grey-200 p-6 cursor-pointer"
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-        >
+        <div className="relative rounded bg-white border border-grey-200 p-6 cursor-pointer" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
             <div className="flex justify-between gap-4">
                 <p className="font-medium text-xs">{item.title}</p>
                 <button onClick={() => setTaskOpen(item)}>

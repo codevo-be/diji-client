@@ -7,9 +7,11 @@ export type IconName =
 	| "contact"
 	| "cross"
 	| "edit"
+	| "list"
 	| "logout"
+	| "project"
 	| "search"
 	| "settings"
 	| "sort"
-	| "task"
+	| "table"
 	| "upload";

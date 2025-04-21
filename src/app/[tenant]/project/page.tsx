@@ -2,12 +2,15 @@
 
 import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
 
-import { useReadProjects } from '@task/project/hooks/queries'
+import { useReadProjects } from '@project/hooks/queries'
 
-import { ProjectTable } from '@task/project/components/ProjectTable'
+import { ProjectTable } from '@project/components/molecules/ProjectTable'
 
 export default function Page() {
-    const queryProjects = useReadProjects(useQueryParams())
+    const queryProjects = useReadProjects({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>
@@ -21,7 +24,6 @@ export default function Page() {
                 </div>
             </Grid.Col>
             <Grid.Col>
-                {/* @ts-ignore */}
                 <ProjectTable items={queryProjects.data?.data ?? []} />
             </Grid.Col>
         </Grid>

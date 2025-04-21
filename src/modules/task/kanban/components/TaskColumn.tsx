@@ -3,8 +3,7 @@ import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useKanbanContext } from '@task/kanban/contexts/KanbanContext'
 
-import { useUpdateTaskColumn } from '@task/hooks/mutations/useUpdateTaskColumns'
-import { KanbanTaskType } from '@task/types/kanban-task.types'
+import { useUpdateTaskGroup } from '@task/hooks/task-group/mutations/useUpdateTaskGroup'
 
 import { Card } from '@task/kanban/components/Card'
 import SortableTaskItem from '@task/kanban/components/SortableTaskItem'
@@ -15,13 +14,13 @@ import { AddCard } from './AddTaskCard'
 
 type ColumnProps = {
     id: string
-    items: KanbanTaskType[]
+    items: any[]
 }
 
 export const Column = ({ id, items = [] }: ColumnProps) => {
     const { columns } = useKanbanContext()
     const { setNodeRef } = useDroppable({ id })
-    const updateColumnMutation = useUpdateTaskColumn()
+    const updateColumnMutation = useUpdateTaskGroup()
 
     // Trouver la colonne actuelle
     const status = React.useMemo(() => {
@@ -41,7 +40,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         }
 
         updateColumnMutation.mutate(
-            { columnId: status.id, name: columnTitle },
+            { project_id: Number(id), id: status.id, name: columnTitle },
             {
                 onSuccess: () => {
                     setIsEditing(false)
@@ -65,18 +64,14 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
                         autoFocus
                     />
                 ) : (
-                    <h2
-                        className="font-semibold text-sm cursor-pointer hover:underline w-full"
-                        onClick={() => setIsEditing(true)}
-                    >
+                    <h2 className="font-semibold text-sm cursor-pointer hover:underline w-full" onClick={() => setIsEditing(true)}>
                         {status ? status.name : null} {items.length > 0 ? `(${items.length})` : null}
                     </h2>
                 )}
-
             </div>
 
             {/* Ajout d'une tâche */}
-            <AddCard column={status} />
+            <AddCard />
 
             {/* Liste des tâches */}
             <div className="flex-grow-0 h-full overflow-y-auto">

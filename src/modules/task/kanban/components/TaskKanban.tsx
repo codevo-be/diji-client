@@ -5,14 +5,12 @@ import { closestCorners, defaultDropAnimation, DndContext, DragEndEvent, DragOve
 import { arrayMove } from '@dnd-kit/sortable'
 import { KanbanCardListType, KanbanContext } from '@task/kanban/contexts/KanbanContext'
 
-import { useUpdateMultipleTasks } from '@task/hooks/mutations/useUpdateMultipleTasks'
-import { useReadColumns } from '@task/hooks/queries'
+import { useReadTaskGroups } from '@task/hooks/task-group/queries/useReadTaskGroups'
 import { useKanbanDragAndDrop } from '@task/hooks/useKanbanDragAndDrop'
-import { KanbanTaskType } from '@task/types/kanban-task.types'
 
 import { Card } from '@task/kanban/components/Card'
 
-import { findBoardSectionContainer, getIdOfColumn, initialize } from '../../utils/kanban'
+import { findBoardSectionContainer, initialize } from '../../utils/kanban'
 
 import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
@@ -20,7 +18,9 @@ import { Column } from './TaskColumn'
 export const TaskKanban = () => {
     const { id } = useParams()
     // @ts-ignore
-    const queryKanban = useReadColumns(id)
+    const queryKanban = useReadTaskGroups(Number(id), {
+        include: ['items']
+    })
 
     const parseTaskData = (rawData: any) => {
         const columns = rawData.data ?? []
@@ -34,7 +34,7 @@ export const TaskKanban = () => {
                 updated_at: null,
 
                 tasks: columns.flatMap((column: any) =>
-                    column.items.map((task: any) => ({
+                    (column.items ?? []).map((task: any) => ({
                         id: task.id,
                         kanban_id: 1,
                         category_id: column.id,
@@ -46,7 +46,7 @@ export const TaskKanban = () => {
                         order: task.order,
                         status: task.status,
                         priority: task.priority,
-                        done: task.done,
+                        done: task.done
                     }))
                 ),
 
@@ -56,7 +56,7 @@ export const TaskKanban = () => {
                     name: column.name,
                     created_at: column.created_at,
                     updated_at: column.updated_at,
-                    order: column.order,
+                    order: column.order
                 }))
             }
         }
@@ -70,9 +70,7 @@ export const TaskKanban = () => {
         }
     }, [queryKanban.data, queryKanban.isSuccess])
 
-    const [taskOpen, setTaskOpen] = useState<KanbanTaskType | null>(null)
-
-    const updateKanbanTask = useUpdateMultipleTasks()
+    const [taskOpen, setTaskOpen] = useState<any | null>(null)
 
     const [itemsByColumns, setItemsByColumns] = useState<KanbanCardListType>({})
 
@@ -86,10 +84,6 @@ export const TaskKanban = () => {
     }, [formattedData])
 
     const { activeTaskId, sensors, handleDragStart, handleDragOver } = useKanbanDragAndDrop(itemsByColumns, setItemsByColumns)
-
-    const updateMultipleTasks = (tasks: KanbanTaskType[]) => {
-        updateKanbanTask.mutate(tasks)
-    }
 
     const handleDragEnd = (event: DragEndEvent) => {
         const active = event.active
@@ -122,46 +116,42 @@ export const TaskKanban = () => {
 
             setItemsByColumns(newBoard)
 
-            const updatedTasks = newBoard[overContainer].map((task, index) => ({
+            /* const updatedTasks = newBoard[overContainer].map((task, index) => ({
                 ...task,
                 order: index,
                 category_id: getIdOfColumn(overContainer)
-            }))
-
-            updateMultipleTasks(updatedTasks)
+            })) */
         }
     }
 
-    const cardItem = activeTaskId ? formattedData?.item.tasks.find((task: KanbanTaskType) => task.id === activeTaskId) : null
+    const cardItem = activeTaskId ? formattedData?.item.tasks.find((task: any) => task.id === activeTaskId) : null
+
     if (!formattedData) {
         return
     }
+
     return (
         <KanbanContext.Provider
             value={{
                 columns: formattedData.item.categories,
                 data: formattedData.item.tasks,
                 taskOpen,
-                setTaskOpen,
-            }}
-        >
+                setTaskOpen
+            }}>
             <div className="h-full">
                 <DndContext
                     sensors={sensors}
                     collisionDetection={closestCorners}
                     onDragStart={handleDragStart}
                     onDragOver={handleDragOver}
-                    onDragEnd={handleDragEnd}
-                >
+                    onDragEnd={handleDragEnd}>
                     <ul className="flex gap-8 h-full overflow-y-hidden">
                         {Object.keys(itemsByColumns).map((key) => (
                             <li key={key}>
                                 <Column id={key} items={itemsByColumns[key]} />
                             </li>
                         ))}
-                        <DragOverlay dropAnimation={defaultDropAnimation}>
-                            {cardItem ? <Card item={cardItem} /> : null}
-                        </DragOverlay>
+                        <DragOverlay dropAnimation={defaultDropAnimation}>{cardItem ? <Card item={cardItem} /> : null}</DragOverlay>
                     </ul>
                 </DndContext>
                 <FormUpdateTask />

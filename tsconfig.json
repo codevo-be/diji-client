@@ -23,6 +23,7 @@
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
             "@task/*": ["./modules/task/*"],
+            "@project/*": ["./modules/project/*"],
             "@helpers/*": ["./components/helpers/*"],
             "@components/*": ["./components/*"]
         }

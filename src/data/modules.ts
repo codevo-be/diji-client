@@ -9,9 +9,9 @@ export const modulesClient = {
         name: 'Finance',
         href: '/billing/invoice'
     },
-    task: {
-        icon: 'task',
-        name: 'Tâche',
-        href: '/task/invoice'
+    project: {
+        icon: 'project',
+        name: 'Projet',
+        href: '/project'
     }
 }

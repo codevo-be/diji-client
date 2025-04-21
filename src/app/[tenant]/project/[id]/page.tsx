@@ -1,40 +1,25 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { Box, Grid } from '@digico/ui'
 
-import { useForm } from 'react-hook-form'
-import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
-import { getTenantUrl } from '@digico/utils'
-
-import { useUpdateProject } from '@task/project/hooks/mutations/useUpdateProject'
-import { useReadProject } from '@task/project/hooks/queries/useReadProject'
-
-import { ProjectFields } from '@task/project/components/ProjectFields'
+import { ButtonDestroyProject } from '@project/components/atoms/ButtonDestroyProject'
+import { MenuProject } from '@project/components/molecules/MenuProject'
+import { UpdateProjectForm } from '@project/components/organisms/UpdateProjectForm'
 
 export default function Page() {
-    const { id } = useParams()
-    const { data } = useReadProject(Number(id))
-    const updateProject = useUpdateProject()
-
-    const form = useForm({
-        values: data?.data
-    })
-
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour" href={getTenantUrl(`/project`)}>
-                    Projet
-                </PageHeader>
+                <div className="flex justify-between gap-12">
+                    <MenuProject />
+                </div>
             </Grid.Col>
-            <Grid.Col>
+            <Grid.Col column={9}>
+                <UpdateProjectForm />
+            </Grid.Col>
+            <Grid.Col column={3}>
                 <Box>
-                   <Form useForm={form} onSubmit={updateProject.mutate}>
-                        <ProjectFields />
-                        <Button isLoading={updateProject.isPending} type="submit">
-                            Mettre à jour
-                        </Button>
-                    </Form>
+                    <ButtonDestroyProject />
                 </Box>
             </Grid.Col>
         </Grid>

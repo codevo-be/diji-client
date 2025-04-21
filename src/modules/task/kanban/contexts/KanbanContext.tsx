@@ -1,17 +1,14 @@
 import React, { createContext, useContext } from 'react'
 
-import { KanbanCategoryType } from '@task/types/kanban-category.types'
-import { KanbanTaskType } from '@task/types/kanban-task.types'
-
 export type KanbanCardListType = {
-    [name: string]: KanbanTaskType[]
+    [name: string]: any[]
 }
 
 export type KanbanContextType = {
-    columns: KanbanCategoryType[]
-    data: KanbanTaskType[]
-    taskOpen: KanbanTaskType | null
-    setTaskOpen: React.Dispatch<React.SetStateAction<KanbanTaskType | null>>
+    columns: any[]
+    data: any[]
+    taskOpen: any | null
+    setTaskOpen: React.Dispatch<React.SetStateAction<any | null>>
 }
 
 export const KanbanContext = createContext<KanbanContextType | undefined>(undefined)
