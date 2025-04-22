@@ -94,7 +94,7 @@ const TableSort = ({ children, items, intent, className, sortable, onDragEnd }: 
                             {items.map((item, rowIndex) => {
                                 return (
                                     <ItemSortable key={item.id} item={item} rowIndex={rowIndex}>
-                                        <td className="bg-white py-4 px-6 text-xs border-t border-t-grey-400 transition-all group-hover:bg-grey-200">
+                                        <td className="bg-white py-6 px-6 text-xs border-t border-t-grey-400 transition-all group-hover:bg-grey-200 flex">
                                             <DndContainer.ButtonSort className="size-4" id={item.id} />
                                         </td>
                                         {React.Children.map(children, (child) => {

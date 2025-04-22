@@ -29,9 +29,6 @@ export const DocumentInvoiceContentEditable = () => {
     const onCreate = (data: BillingItemType) => {
         createInvoiceItem.mutate({
             invoice_id: Number(id),
-            retail: {
-                subtotal: data.retail?.subtotal ?? 0
-            },
             ...data
         })
     }

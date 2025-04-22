@@ -52,8 +52,24 @@ export const DocumentItems = ({ items, onUpdateDrag, editable = false, children 
             <TableSort.Head>TVA</TableSort.Head>
             <TableSort.Head>Total HT</TableSort.Head>
             {editable ? <TableSort.Head></TableSort.Head> : null}
-            <TableSort.Item className="w-full bg-white py-4 px-6 text-xs border-t border-t-grey-400 transition-all group-hover:bg-grey-200" name="name" />
-            <TableSort.Item name="quantity" />
+            <TableSort.Item>
+                {(item) => {
+                    if (item.type === 'title') {
+                        return <span className="font-bold">{item.name}</span>
+                    }
+
+                    return <p className="whitespace-pre-line">{item.name}</p>
+                }}
+            </TableSort.Item>
+            <TableSort.Item>
+                {(item) => {
+                    if (!item.quantity) {
+                        return null
+                    }
+
+                    return item.quantity
+                }}
+            </TableSort.Item>
             <TableSort.Item>
                 {(item) => {
                     if (!item.retail) {
@@ -64,6 +80,10 @@ export const DocumentItems = ({ items, onUpdateDrag, editable = false, children 
             </TableSort.Item>
             <TableSort.Item>
                 {(item: BillingItemType) => {
+                    if (!item.vat) {
+                        return null
+                    }
+
                     return `${item.vat}%`
                 }}
             </TableSort.Item>

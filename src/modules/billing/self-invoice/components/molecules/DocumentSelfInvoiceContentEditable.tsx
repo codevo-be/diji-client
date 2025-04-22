@@ -30,9 +30,6 @@ export const DocumentSelfInvoiceContentEditable = () => {
     const onCreate = (data: BillingItemType) => {
         createSelfInvoiceItem.mutate({
             self_invoice_id: Number(id),
-            retail: {
-                subtotal: data.retail?.subtotal ?? 0
-            },
             ...data
         })
     }

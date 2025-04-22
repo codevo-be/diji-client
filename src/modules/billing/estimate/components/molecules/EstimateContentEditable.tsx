@@ -29,9 +29,6 @@ export const EstimateContentEditable = () => {
     const onCreate = (data: BillingItemType) => {
         createEstimateItem.mutate({
             estimate_id: Number(id),
-            retail: {
-                subtotal: data.retail?.subtotal ?? 0
-            },
             ...data
         })
     }

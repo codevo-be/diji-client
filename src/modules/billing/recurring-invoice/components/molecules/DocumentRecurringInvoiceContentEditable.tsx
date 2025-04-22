@@ -29,9 +29,6 @@ export const DocumentRecurringInvoiceContentEditable = () => {
     const onCreate = (data: BillingItemType) => {
         createRecurringInvoiceItem.mutate({
             recurring_invoice_id: Number(id),
-            retail: {
-                subtotal: data.retail?.subtotal ?? 0
-            },
             ...data
         })
     }
