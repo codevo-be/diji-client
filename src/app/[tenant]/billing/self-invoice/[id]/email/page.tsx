@@ -3,13 +3,12 @@
 import { useParams } from 'next/navigation'
 
 import { FieldValues, useForm } from 'react-hook-form'
-import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
 
 import { useEmailSelfInvoice } from '@billing/self-invoice/hooks/mutations/useEmailSelfInvoice'
 import { useReadSelfInvoice } from '@billing/self-invoice/hooks/queries'
 
-import { SelfInvoiceContent } from '@billing/self-invoice/components/document/SelfInvoiceContent'
+import { DocumentRecuringInvoice } from '@billing/recurring-invoice/components/organisms/DocumentRecurringInvoice'
 import { useAuth } from 'helpers/auth-context/useAuth'
 import { useRouteTenant } from 'helpers/route-tenant'
 
@@ -56,9 +55,7 @@ L'équipe ${tenant?.name}`
                 </PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
-                <BillingDocument data={data}>
-                    <SelfInvoiceContent />
-                </BillingDocument>
+                <DocumentRecuringInvoice />
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>

@@ -1,5 +1,5 @@
-import { Modal } from '@billing/invoice/components/Modal'
 import { Icon } from '@components/Icon'
+import { Modal } from '@helpers/Modal'
 
 export const AddCard = () => {
     return (

@@ -5,7 +5,7 @@ import { DateHelper, formatCurrency } from '@digico/utils'
 
 import { useUpdateCreditNote } from '../hooks/mutations'
 import { useReadCreditNote } from '../hooks/queries'
-import { TransactionType } from '@billing/types/transaction'
+import { TransactionType } from '@billing/transaction/types/transaction'
 
 import { CREDIT_NOTE_STATUS_PENDING, CREDIT_NOTE_STATUS_REFUND } from '../data/credit-note-statuses'
 

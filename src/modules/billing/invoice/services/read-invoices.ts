@@ -1,7 +1,7 @@
 import { HttpService } from '@billing/invoice/services'
 import { InvoiceType } from '../types/invoice'
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
-import { TransactionType } from '@billing/types/transaction'
+import { TransactionType } from '@billing/transaction/types/transaction'
 import { ContactType } from '@contact/types/contact'
 import { PaginateType } from 'types/paginate'
 

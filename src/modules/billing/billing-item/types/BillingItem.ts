@@ -6,12 +6,12 @@ export type BillingItemType = {
     vat?: number
     cost?: {
         subtotal: number
-        tax: number
-        total: number
+        tax?: number
+        total?: number
     }
     retail?: {
         subtotal: number
-        tax: number
-        total: number
+        tax?: number
+        total?: number
     }
 }

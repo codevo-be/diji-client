@@ -2,14 +2,11 @@
 
 import { useParams } from 'next/navigation'
 
-import { CREDIT_NOTE_STATUS_DRAFT } from '@billing/credit-note/data/credit-note-statuses'
-import { BillingDocument } from '@billing/document'
 import { Grid, PageHeader } from '@digico/ui'
 
 import { useReadCreditNote } from '@billing/credit-note/hooks/queries'
 
-import { CreditNoteContent } from '@billing/credit-note/components/document/CreditNoteContent'
-import { CreditNoteContentEditable } from '@billing/credit-note/components/document/CreditNoteContentEditable'
+import { DocumentCreditNote } from '@billing/credit-note/components/organisms/DocumentCreditNote'
 import { SummaryCreditNote } from '@billing/credit-note/components/Summary'
 import { useRouteTenant } from 'helpers/route-tenant'
 
@@ -26,9 +23,7 @@ export default function Page() {
                 </PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
-                <BillingDocument data={data}>
-                    {data?.status === CREDIT_NOTE_STATUS_DRAFT ? <CreditNoteContentEditable /> : <CreditNoteContent />}
-                </BillingDocument>
+                <DocumentCreditNote />
             </Grid.Col>
             <Grid.Col column={5}>
                 <SummaryCreditNote />
