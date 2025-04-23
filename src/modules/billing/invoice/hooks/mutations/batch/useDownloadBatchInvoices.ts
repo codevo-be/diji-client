@@ -13,6 +13,6 @@ export default function useDownloadBatchInvoices() {
         },
         onError: (error) => {
             toast.error(error.message)
-        },
+        }
     })
 }
