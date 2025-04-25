@@ -16,7 +16,7 @@ import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const CreditNoteBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
@@ -72,6 +72,7 @@ export const CreditNoteBatchList = () => {
 
     const onDownload = () => {
         downloadBatchCreditsNotes.mutate({
+            email: user.email,
             ids: formList.watch('invoices').map((id) => Number(id))
         })
     }
