@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 
 import { readExpense } from '@expense/services/read-expense'
 
-export const useReadExpense = (id: number, params?: Record<string, any>) => {
+export const useReadExpense = (id: number) => {
     return useQuery({
-        queryKey: ['expenses', { id, ...params }],
-        queryFn: () => readExpense(id, params)
+        queryKey: ['expenses', { id }],
+        queryFn: () => readExpense(id)
     })
 }

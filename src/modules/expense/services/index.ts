@@ -1,5 +1,6 @@
 import { HttpRequestBuilder } from '@digico/utils'
 
-export const HttpService = new HttpRequestBuilder(String(process.env.NEXT_PUBLIC_API_URL) + '/api/peppol')
+export const HttpService = new HttpRequestBuilder(String(process.env.NEXT_PUBLIC_API_URL) + '/api/expense')
 
+export * from './read-expense'
 export * from './read-expenses'

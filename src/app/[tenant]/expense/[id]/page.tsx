@@ -16,11 +16,11 @@ import { PageHeader } from '@helpers/PageHeader'
 export default function Page() {
     const { id } = useParams()
     const { data } = useReadExpense(Number(id))
-
+    // Todo : afficher une dépense au format facture
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux dépenses">Facture {data?.identifier}</PageHeader>
+                <PageHeader label="Retour aux dépenses">Facture {data?.document_identifier}</PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
                 <BillingDocument data={data}>{data?.status === INVOICE_STATUS_DRAFT ? <InvoiceContentEditable /> : <InvoiceContent />}</BillingDocument>

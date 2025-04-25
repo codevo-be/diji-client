@@ -1,17 +1,8 @@
-import { HttpService } from '@billing/invoice/services'
-import { InvoiceType } from '../types/invoice'
-import { BillingItemType } from '@billing/billing-item/types/BillingItem'
-import { TransactionType } from '@billing/types/transaction'
-import { ContactType } from '@contact/types/contact'
+import { ExpenseType } from '@expense/type/expense'
 
-export const readExpense = async (id: number, params?: Record<string, any>) => {
-    return HttpService.get<{
-        data: InvoiceType & {
-            items?: BillingItemType[]
-            transactions?: TransactionType[]
-            contact?: ContactType
-        }
-    }>(`/${id}`, params).then((response) => {
-        return response.data
-    })
+import { HttpService } from './index'
+
+export const readExpense = async (id: number): Promise<ExpenseType> => {
+    const res = await HttpService.get<{ data: ExpenseType }>(`/${id}`)
+    return res.data
 }
