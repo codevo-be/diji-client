@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 
 import { Table } from '@digico/ui'
+import { DateHelper, formatCurrency } from '@digico/utils'
 
 import { ContactType } from '@contact/types/contact'
 
@@ -17,7 +18,7 @@ export const ExpenseTable = ({ items }: Props) => {
     const { tenant } = useAuth()
 
     const toSingle = (contact: ContactType) => {
-        router.push(`/${tenant.id}/contact/${contact.id}`)
+        router.push(`/${tenant.id}/expense/${contact.id}`)
     }
 
     return (
@@ -31,9 +32,21 @@ export const ExpenseTable = ({ items }: Props) => {
 
             <Table.Col name="document_identifier" />
             <Table.Col name="sender.name" />
-            <Table.Col name="issue_date" />
-            <Table.Col name="due_date" />
-            <Table.Col name="total" />
+            <Table.Col>
+                {(expense: any) => {
+                    return DateHelper.format(expense.issue_date)
+                }}
+            </Table.Col>
+            <Table.Col>
+                {(expense: any) => {
+                    return DateHelper.format(expense.due_date)
+                }}
+            </Table.Col>
+            <Table.Col>
+                {(expense: any) => {
+                    return formatCurrency(expense.total ?? 0)
+                }}
+            </Table.Col>
             <Table.Col name="document_type" />
         </Table>
     )
