@@ -6,6 +6,7 @@ export type IconName =
 	| "billing"
 	| "contact"
 	| "edit"
+	| "expense"
 	| "logout"
 	| "search"
 	| "settings"
