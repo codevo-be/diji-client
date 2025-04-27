@@ -5,7 +5,7 @@ import { taxes } from 'data/taxes'
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
 
 type Props = {
-    onCreate: (data: BillingItemType) => void
+    onCreate: (data: BillingItemType) => Promise<{ data: BillingItemType }>
 }
 
 export const DocumentItemManager = ({ onCreate }: Props) => {
@@ -18,8 +18,10 @@ export const DocumentItemManager = ({ onCreate }: Props) => {
 
     const onSubmit = (data: BillingItemType) => {
         if (onCreate) {
-            onCreate(data)
-            form.reset()
+            onCreate(data).then(() => {
+                form.reset()
+                form.setValue('quantity', 1)
+            })
         }
     }
 

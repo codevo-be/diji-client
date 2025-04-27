@@ -27,7 +27,7 @@ export const EstimateContentEditable = () => {
     const queryEstimateItem = useReadEstimateItems(Number(id))
 
     const onCreate = (data: BillingItemType) => {
-        createEstimateItem.mutate({
+        return createEstimateItem.mutateAsync({
             estimate_id: Number(id),
             ...data
         })

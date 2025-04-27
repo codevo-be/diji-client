@@ -27,7 +27,7 @@ export const DocumentRecurringInvoiceContentEditable = () => {
     const queryRecurringInvoiceItem = useReadRecurringInvoiceItems(Number(id))
 
     const onCreate = (data: BillingItemType) => {
-        createRecurringInvoiceItem.mutate({
+        return createRecurringInvoiceItem.mutateAsync({
             recurring_invoice_id: Number(id),
             ...data
         })

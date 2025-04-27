@@ -27,7 +27,7 @@ export const DocumentCreditNoteContentEditable = () => {
     const queryCreditNoteItem = useReadCreditNoteItems(Number(id))
 
     const onCreate = (data: BillingItemType) => {
-        createCreditNoteItem.mutate({
+        return createCreditNoteItem.mutateAsync({
             credit_note_id: Number(id),
             retail: {
                 subtotal: data.retail?.subtotal ?? 0

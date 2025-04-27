@@ -27,7 +27,7 @@ export const DocumentInvoiceContentEditable = () => {
     const queryInvoiceItem = useReadInvoiceItems(Number(id))
 
     const onCreate = (data: BillingItemType) => {
-        createInvoiceItem.mutate({
+        return createInvoiceItem.mutateAsync({
             invoice_id: Number(id),
             ...data
         })
