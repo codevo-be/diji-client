@@ -38,9 +38,10 @@ export const BoxStats = () => {
             <h2 className="font-bold text-xl">
                 {formatCurrency(
                     queryInvoices.data?.data.reduce((current, item) => {
-                        return current + (item.total ?? 0)
+                        return current + (item.subtotal ?? 0)
                     }, 0) ?? 0
-                )}
+                )}{' '}
+                HT
             </h2>
         </Box>
     )
