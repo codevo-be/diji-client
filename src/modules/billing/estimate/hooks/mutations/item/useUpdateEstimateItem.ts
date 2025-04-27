@@ -14,7 +14,7 @@ export const useUpdateEstimateItem = () => {
         },
         onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({
-                queryKey: ['estimate-items', { invoice_id: Number(variables.estimate_id) }]
+                queryKey: ['estimate-items', { estimate_id: Number(variables.estimate_id) }]
             })
 
             queryClient.invalidateQueries({

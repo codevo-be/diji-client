@@ -33,7 +33,6 @@ export const CreditNoteTable = ({ items }: Props) => {
         if (!data) {
             params.delete('status')
         } else {
-            params.delete('search')
             params.set('status', String(data.value))
         }
 
@@ -46,7 +45,6 @@ export const CreditNoteTable = ({ items }: Props) => {
         if (!data) {
             params.delete('month')
         } else {
-            params.delete('search')
             params.set('month', String(data.value))
         }
 

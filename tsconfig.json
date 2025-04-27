@@ -22,8 +22,10 @@
         "paths": {
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
-            "@components/*": ["./components/*"],
-            "@helpers/*": ["./components/helpers/*"]
+            "@task/*": ["./modules/task/*"],
+            "@project/*": ["./modules/project/*"],
+            "@helpers/*": ["./components/helpers/*"],
+            "@components/*": ["./components/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types"],

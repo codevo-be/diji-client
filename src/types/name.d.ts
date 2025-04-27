@@ -5,9 +5,13 @@ export type IconName =
 	| "arrow"
 	| "billing"
 	| "contact"
+	| "cross"
 	| "edit"
+	| "list"
 	| "logout"
+	| "project"
 	| "search"
 	| "settings"
 	| "sort"
+	| "table"
 	| "upload";

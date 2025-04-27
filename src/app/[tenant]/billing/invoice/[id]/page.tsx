@@ -2,14 +2,11 @@
 
 import { useParams } from 'next/navigation'
 
-import { BillingDocument } from '@billing/document'
-import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
 import { Grid } from '@digico/ui'
 
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
 
-import { InvoiceContent } from '@billing/invoice/components/document/InvoiceContent'
-import { InvoiceContentEditable } from '@billing/invoice/components/document/InvoiceContentEditable'
+import { DocumentInvoice } from '@billing/invoice/components/organisms/DocumentInvoice'
 import { SummaryInvoice } from '@billing/invoice/components/Summary'
 import { PageHeader } from '@helpers/PageHeader'
 
@@ -23,7 +20,7 @@ export default function Page() {
                 <PageHeader label="Retour aux factures">Facture {data?.identifier}</PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
-                <BillingDocument data={data}>{data?.status === INVOICE_STATUS_DRAFT ? <InvoiceContentEditable /> : <InvoiceContent />}</BillingDocument>
+                <DocumentInvoice />
             </Grid.Col>
             <Grid.Col column={5}>
                 <SummaryInvoice />

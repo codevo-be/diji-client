@@ -14,7 +14,7 @@ export const useUpdateRecurringInvoiceItem = () => {
         },
         onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({
-                queryKey: ['recurring-invoice-items', { invoice_id: Number(variables.recurring_invoice_id) }]
+                queryKey: ['recurring-invoice-items', { recurring_invoice_id: Number(variables.recurring_invoice_id) }]
             })
 
             toast.success('La ligne à été modifiée !')

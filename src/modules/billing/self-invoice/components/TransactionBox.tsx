@@ -5,7 +5,7 @@ import { DateHelper, formatCurrency } from '@digico/utils'
 
 import { useUpdateSelfInvoice } from '../hooks/mutations'
 import { useReadSelfInvoice } from '../hooks/queries'
-import { TransactionType } from '@billing/types/transaction'
+import { TransactionType } from '@billing/transaction/types/transaction'
 
 import { SELF_INVOICE_STATUS_PAYED, SELF_INVOICE_STATUS_PENDING } from '../data/self-invoice-statuses'
 

@@ -6,7 +6,7 @@ import { useId } from 'react'
 
 const Select = dynamic(() => import('react-select'), { ssr: false })
 
-type OptionType = {
+export type OptionType = {
     label: string
     value: string | number
 }
