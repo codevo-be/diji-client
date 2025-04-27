@@ -5,29 +5,29 @@ import { InvoiceType } from '@billing/invoice/types/invoice'
 
 type Props = {
     data?: EstimateType | InvoiceType | undefined
+    type?: 'invoice' | 'selfinvoice'
 }
 
-export const DocumentFooter = ({ data }: Props) => {
+export const DocumentFooter = ({ data, type }: Props) => {
     const isInvoice = (d: EstimateType | InvoiceType): d is InvoiceType => {
         return 'structured_communication' in d
-    }
-
-    console.log(data)
-    // TODO self invoice
-
-    {
-        /* <div className="mt-40 text-xs">
-    <p className="mt-4">
-        Le montant <strong>{formatCurrency(data.total ?? 0)}</strong> sera versé sur le compte {(data.issuer?.iban ?? '').toUpperCase()} par{' '}
-        {data.recipient?.name}
-    </p>
-    <p className="mt-4">Merci pour votre confiance !</p>
-</div> */
     }
 
     if (!data) {
         return (
             <div className="mt-40 text-xs">
+                <p className="mt-4">Merci pour votre confiance !</p>
+            </div>
+        )
+    }
+
+    if (type === 'selfinvoice') {
+        return (
+            <div className="mt-40 text-xs">
+                <p className="mt-4">
+                    Le montant <strong>{formatCurrency(data.total ?? 0)}</strong> sera versé sur le compte {(data.issuer?.iban ?? '').toUpperCase()} par{' '}
+                    {data.recipient?.name}
+                </p>
                 <p className="mt-4">Merci pour votre confiance !</p>
             </div>
         )
