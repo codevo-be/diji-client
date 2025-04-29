@@ -16,7 +16,7 @@ import { InvoiceType } from '@billing/invoice/types/invoice'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const InvoiceBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const queryInvoices = useReadInvoices(useQueryParams())
@@ -66,8 +66,18 @@ export const InvoiceBatchList = () => {
 
     const downloadInvoices = () => {
         downloadBatchInvoices.mutate(
-            { ids: formList.watch('invoices').map((id) => Number(id)) },
             {
+                email: user.email,
+                ids: formList.watch('invoices').map((id) => Number(id))
+            }, {
+                onSuccess: (data) => {
+                    const skippedIds = data.errors;
+                    console.log(data);
+                    console.log(Object.keys(skippedIds).length > 0)
+                    if (Object.keys(skippedIds).length > 0) {
+                        setErrors(skippedIds);
+                    }
+                },
                 onError: (error: any) => {
                     setErrors(error.errors)
                 }

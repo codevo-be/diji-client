@@ -1,13 +1,14 @@
 import { cookiesNext } from '@digico/utils'
 
 interface downloadBatchCreditNotesProps {
+    email: string;
     ids: number[];
 }
 
 export default async function downloadBatchCreditNotes(data: downloadBatchCreditNotesProps) {
-    const cookies = await cookiesNext();
+    const cookies = await cookiesNext()
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/credit-notes/batch/pdf`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/credit-notes/batch/pdf`, {
         method: 'POST',
         headers: {
             Accept: 'application/zip',
@@ -17,17 +18,15 @@ export default async function downloadBatchCreditNotes(data: downloadBatchCredit
         },
         body: JSON.stringify(data)
     })
-        .then((response) => response.blob())
-        .then((blob) => {
-            const date = new Date().toISOString().split('T')[0];
-            const url = window.URL.createObjectURL(blob)
-            const a = document.createElement('a')
-            a.href = url
-            a.download = `credit-notes-${date}.zip`
-            document.body.appendChild(a)
-            a.click()
-            a.remove()
-            window.URL.revokeObjectURL(url)
-        })
 
+    if (!response.ok) {
+        const error: {
+            message: string
+            errors: any[]
+        } = await response.json()
+
+        throw error
+    }
+
+    return await response.json();
 }

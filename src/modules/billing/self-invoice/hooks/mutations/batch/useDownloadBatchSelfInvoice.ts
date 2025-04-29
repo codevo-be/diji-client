@@ -8,8 +8,8 @@ import downloadBachSelfInvoice from '@billing/self-invoice/services/batch/downlo
 export default function useDownloadBatchSelfInvoice() {
     return useMutation({
         mutationFn: downloadBachSelfInvoice,
-        onSuccess: () => {
-            toast.success('Les notes de crédit ont été téléchargées !')
+        onSuccess: (data) => {
+            toast.success(data.message);
         },
         onError: (error) => {
             toast.error(error.message)
