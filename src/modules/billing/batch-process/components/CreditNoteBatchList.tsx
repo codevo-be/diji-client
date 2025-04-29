@@ -74,6 +74,15 @@ export const CreditNoteBatchList = () => {
         downloadBatchCreditsNotes.mutate({
             email: user.email,
             ids: formList.watch('invoices').map((id) => Number(id))
+        }, {
+            onSuccess: (data) => {
+                const skippedIds = data.errors;
+                console.log(data);
+                console.log(Object.keys(skippedIds).length > 0)
+                if (Object.keys(skippedIds).length > 0) {
+                    setErrors(skippedIds);
+                }
+            }
         })
     }
 
@@ -173,7 +182,7 @@ export const CreditNoteBatchList = () => {
                     </Grid.Col>
                     {errors && (
                         <Grid.Col>
-                            <Box title="Erreurs sur les factures" intent="error" className="text-error border border-error">
+                            <Box title="Erreurs sur les notes de crédits" intent="error" className="text-error border border-error">
                                 <ul>
                                     {Object.keys(errors).map((id) => {
                                         return (
