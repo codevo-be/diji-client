@@ -9,6 +9,8 @@ import { TASK_STATUSES } from '@task/data/statuses'
 import { useDestroyTaskItem } from '@task/hooks/task-item/mutations/useDestroyTaskItem'
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
 
+import { TaskTimer } from '@task/components/molecules/TaskTimer'
+
 export const ModalTask = () => {
     const { id } = useParams()
     const { task, setTask } = useTask()
@@ -52,7 +54,7 @@ export const ModalTask = () => {
                 <Form.Field type="textarea" rows={5} label="Description" name="description" placeholder="Le détail ..." />
                 <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
                 <Form.Select name="priority" label={'Priorité'} options={Object.values(TASK_PRIORITIES)} />
-
+                <TaskTimer taskId={1} initialTrackedTime={0} taskGroupId={0}></TaskTimer>
                 <Button isLoading={updateTaskItem.isPending} type="submit">
                     Mettre à jour
                 </Button>
