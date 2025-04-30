@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import { useParams } from 'next/navigation'
+
+import { useEffect } from 'react'
 import { useStopwatch } from 'react-timer-hook'
-import { Grid, Form, Button } from '@digico/ui'
-import { useForm, FieldValues } from 'react-hook-form'
+import { Grid } from '@digico/ui'
 
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
+
 import { Icon } from '@components/Icon'
-import { Modal } from '@helpers/Modal'
 
 type TaskTimerProps = {
     taskId: number
@@ -18,16 +18,21 @@ type TaskTimerProps = {
 
 export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimerProps) => {
     const { id: projectId } = useParams()
-    const { seconds, minutes, hours, isRunning, start, pause } = useStopwatch({ autoStart: false })
+    const { seconds, minutes, hours, isRunning, start, pause, reset } = useStopwatch({ autoStart: false })
 
     const updateTaskItem = useUpdateTaskItem()
 
-    const getElapsedSeconds = () => hours * 3600 + minutes * 60 + seconds
+    const getElapsedSeconds = () => {
+        return hours * 3600 + minutes * 60 + seconds
+    }
 
-    const getTotalTime = () => initialTrackedTime + getElapsedSeconds()
+    const getTotalTime = () => {
+        return initialTrackedTime + getElapsedSeconds()
+    }
 
     const handlePause = () => {
         pause()
+
         const additional = getElapsedSeconds()
 
         updateTaskItem.mutate({
@@ -43,30 +48,27 @@ export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimer
     const minutesPart = Math.floor((total % 3600) / 60)
     const secondsPart = total % 60
 
-    const form = useForm({
-        defaultValues: {
-            hours: 0,
-            minutes: 0,
-            seconds: 0
-        }
-    })
 
-    const handleCustomTimeSubmit = (data: FieldValues, close: () => void) => {
-        const h = Number(data.hours || 0)
-        const m = Number(data.minutes || 0)
-        const s = Number(data.seconds || 0)
+    const handleEdit = () => {
+        // Todo : à modifier
+        const input = prompt('Entrer le temps (HH:MM:SS)', '00:00:00')
+        if (!input) return
 
-        const totalSeconds = h * 3600 + m * 60 + s
+        const [h, m, s] = input.split(':').map(Number)
+        const customSeconds = h * 3600 + m * 60 + s
 
         updateTaskItem.mutate({
             project_id: Number(projectId),
             task_group_id: taskGroupId,
             id: taskId,
-            tracked_time: totalSeconds
+            tracked_time: customSeconds
         })
-
-        close()
     }
+
+    useEffect(() => {
+        reset(new Date(), false)
+    }, [reset, taskId])
+
 
     return (
         <Grid>
@@ -86,32 +88,9 @@ export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimer
             </Grid.Col>
 
             <Grid.Col column={3} className="flex justify-end items-center">
-                <Modal>
-                    <Modal.Trigger>
-                        <button type="button" className="cursor-pointer">
-                            <Icon name="edit" className="size-8 fill-current" />
-                        </button>
-                    </Modal.Trigger>
-                    <Modal.Content>
-                        {({ handleClose }) => (
-                            <Form useForm={form} onSubmit={(data) => handleCustomTimeSubmit(data, handleClose)}>
-                                <Form.Field
-                                    name="Temps"
-                                    type="time"
-                                    label="Heures"
-                                    placeholder="0"
-                                    min={0}
-                                />
-                                <div className="flex justify-end gap-2 mt-4">
-                                    <Button type="button" onClick={handleClose} intent="secondary">
-                                        Annuler
-                                    </Button>
-                                    <Button type="submit">Valider</Button>
-                                </div>
-                            </Form>
-                        )}
-                    </Modal.Content>
-                </Modal>
+                <button type="button" onClick={handleEdit} className="cursor-pointer">
+                    <Icon name="edit" className="size-8 fill-current" />
+                </button>
             </Grid.Col>
         </Grid>
     )
