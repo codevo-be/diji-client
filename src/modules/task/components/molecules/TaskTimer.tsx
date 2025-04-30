@@ -2,7 +2,6 @@
 
 import { useParams } from 'next/navigation'
 
-import { useState } from 'react'
 import { useStopwatch } from 'react-timer-hook'
 import { Grid } from '@digico/ui'
 
@@ -19,7 +18,6 @@ type TaskTimerProps = {
 export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimerProps) => {
     const { id: projectId } = useParams()
     const { seconds, minutes, hours, isRunning, start, pause } = useStopwatch({ autoStart: false })
-    const [accumulated, setAccumulated] = useState(initialTrackedTime)
 
     const updateTaskItem = useUpdateTaskItem()
 
@@ -28,35 +26,20 @@ export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimer
     }
 
     const getTotalTime = () => {
-        return isRunning ? accumulated + getElapsedSeconds() : accumulated
-    }
-
-    const handleStart = () => {
-        start()
+        return initialTrackedTime + getElapsedSeconds()
     }
 
     const handlePause = () => {
         pause()
 
         const additional = getElapsedSeconds()
-        const total = accumulated + additional
 
-        updateTaskItem.mutate(
-            {
-                project_id: Number(projectId),
-                task_group_id: taskGroupId,
-                id: taskId,
-                tracked_time: total,
-            },
-            {
-                onSuccess: () => {
-                    setAccumulated(total)
-                },
-                onError: () => {
-                    // on ne touche à rien, le chrono est en pause avec la bonne valeur en mémoire
-                },
-            }
-        )
+        updateTaskItem.mutate({
+            project_id: Number(projectId),
+            task_group_id: taskGroupId,
+            id: taskId,
+            tracked_time: initialTrackedTime + additional,
+        })
     }
 
     const total = getTotalTime()
@@ -73,7 +56,7 @@ export const TaskTimer = ({ taskId, initialTrackedTime, taskGroupId }: TaskTimer
             </Grid.Col>
             <Grid.Col column={10}>
                 {!isRunning ? (
-                    <button type="button" onClick={handleStart} className="cursor-pointer">
+                    <button type="button" onClick={start} className="cursor-pointer">
                         <Icon name="play" className="size-10 fill-current" />
                     </button>
                 ) : (

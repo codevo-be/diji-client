@@ -54,7 +54,11 @@ export const ModalTask = () => {
                 <Form.Field type="textarea" rows={5} label="Description" name="description" placeholder="Le détail ..." />
                 <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
                 <Form.Select name="priority" label={'Priorité'} options={Object.values(TASK_PRIORITIES)} />
-                <TaskTimer taskId={1} initialTrackedTime={0} taskGroupId={0}></TaskTimer>
+                <TaskTimer
+                    taskId={task.id}
+                    initialTrackedTime={task.tracked_time ?? 0}
+                    taskGroupId={task.task_group_id}
+                />
                 <Button isLoading={updateTaskItem.isPending} type="submit">
                     Mettre à jour
                 </Button>

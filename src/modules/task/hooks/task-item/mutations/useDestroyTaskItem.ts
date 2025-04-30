@@ -16,6 +16,7 @@ export const useDestroyTaskItem = () => {
             queryClient.invalidateQueries({
                 queryKey: ['task-groups']
             })
+
             toast.success('La tâche a été supprimée !')
         }
     })
