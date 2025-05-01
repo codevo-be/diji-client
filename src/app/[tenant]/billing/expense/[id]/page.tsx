@@ -1,5 +1,6 @@
 'use client'
 
+import FilesBox from '@billing/expense/FilesBox'
 import { Grid } from '@digico/ui'
 
 import { ActionTransaction } from '@billing/transaction/components/organisms/ActionTransaction'
@@ -18,6 +19,9 @@ export default function Page() {
             </Grid.Col>
             <Grid.Col column={4}>
                 <ActionTransaction />
+            </Grid.Col>
+            <Grid.Col>
+                <FilesBox />
             </Grid.Col>
         </Grid>
     )
