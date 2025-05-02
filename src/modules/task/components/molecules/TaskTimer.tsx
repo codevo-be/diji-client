@@ -18,7 +18,6 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
     const [isEditing, setIsEditing] = useState(false)
 
     const { setValue, watch, formState } = useFormContext()
-
     const timeValue = watch('tracked_time')
 
     const getElapsedSeconds = () => hours * 3600 + minutes * 60 + seconds
@@ -41,7 +40,6 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
     const minutesPart = Math.floor((total % 3600) / 60)
     const secondsPart = total % 60
 
-    // Reset stopwatch quand on change de tâche
     useEffect(() => {
         const totalSeconds = initialTrackedTime
         const date = new Date()
@@ -52,14 +50,11 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
         setIsEditing(false)
     }, [reset, taskId, initialTrackedTime])
 
-
-    // Masquer le champ quand on soumet le formulaire
     useEffect(() => {
         if (formState.isSubmitting) {
             setIsEditing(false)
         }
     }, [formState.isSubmitting])
-
 
     return (
         <>
@@ -86,23 +81,17 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
                             const tracked = watch('tracked_time')
 
                             if (tracked && typeof tracked === 'string' && tracked.includes(':')) {
-                                // Si une valeur est déjà présente (ex: pause ou édition précédente)
                                 setValue('tracked_time', tracked)
                             } else {
-                                // Sinon on calcule depuis l'initialTrackedTime
                                 const h = Math.floor(initialTrackedTime / 3600)
                                 const m = Math.floor((initialTrackedTime % 3600) / 60)
                                 const s = initialTrackedTime % 60
 
-                                setValue(
-                                    'tracked_time',
-                                    `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-                                )
+                                setValue('tracked_time', `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`)
                             }
 
                             setIsEditing(true)
                         }}
-
                         className="cursor-pointer">
                         <Icon name="edit" className="size-8 fill-current" />
                     </button>
@@ -111,13 +100,7 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
 
             {isEditing && (
                 <div className="mt-4">
-                    <Form.Field
-                        label="Temps (HH:MM:SS)"
-                        name="tracked_time"
-                        type="time"
-                        step={1}
-                        defaultValue={timeValue}
-                    />
+                    <Form.Field label="Temps (HH:MM:SS)" name="tracked_time" type="time" step={1} defaultValue={timeValue} />
                 </div>
             )}
         </>
