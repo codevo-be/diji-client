@@ -46,7 +46,7 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
 
             {files.length > 0 ? (
                 <div className="h-full relative group cursor-pointer bg-grey-200 rounded border border-grey-400 justify-center hover:border-grey-600 flex flex-col gap-4 items-center">
-                    <div className="h-full w-full overflow-x-auto p-4 flex gap-4 items-center">
+                    <div className="h-full w-full overflow-x-auto p-4 flex gap-4 items-center justify-center">
                         {files.map((f: any, index: number) => {
 
                             return (<div key={index} className="h-full relative flex-shrink-0 w-32">
