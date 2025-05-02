@@ -42,7 +42,7 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
 
     return (
         <div className="h-40" {...getRootProps()}>
-            <input { ...register } {...getInputProps()} />
+            <input { ...register('files') } {...getInputProps()} />
 
             {files.length > 0 ? (
                 <div className="h-full relative group cursor-pointer bg-grey-200 rounded border border-grey-400 justify-center hover:border-grey-600 flex flex-col gap-4 items-center">
