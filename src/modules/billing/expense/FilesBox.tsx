@@ -5,7 +5,12 @@ import { Box, Button, Form } from '@digico/ui'
 
 import { HttpService } from '../../../services/upload'
 
-export default function FilesBox(): ReactNode {
+interface FilesBoxProps {
+    modelType: string;
+    modelId: string;
+}
+
+export default function FilesBox(props: FilesBoxProps): ReactNode {
 
     const form = useForm();
 
@@ -14,12 +19,15 @@ export default function FilesBox(): ReactNode {
      const onSubmit = async () => {
          const formData = new FormData();
 
+         formData.append('model', props.modelType);
+         formData.append('model_id', props.modelId);
          formData.append('name', 'files');
 
-         for (let i = 0; i < files.length; i++) {
-             formData.append('files[]', files[i].file);
+         if (files.length > 0) {
+             for (let i = 0; i < files.length; i++) {
+                 formData.append('files[]', files[i].file);
+             }
          }
-
          const response = await HttpService.post('/expense', formData);
          console.log(response)
      }

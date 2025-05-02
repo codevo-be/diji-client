@@ -1,5 +1,7 @@
 'use client'
 
+import { useParams } from 'next/navigation'
+
 import FilesBox from '@billing/expense/FilesBox'
 import { Grid } from '@digico/ui'
 
@@ -8,6 +10,10 @@ import { ResumeTransaction } from '@billing/transaction/components/organisms/Res
 import { PageHeader } from '@helpers/PageHeader'
 
 export default function Page() {
+
+    const params = useParams();
+    const modelId = params.id as string;
+
     return (
         <Grid>
             <Grid.Col>
@@ -21,7 +27,7 @@ export default function Page() {
                 <ActionTransaction />
             </Grid.Col>
             <Grid.Col>
-                <FilesBox />
+                <FilesBox modelId={modelId} modelType={"expense"} />
             </Grid.Col>
         </Grid>
     )
