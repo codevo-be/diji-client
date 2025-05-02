@@ -14,6 +14,8 @@ type TaskTimerProps = {
 }
 
 export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
+    // Todo : quand on modifie le temps a la main, l'afficher en direct dans le timer.
+
     const { seconds, minutes, hours, isRunning, start, pause, reset } = useStopwatch({ autoStart: false })
     const [isEditing, setIsEditing] = useState(false)
 
@@ -40,6 +42,7 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
     const minutesPart = Math.floor((total % 3600) / 60)
     const secondsPart = total % 60
 
+    // A chaque changement d'id de tâche, on remet le timer avec le temps initial
     useEffect(() => {
         const totalSeconds = initialTrackedTime
         const date = new Date()
@@ -48,8 +51,9 @@ export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
 
         reset(date, false)
         setIsEditing(false)
-    }, [reset, taskId, initialTrackedTime])
+    }, [initialTrackedTime, reset, taskId])
 
+    // Par défaut, cacher le champ de saisie
     useEffect(() => {
         if (formState.isSubmitting) {
             setIsEditing(false)
