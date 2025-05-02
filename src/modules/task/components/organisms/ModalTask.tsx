@@ -23,9 +23,16 @@ export const ModalTask = () => {
     const destroyTaskItem = useDestroyTaskItem()
 
     const onSubmit = (data: FieldValues) => {
+        const cleanedData = { ...data }
+
+        if (typeof data.tracked_time === 'string' && data.tracked_time.includes(':')) {
+            const [h, m, s = 0] = data.tracked_time.split(':').map(Number)
+            cleanedData.tracked_time = h * 3600 + m * 60 + s
+        }
+
         updateTaskItem.mutate({
             project_id: Number(id),
-            ...data
+            ...cleanedData
         })
     }
 
