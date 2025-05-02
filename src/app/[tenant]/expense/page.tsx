@@ -2,9 +2,9 @@
 
 import { Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digico/ui'
 
-import { useReadExpenses } from '../../../modules/expense/hooks/queries/useReadExpenses'
+import { useReadExpenses } from '@expense/hooks/queries/useReadExpenses'
 
-import { ExpenseTable } from '../../../modules/expense/components/ExpenseTable'
+import { ExpenseTable } from '@expense/components/ExpenseTable'
 
 export default function Page() {
     const queryExpenses = useReadExpenses(useQueryParams())
