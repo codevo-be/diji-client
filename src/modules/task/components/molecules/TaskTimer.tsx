@@ -14,8 +14,6 @@ type TaskTimerProps = {
 }
 
 export const TaskTimer = ({ taskId, initialTrackedTime }: TaskTimerProps) => {
-    // Todo : quand on modifie le temps a la main, l'afficher en direct dans le timer.
-
     const { seconds, minutes, hours, isRunning, start, pause, reset } = useStopwatch({ autoStart: false })
     const [isEditing, setIsEditing] = useState(false)
 
