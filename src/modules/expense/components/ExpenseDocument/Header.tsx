@@ -1,27 +1,34 @@
-import { useReadMeta } from 'hooks/queries/meta/useReadMeta'
-import { CreditNoteType } from '@billing/credit-note/types/credit-note'
-import { InvoiceType } from '@billing/invoice/types/invoice'
-import { RecurringInvoiceType } from '@billing/recurring-invoice/types/recurring-invoice'
+import { ExpenseType } from '@expense/type/expense'
 
 import { DocumentInfo } from './DocumentInfo'
 
 type Props = {
-    data: InvoiceType | CreditNoteType | RecurringInvoiceType
+    data: ExpenseType
 }
 
 export const Header = ({ data }: Props) => {
-    const queryMeta = useReadMeta('tenant_billing_details')
-    return (
-        <>
-            {/* @ts-ignore */}
-            {queryMeta.isSuccess ? <img className="h-32 max-w-[24rem] object-contain mb-12" src={String(queryMeta.data?.value?.logo)} alt="Logo" /> : null}
+    const senderInfo = formatInfoFromPeppol(data.sender, data.sender_address, data.sender.iban)
+    const recipientInfo = formatInfoFromPeppol(data.recipient, data.recipient_address)
 
-            <div className="flex">
-                {/* @ts-ignore */}
-                <DocumentInfo {...data?.issuer} />
-                {/* @ts-ignore */}
-                <DocumentInfo {...data?.recipient} />
-            </div>
-        </>
+    return (
+        <div className="flex justify-between mb-12">
+            <DocumentInfo {...senderInfo} />
+            <DocumentInfo {...recipientInfo} />
+        </div>
     )
 }
+
+const formatInfoFromPeppol = (
+    party: ExpenseType['sender'] | ExpenseType['recipient'],
+    address: ExpenseType['sender_address'] | ExpenseType['recipient_address'],
+    iban?: string
+) => ({
+    name: party.name,
+    vat_number: party.vatNumber,
+    street: address.line1,
+    street_number: '',
+    zipcode: address.zipCode,
+    city: address.city,
+    country: address.country,
+    iban: iban,
+})
