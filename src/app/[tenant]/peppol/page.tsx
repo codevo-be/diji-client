@@ -13,8 +13,6 @@ export default function Page() {
     const createPeppol = useCreatePeppol()
 
     const handleSubmit = (data: PeppolType) => {
-        console.log('handleSubmit', data)
-
         createPeppol.mutate(data, {
             onSuccess: () => {
                 return

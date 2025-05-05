@@ -5,30 +5,25 @@ import { Box, Button, Form } from '@digico/ui'
 import { toast } from 'sonner'
 
 import { useUpdateTenant } from '../../../hooks/mutations/tenant'
+import { useReadTenant } from '../../../hooks/queries/tenant/useReadTenant'
 import { useCreateUpload } from 'hooks/mutations/upload'
-import { useReadMeta } from 'hooks/queries/meta/useReadMeta'
 
 import { SettingsBillingFields } from './SettingsBillingFields'
 
 export const BoxBilling = () => {
-    const queryMeta = useReadMeta('tenant_billing_details')
+    const queryTenant = useReadTenant()
 
     const updateTenant = useUpdateTenant()
     const createUpload = useCreateUpload()
 
     const form = useForm({
         values: {
-            ...(queryMeta.data
-                ? //@ts-ignore
-                  { ...(queryMeta.data.value ?? {}) }
-                : {
-                      country: 'be'
-                  }),
+            ...(queryTenant.data?.data.settings ?? { country: 'be' }),
             logo: {
-                //@ts-ignore
-                url: queryMeta.data?.value?.logo ?? ''
+                url: queryTenant.data?.data.settings?.logo ?? ''
             }
         }
+
     })
 
     const onSubmit = async ({ logo, ...data }: FieldValues) => {
@@ -60,7 +55,7 @@ export const BoxBilling = () => {
     }
 
     return (
-        <Box isLoading={queryMeta.isLoading} title="Coordonnées de contact">
+        <Box isLoading={queryTenant.isLoading} title="Coordonnées de contact">
             <Form useForm={form} onSubmit={onSubmit}>
                 <SettingsBillingFields />
                 <Button isLoading={updateTenant.isPending} type="submit">
