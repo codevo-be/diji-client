@@ -10,9 +10,9 @@ import { UploadType } from '../../types/upload.types'
 
 import { Modal } from '@components/Modal'
 import DropFiles from '@components/upload/DropFiles'
+import ImageFilePreview from '@components/upload/ImageFilePreview'
 
 import { useModal } from '../../context/ModalContext'
-import ImageFilePreview from '@components/upload/ImageFilePreview'
 
 interface FilesBoxProps {
     modelType: string;
@@ -74,8 +74,6 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
     useEffect(() => {
         if (isLoading || !uploads) return;
 
-        console.log(uploads)
-
         setUploadFiles(uploads);
     }, [isLoading, uploads])
 
@@ -100,9 +98,12 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
             {uploadFiles.length > 0 &&
                 <Grid>
                     {uploadFiles.map((file: UploadType, index: number) => {
-                        /*if (file.mime_type === 'image/jpeg') {
+
+                        const imageRegex = /^image\/.+$/;
+
+                        if (imageRegex.test(file.mime_type)) {
                             return <ImageFilePreview key={index} { ...file } />
-                        }*/
+                        }
                         return (
                             <Grid.Col key={index} column={3} className={"flex flex-col justify-between items-center"}>
                                 <p>{file.filename}</p>
