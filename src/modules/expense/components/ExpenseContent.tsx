@@ -7,7 +7,6 @@ import { useReadExpense } from '@expense/hooks/queries'
 import { ExpenseItemList } from '@expense/components/ExpenseItemList'
 
 import { ExpenseFooter } from './ExpenseFooter'
-import { Header } from './Header'
 
 export const ExpenseContent = () => {
     const { id } = useParams()
@@ -15,7 +14,6 @@ export const ExpenseContent = () => {
 
     return (
         <>
-            <Header />
             <ExpenseItemList data={data}/>
             <Summary data={data} />
             <ExpenseFooter data={data} />

@@ -2,13 +2,13 @@
 
 import { useParams } from 'next/navigation'
 
-import { BillingDocument } from '@billing/document'
 import { Grid } from '@digico/ui'
 
 import { useReadExpense } from '@expense/hooks/queries'
 
-import { PageHeader } from '@helpers/PageHeader'
 import { ExpenseContent } from '@expense/components/ExpenseContent'
+import { ExpenseDocument } from '@expense/components/ExpenseDocument/ExpenseDocument'
+import { PageHeader } from '@helpers/PageHeader'
 
 export default function Page() {
     const { id } = useParams()
@@ -17,12 +17,12 @@ export default function Page() {
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux dépenses">Facture {data?.document_identifier}</PageHeader>
+                <PageHeader label="Retour aux dépenses">Dépense : facture {data?.document_identifier}</PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
-                <BillingDocument data={data}>
+                <ExpenseDocument data={data}>
                     <ExpenseContent />
-                </BillingDocument>
+                </ExpenseDocument>
             </Grid.Col>
         </Grid>
     )
