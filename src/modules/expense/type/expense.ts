@@ -35,8 +35,12 @@ export type ExpenseType = {
         name: string
         price: number
         quantity: number
+        vat: number
     }[]
     raw_xml: string
     created_at: string
     updated_at: string
+    payment: {
+        iban: string
+    }
 }

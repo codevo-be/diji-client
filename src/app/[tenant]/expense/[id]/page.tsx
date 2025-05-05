@@ -8,6 +8,7 @@ import { Grid } from '@digico/ui'
 import { useReadExpense } from '@expense/hooks/queries'
 
 import { PageHeader } from '@helpers/PageHeader'
+import { ExpenseContent } from '@expense/components/ExpenseContent'
 
 export default function Page() {
     const { id } = useParams()

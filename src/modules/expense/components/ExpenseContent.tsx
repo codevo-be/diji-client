@@ -2,24 +2,23 @@ import { useParams } from 'next/navigation'
 
 import { Summary } from '@billing/document/Summary'
 
-import { useReadInvoice } from '@billing/invoice/hooks/queries'
+import { useReadExpense } from '@expense/hooks/queries'
 
+import { ExpenseItemList } from '@expense/components/ExpenseItemList'
+
+import { ExpenseFooter } from './ExpenseFooter'
 import { Header } from './Header'
-import { InvoiceFooter } from './InvoiceFooter'
-import { InvoiceItemList } from './InvoiceItemList'
 
 export const ExpenseContent = () => {
     const { id } = useParams()
-    const { data } = useReadInvoice(Number(id))
+    const { data } = useReadExpense(Number(id))
 
     return (
         <>
             <Header />
-            <InvoiceItemList />
+            <ExpenseItemList data={data}/>
             <Summary data={data} />
-            <InvoiceFooter data={data} />
+            <ExpenseFooter data={data} />
         </>
     )
 }
-
-// todo : je suis en train de faire la vue expense en recréant les différents composants de la vue invoice
