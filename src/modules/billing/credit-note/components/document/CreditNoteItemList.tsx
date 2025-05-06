@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'
 import { Table } from '@digico/ui'
 import { formatCurrency } from '@digico/utils'
 
-import { useReadInvoiceItems } from '@billing/invoice/hooks/queries'
+import { useReadCreditNoteItems } from '@billing/credit-note/hooks/queries'
 import { BillingItemType } from '@billing/billing-item/types/BillingItem'
 
 type Props = {
@@ -13,9 +13,9 @@ type Props = {
 }
 
 export const CreditNoteItemList = ({ className = '' }: Props) => {
-    const { id: invoice_id } = useParams()
+    const { id: credit_note_id } = useParams()
 
-    const queryInvoiceItem = useReadInvoiceItems(Number(invoice_id))
+    const queryInvoiceItem = useReadCreditNoteItems(Number(credit_note_id))
 
     return (
         <Table className={className} items={queryInvoiceItem.data?.data ?? []}>

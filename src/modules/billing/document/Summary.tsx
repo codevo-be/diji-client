@@ -20,6 +20,7 @@ export const Summary = ({ data }: Props) => {
                         return (
                             <tr key={tax}>
                                 <td>TVA {tax}%</td>
+                                {/* @ts-ignore */}
                                 <td className="text-right">{formatCurrency(data?.taxes ? (data?.taxes[tax] ?? 0) : 0)}</td>
                             </tr>
                         )
