@@ -71,7 +71,6 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
                                             );
                                         } else if (f.type === 'application/pdf') {
 
-
                                             return (
                                                 <div className="flex flex-col items-center justify-center h-32 bg-white border rounded p-2 text-center text-xs">
                                                     <svg className="w-6 h-6 text-red-500 mb-2" fill="currentColor" viewBox="0 0 24 24">
@@ -100,8 +99,8 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
                                                 </div>
                                             );
                                         }
-                                    })()}
 
+                                    })()}
                                 </div>
                         )})}
                     </div>

@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Box, Button, Form, Grid } from '@digico/ui'
+import { Box, Button, Form, Grid, ImageBuilder } from '@digico/ui'
 import { toast } from 'sonner'
 
 import { useCreateUpload } from '../../hooks/mutations/upload'
@@ -10,9 +10,11 @@ import { UploadType } from '../../types/upload.types'
 
 import { Modal } from '@components/Modal'
 import DropFiles from '@components/upload/DropFiles'
-import ImageFilePreview from '@components/upload/ImageFilePreview'
 
 import { useModal } from '../../context/ModalContext'
+import PdfPreview from './PdfPreview'
+import ImagePreview from '@components/upload/ImagePreview'
+import { Icon } from '@components/Icon'
 
 interface FilesBoxProps {
     modelType: string;
@@ -88,6 +90,7 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
                             setOpen(false);
                             setSelectedFile(undefined);
                         }}>Annuler</Button>
+
                         <Button intent={"error"} type={"button"} onClick={() => {
                             onDeleteFile(String(selectedFile?.id));
                         }}>Confirmer</Button>
@@ -96,17 +99,34 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
             </Modal>
 
             {uploadFiles.length > 0 &&
-                <Grid>
+                <Grid className={"p-8"}>
                     {uploadFiles.map((file: UploadType, index: number) => {
 
-                        const imageRegex = /^image\/.+$/;
+                        let preview;
 
-                        if (imageRegex.test(file.mime_type)) {
-                            return <ImageFilePreview key={index} { ...file } />
+                        if (/^image\/.+$/.test(file.mime_type)) {
+                            preview = <ImagePreview { ...file } />
+                        } else if (file.mime_type === 'application/pdf') {
+                            preview = <PdfPreview { ...file } />
                         }
+
                         return (
-                            <Grid.Col key={index} column={3} className={"flex flex-col justify-between items-center"}>
-                                <p>{file.filename}</p>
+                            <Grid.Col key={index} column={3} className={"flex flex-col gap-4 justify-between items-center"}>
+                                <div className="w-[18rem] aspect-square flex justify-center items-center overflow-hidden relative">
+                                    {preview}
+
+                                    <a href={file.url} target={"_blank"} className="w-full h-full absolute top-0 left-0 opacity-0 hover:cursor-pointer hover:opacity-100 hover:bg-[#000000]/40 flex items-center justify-center transition duration-150">
+                                        <Icon name="eye" fill={"white"} className="size-24 " />
+                                    </a>
+                                </div>
+
+
+                                <p className={"max-w-full h-24 text-center line-clamp-2"}>{file.filename}</p>
+
+
+                                <Button type={"button"} onClick={() => {
+
+                                }}>Télécharger</Button>
 
                                 <Button intent={"error"} type={"button"} onClick={() => {
                                     setOpen(true);
