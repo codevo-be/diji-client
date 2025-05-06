@@ -39,7 +39,7 @@ export const ExpenseTable = ({ items }: Props) => {
             </Table.Col>
             <Table.Col>
                 {(expense: any) => {
-                    return DateHelper.format(expense.due_date)
+                    return expense.due_date ? DateHelper.format(expense.due_date) : '/'
                 }}
             </Table.Col>
             <Table.Col>
