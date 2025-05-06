@@ -14,10 +14,14 @@ export default function Page() {
     const { id } = useParams()
     const { data } = useReadExpense(Number(id))
 
+    console.log('Page des dépenses', data)
+
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux dépenses">Dépense : facture {data?.document_identifier}</PageHeader>
+                <PageHeader label="Retour aux dépenses">
+                    Dépense : {data?.document_type === 'CREDIT_NOTE' ? 'note de crédit' : 'facture'} {data?.document_identifier}
+                </PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
                 <ExpenseDocument data={data}>
