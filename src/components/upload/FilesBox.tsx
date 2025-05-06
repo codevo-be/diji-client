@@ -1,21 +1,22 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Box, Button, Form, Grid, ImageBuilder } from '@digico/ui'
+import { Box, Button, Form, Grid } from '@digico/ui'
 import { toast } from 'sonner'
 
+import downloadUpload from '../../services/upload/download-upload'
 import { useCreateUpload } from '../../hooks/mutations/upload'
 import useDeleteUpload from '../../hooks/mutations/upload/useDeleteUpload'
 import useGetUpload from '../../hooks/queries/upload/useGetUpload'
 import { UploadType } from '../../types/upload.types'
 
+import { Icon } from '@components/Icon'
 import { Modal } from '@components/Modal'
 import DropFiles from '@components/upload/DropFiles'
+import ImagePreview from '@components/upload/ImagePreview'
 
 import { useModal } from '../../context/ModalContext'
+
 import PdfPreview from './PdfPreview'
-import ImagePreview from '@components/upload/ImagePreview'
-import { Icon } from '@components/Icon'
-import downloadUpload from '../../services/upload/download-upload'
 
 interface FilesBoxProps {
     modelType: string;
@@ -112,7 +113,7 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
                         if (/^image\/.+$/.test(file.mime_type)) {
                             preview = <ImagePreview { ...file } />
                         } else if (file.mime_type === 'application/pdf') {
-                            preview = <PdfPreview { ...file } />
+                            preview = <PdfPreview />
                         }
 
                         return (

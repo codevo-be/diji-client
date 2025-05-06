@@ -1,8 +1,6 @@
-﻿import { UploadType } from '../../types/upload.types'
+﻿import { Icon } from '@components/Icon'
 
-import { Icon } from '@components/Icon'
-
-export default function PdfPreview(file: UploadType) {
+export default function PdfPreview() {
 
 
     return (
