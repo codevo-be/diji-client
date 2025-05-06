@@ -78,14 +78,7 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
                                                         <path d="M16 13H8v-2h8v2zM8 17h8v-2H8v2z" />
                                                     </svg>
 
-                                                    <a
-                                                        href={f.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-blue-600 underline mt-1"
-                                                    >
-                                                        Voir le PDF
-                                                    </a>
+                                                    <p>{f.name}</p>
                                                 </div>
                                             );
                                         } else {

@@ -15,6 +15,7 @@ import { useModal } from '../../context/ModalContext'
 import PdfPreview from './PdfPreview'
 import ImagePreview from '@components/upload/ImagePreview'
 import { Icon } from '@components/Icon'
+import downloadUpload from '../../services/upload/download-upload'
 
 interface FilesBoxProps {
     modelType: string;
@@ -43,6 +44,10 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
             }
         });
         setOpen(false);
+    }
+
+    const onDownloadFile = async (url: string, filename: string) => {
+        await downloadUpload(url, filename);
     }
 
     const { mutate: uploadFile } = useCreateUpload();
@@ -121,11 +126,11 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
                                 </div>
 
 
-                                <p className={"max-w-full h-24 text-center line-clamp-2"}>{file.filename}</p>
+                                <p className={"max-w-full text-sm h-12 text-center line-clamp-1"}>{file.filename}</p>
 
 
                                 <Button type={"button"} onClick={() => {
-
+                                    onDownloadFile(file.url, file.filename);
                                 }}>Télécharger</Button>
 
                                 <Button intent={"error"} type={"button"} onClick={() => {
