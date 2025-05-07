@@ -1,6 +1,6 @@
 import { useParams } from 'next/navigation'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
 import { Box, Button, Form, Grid } from '@digico/ui'
@@ -56,7 +56,7 @@ export const UpdateFormInvoice = () => {
     }
 
     const onSelectContact = (contact_id: number | string) => {
-        if (contact_id === "new_user") {
+        if (contact_id === -1) {
             setCreateContactVisible(true);
             resetRecipientFields();
             return;
@@ -147,7 +147,7 @@ export const UpdateFormInvoice = () => {
                                 label="Contact"
                                 onChange={onSelectContact}
                                 options={ [
-                                    { label: "Créer un nouveau contact", value: "new_user" },
+                                    { label: "Créer un nouveau contact", value: -1 },
                                     ...contacts?.data.map((contact: ContactType) => {
                                         return {
                                             label: contact.display_name,
