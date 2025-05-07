@@ -13,30 +13,90 @@ import { ContactType } from '@contact/types/contact'
 
 import { IssuerFields } from './IssuerFields'
 import { RecipientFields } from './RecipientFields'
+import { useCreateContact } from '@contact/hooks/mutations'
+import { useState } from 'react'
 
 export const UpdateFormRecurringInvoice = () => {
     const { id } = useParams()
     const { data } = useReadRecurringInvoice(Number(id))
     const updateRecurringInvoice = useUpdateRecurringInvoice()
     const { data: contacts } = useReadContacts()
+    const { mutate: createContact } = useCreateContact()
+
+    const [createContactVisible, setCreateContactVisible] = useState<boolean>(false);
 
     const form = useForm<RecurringInvoiceType>({
         values: data
     })
 
+    const resetRecipientFields = () => {
+        form.resetField('recipient.name');
+        form.resetField('recipient.vat_number');
+        form.resetField('recipient.email');
+        form.resetField('recipient.phone');
+        form.resetField('recipient.street');
+        form.resetField('recipient.street_number');
+        form.resetField('recipient.city');
+        form.resetField('recipient.zipcode');
+        form.resetField('recipient.country');
+    }
+
+    const changeRecipient = (contact: ContactType) => {
+        form.setValue('contact_id', contact.id)
+
+        resetRecipientFields();
+
+        // @ts-ignore
+        form.setValue('recipient', contact.billing_address)
+        form.setValue('recipient.name', contact.display_name)
+        form.setValue('recipient.email', contact.email)
+        form.setValue('recipient.phone', contact.phone)
+        form.setValue('recipient.vat_number', contact.vat_number)
+        setCreateContactVisible(false);
+    }
+
     const onSelectContact = (contact_id: number | string) => {
+        if (contact_id === -1) {
+            setCreateContactVisible(true);
+            resetRecipientFields();
+            return;
+        }
+
         const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
 
         if (!contact) {
             return
         }
 
-        //@ts-ignore
-        form.setValue('recipient', contact.billing_address)
-        form.setValue('recipient.name', contact.display_name)
-        form.setValue('recipient.email', contact.email)
-        form.setValue('recipient.phone', contact.phone)
-        form.setValue('recipient.vat_number', contact.vat_number)
+        changeRecipient(contact)
+    }
+
+    const onAddContact = () => {
+        const values = form.getValues('recipient') as any
+
+        const contact: Omit<ContactType, 'id' | 'display_name'> = {
+            company_name: values.name,
+            email: values.email,
+            phone: values.phone,
+            vat_number: values.vat_number,
+            billing_address: {
+                street: values.street,
+                street_number: values.street_number,
+                city: values.city,
+                zipcode: values.zipcode,
+                country: values.country
+            }
+        }
+
+        // @ts-ignore TODO Ne respecte pas le type à cause d'omit
+        createContact(contact, {
+            onSuccess: (data) => {
+                const contactRes = data.data;
+
+                changeRecipient(contactRes);
+                updateRecurringInvoice.mutate(form.getValues());
+            }
+        });
     }
 
     if (data?.status !== RECURRING_INVOICE_STATUS_DRAFT) {
@@ -59,18 +119,26 @@ export const UpdateFormRecurringInvoice = () => {
                                 name="contact_id"
                                 label="Contact"
                                 onChange={onSelectContact}
-                                options={
-                                    contacts?.data.map((contact: ContactType) => {
+                                options={ [
+                                    { label: "Créer un nouveau contact", value: -1 },
+                                    ...contacts?.data.map((contact: ContactType) => {
                                         return {
                                             label: contact.display_name,
                                             value: contact.id
                                         }
                                     }) ?? []
-                                }
+                                ]}
                             />
                             <RecipientFields />
                         </Tabs.Content>
                     </Tabs>
+
+                    {createContactVisible &&
+                        <Button type={"button"} className={`mt-12 w-full`} intent={"grey200"} onClick={onAddContact}>
+                            Créer fiche contact
+                        </Button>
+                    }
+
                     <Button className="w-full mt-12" isLoading={updateRecurringInvoice.isPending}>
                         Mettre à jour
                     </Button>
