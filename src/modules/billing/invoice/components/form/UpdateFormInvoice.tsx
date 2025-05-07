@@ -1,6 +1,5 @@
 import { useParams } from 'next/navigation'
 
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
 import { Box, Button, Form, Grid } from '@digico/ui'
@@ -23,11 +22,30 @@ export const UpdateFormInvoice = () => {
     const { data: contacts } = useReadContacts()
     const { mutate: createContact } = useCreateContact()
 
-    const [currentContact, setCurrentContact] = useState<ContactType | undefined>(undefined)
-
     const form = useForm<InvoiceType>({
         values: data
     })
+
+    const changeRecipient = (contact: ContactType) => {
+        form.setValue('contact_id', contact.id)
+
+        form.resetField('recipient.name');
+        form.resetField('recipient.vat_number');
+        form.resetField('recipient.email');
+        form.resetField('recipient.phone');
+        form.resetField('recipient.street');
+        form.resetField('recipient.street_number');
+        form.resetField('recipient.city');
+        form.resetField('recipient.zipcode');
+        form.resetField('recipient.country');
+
+        // @ts-ignore
+        form.setValue('recipient', contact.billing_address)
+        form.setValue('recipient.name', contact.display_name)
+        form.setValue('recipient.email', contact.email)
+        form.setValue('recipient.phone', contact.phone)
+        form.setValue('recipient.vat_number', contact.vat_number)
+    }
 
     const onSelectContact = (contact_id: number | string) => {
         const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
@@ -35,7 +53,8 @@ export const UpdateFormInvoice = () => {
         if (!contact) {
             return
         }
-        setCurrentContact(contact)
+
+        changeRecipient(contact)
     }
 
     const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
@@ -62,36 +81,16 @@ export const UpdateFormInvoice = () => {
             }
         }
 
-        // @ts-ignore TODO
+        // @ts-ignore TODO Ne respecte pas le type à cause d'omit
         createContact(contact, {
             onSuccess: (data) => {
                 const contactRes = data.data;
 
-                onSelectContact(contactRes.id);
+                changeRecipient(contactRes);
+                updateInvoice.mutate(form.getValues());
             }
         });
     }
-
-    useEffect(() => {
-        if (currentContact) {
-            form.resetField('recipient.name');
-            form.resetField('recipient.vat_number');
-            form.resetField('recipient.email');
-            form.resetField('recipient.phone');
-            form.resetField('recipient.street');
-            form.resetField('recipient.street_number');
-            form.resetField('recipient.city');
-            form.resetField('recipient.zipcode');
-            form.resetField('recipient.country');
-
-            // @ts-ignore
-            form.setValue('recipient', currentContact.billing_address)
-            form.setValue('recipient.name', currentContact.display_name)
-            form.setValue('recipient.email', currentContact.email)
-            form.setValue('recipient.phone', currentContact.phone)
-            form.setValue('recipient.vat_number', currentContact.vat_number)
-        }
-    }, [currentContact])
 
     if (data?.status !== INVOICE_STATUS_DRAFT) {
         return null
@@ -142,6 +141,7 @@ export const UpdateFormInvoice = () => {
                                     }) ?? []
                                 }
                             />
+
                             <RecipientFields />
                         </Tabs.Content>
                     </Tabs>
