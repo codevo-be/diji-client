@@ -134,26 +134,6 @@ export default function Calendar() {
         )
     }
 
-    const handleEventResize = (info: any) => {
-        updateCalendarEvent.mutate(
-            {
-                id: info.event.id,
-                title: info.event.title,
-                start: info.event.startStr,
-                end: info.event.endStr,
-                all_day: info.event.allDay ?? false
-            },
-            {
-                onSuccess: (res) => {
-                    const updated = events.map((e) =>
-                        e.id === info.event.id ? res.data : e
-                    )
-                    setEvents(updated)
-                }
-            }
-        )
-    }
-
     return (
         <>
             <FullCalendar
@@ -166,7 +146,7 @@ export default function Calendar() {
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
                 eventDrop={handleEventDrop}
-                eventResize={handleEventResize}
+                eventResize={handleEventDrop}
                 editable={true}
                 selectable={true}
                 headerToolbar={{
