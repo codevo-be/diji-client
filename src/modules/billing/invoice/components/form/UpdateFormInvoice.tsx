@@ -15,7 +15,6 @@ import { ContactType } from '@contact/types/contact'
 
 import { IssuerFields } from './IssuerFields'
 import { RecipientFields } from './RecipientFields'
-import { undefined } from 'zod'
 
 export const UpdateFormInvoice = () => {
     const { id } = useParams()
@@ -24,23 +23,13 @@ export const UpdateFormInvoice = () => {
     const { data: contacts } = useReadContacts()
     const { mutate: createContact } = useCreateContact()
 
-    const [createContactVisible, setCreateContactVisible] = useState<boolean>(true);
-
-    useEffect(() => {
-        if (!data  || !data.contact_id) {
-            setCreateContactVisible(true)
-        } else {
-            setCreateContactVisible(false)
-        }
-    }, [data])
+    const [createContactVisible, setCreateContactVisible] = useState<boolean>(false);
 
     const form = useForm<InvoiceType>({
         values: data
     })
 
-    const changeRecipient = (contact: ContactType) => {
-        form.setValue('contact_id', contact.id)
-
+    const resetRecipientFields = () => {
         form.resetField('recipient.name');
         form.resetField('recipient.vat_number');
         form.resetField('recipient.email');
@@ -50,6 +39,12 @@ export const UpdateFormInvoice = () => {
         form.resetField('recipient.city');
         form.resetField('recipient.zipcode');
         form.resetField('recipient.country');
+    }
+
+    const changeRecipient = (contact: ContactType) => {
+        form.setValue('contact_id', contact.id)
+
+        resetRecipientFields();
 
         // @ts-ignore
         form.setValue('recipient', contact.billing_address)
@@ -61,6 +56,12 @@ export const UpdateFormInvoice = () => {
     }
 
     const onSelectContact = (contact_id: number | string) => {
+        if (contact_id === "new_user") {
+            setCreateContactVisible(true);
+            resetRecipientFields();
+            return;
+        }
+
         const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
 
         if (!contact) {
@@ -145,14 +146,15 @@ export const UpdateFormInvoice = () => {
                                 name="contact_id"
                                 label="Contact"
                                 onChange={onSelectContact}
-                                options={
-                                    contacts?.data.map((contact: ContactType) => {
+                                options={ [
+                                    { label: "Créer un nouveau contact", value: "new_user" },
+                                    ...contacts?.data.map((contact: ContactType) => {
                                         return {
                                             label: contact.display_name,
                                             value: contact.id
                                         }
                                     }) ?? []
-                                }
+                                ]}
                             />
 
                             <RecipientFields />
