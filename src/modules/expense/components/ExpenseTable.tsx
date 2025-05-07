@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation'
 
 import { Table, Tag } from '@digico/ui'
 import { DateHelper, formatCurrency } from '@digico/utils'
+import { ExpenseType } from '@expense/type/expense'
 import clsx from 'clsx'
 
 import { ContactType } from '@contact/types/contact'
 import { EXPENSE_TYPES } from '@expense/data/expense_types'
 
 import { useAuth } from 'helpers/auth-context/useAuth'
-import { ExpenseType } from '@expense/type/expense'
 
 type Props = {
     items: ContactType[]
