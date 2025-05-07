@@ -10,6 +10,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 
 import { useCreateCalendarEvent } from '@calendar/hooks/mutations/useCreateCalendarEvent'
+import { useDestroyCalendarEvent } from '@calendar/hooks/mutations/useDestroyCalendarEvent'
 import { useUpdateCalendarEvent } from '@calendar/hooks/mutations/useUpdateCalendarEvent'
 import { useReadCalendarEvents } from '@calendar/hooks/queries/useReadCalendarEvents'
 import { CalendarEvent } from '@calendar/types/calendar_event'
@@ -18,7 +19,6 @@ import { Modal } from '@components/modal/Modal'
 import { useModal } from '@components/modal/useModal'
 
 export default function Calendar() {
-
     const { setOpen, setData, data } = useModal()
 
     const form = useForm({
@@ -29,8 +29,10 @@ export default function Calendar() {
             end: ''
         }
     })
+
     const createCalendarEvent = useCreateCalendarEvent()
     const updateCalendarEvent = useUpdateCalendarEvent()
+    const deleteCalendarEvent = useDestroyCalendarEvent()
     const queryCalendarEvents = useReadCalendarEvents()
 
     const [events, setEvents] = useState<CalendarEvent[]>([])
@@ -63,7 +65,6 @@ export default function Calendar() {
 
     const handleEventClick = (info: any) => {
         setData({ mode: 'edit', id: info.event.id })
-
         form.reset({
             title: info.event.title,
             description: info.event.extendedProps?.description || '',
@@ -112,6 +113,17 @@ export default function Calendar() {
                 }
             )
         }
+    }
+
+    const handleDelete = () => {
+        if (!data?.id) return
+
+        deleteCalendarEvent.mutate(data.id, {
+            onSuccess: () => {
+                setEvents(events.filter((e) => e.id !== data.id))
+                setOpen(false)
+            }
+        })
     }
 
     const handleEventDrop = (info: any) => {
@@ -164,7 +176,14 @@ export default function Calendar() {
                     <Form.Field name="description" label="Description" placeholder="Description optionnelle" />
                     <Form.Field name="start" label="Date de début" type="datetime-local" required />
                     <Form.Field name="end" label="Date de fin" type="datetime-local" />
-                    <Button type="submit">Enregistrer</Button>
+                    <div className="flex gap-4 mt-4">
+                        <Button type="submit">Enregistrer</Button>
+                        {data?.mode === 'edit' && (
+                            <Button type="button" intent="error" onClick={handleDelete}>
+                                Supprimer
+                            </Button>
+                        )}
+                    </div>
                 </Form>
             </Modal>
         </>
