@@ -1,5 +1,6 @@
 import { useParams } from 'next/navigation'
 
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { INVOICE_STATUS_DRAFT } from '@billing/invoice/data/invoice-statuses'
 import { Box, Button, Form, Grid } from '@digico/ui'
@@ -14,6 +15,7 @@ import { ContactType } from '@contact/types/contact'
 
 import { IssuerFields } from './IssuerFields'
 import { RecipientFields } from './RecipientFields'
+import { undefined } from 'zod'
 
 export const UpdateFormInvoice = () => {
     const { id } = useParams()
@@ -21,6 +23,16 @@ export const UpdateFormInvoice = () => {
     const updateInvoice = useUpdateInvoice()
     const { data: contacts } = useReadContacts()
     const { mutate: createContact } = useCreateContact()
+
+    const [createContactVisible, setCreateContactVisible] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (!data  || !data.contact_id) {
+            setCreateContactVisible(true)
+        } else {
+            setCreateContactVisible(false)
+        }
+    }, [data])
 
     const form = useForm<InvoiceType>({
         values: data
@@ -45,6 +57,7 @@ export const UpdateFormInvoice = () => {
         form.setValue('recipient.email', contact.email)
         form.setValue('recipient.phone', contact.phone)
         form.setValue('recipient.vat_number', contact.vat_number)
+        setCreateContactVisible(false);
     }
 
     const onSelectContact = (contact_id: number | string) => {
@@ -146,8 +159,8 @@ export const UpdateFormInvoice = () => {
                         </Tabs.Content>
                     </Tabs>
 
-                    {
-                        <Button type={"button"} className={"mt-12 w-full"} intent={"grey200"} onClick={onAddContact}>
+                    {createContactVisible &&
+                        <Button type={"button"} className={`mt-12 w-full`} intent={"grey200"} onClick={onAddContact}>
                             Créer fiche contact
                         </Button>
                     }
