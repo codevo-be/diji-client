@@ -1,5 +1,6 @@
 import { useParams } from 'next/navigation'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ESTIMATE_STATUS_DRAFT } from '@billing/estimate/data/estimate-statuses'
 import { Box, Button, Form, Grid } from '@digico/ui'
@@ -7,6 +8,7 @@ import { Tabs } from '@digico/ui'
 
 import { useUpdateEstimate } from '@billing/estimate/hooks/mutations'
 import { useReadEstimate } from '@billing/estimate/hooks/queries'
+import { useCreateContact } from '@contact/hooks/mutations'
 import { useReadContacts } from '@contact/hooks/queries'
 import { EstimateType } from '@billing/estimate/types/estimate'
 import { ContactType } from '@contact/types/contact'
@@ -19,24 +21,54 @@ export const UpdateFormEstimate = () => {
     const { data } = useReadEstimate(Number(id))
     const updateEstimate = useUpdateEstimate()
     const { data: contacts } = useReadContacts()
+    const { mutate: createContact } = useCreateContact();
+
+    const [createContactVisible, setCreateContactVisible] = useState<boolean>(false)
 
     const form = useForm<EstimateType>({
         values: data
     })
 
+    const resetRecipientFields = () => {
+        form.resetField('recipient.name');
+        form.resetField('recipient.vat_number');
+        form.resetField('recipient.email');
+        form.resetField('recipient.phone');
+        form.resetField('recipient.street');
+        form.resetField('recipient.street_number');
+        form.resetField('recipient.city');
+        form.resetField('recipient.zipcode');
+        form.resetField('recipient.country');
+    }
+
+    const changeRecipient = (contact: ContactType) => {
+        form.setValue('contact_id', contact.id)
+
+        resetRecipientFields();
+
+        // @ts-ignore
+        form.setValue('recipient', contact.billing_address)
+        form.setValue('recipient.name', contact.display_name)
+        form.setValue('recipient.email', contact.email)
+        form.setValue('recipient.phone', contact.phone)
+        form.setValue('recipient.vat_number', contact.vat_number)
+        setCreateContactVisible(false);
+    }
+
     const onSelectContact = (contact_id: number | string) => {
+        if (contact_id === -1) {
+            setCreateContactVisible(true);
+            resetRecipientFields();
+            return;
+        }
+
         const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
 
         if (!contact) {
             return
         }
 
-        //@ts-ignore
-        form.setValue('recipient', contact.billing_address)
-        form.setValue('recipient.name', contact.display_name)
-        form.setValue('recipient.email', contact.email)
-        form.setValue('recipient.phone', contact.phone)
-        form.setValue('recipient.vat_number', contact.vat_number)
+        changeRecipient(contact)
     }
 
     const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
@@ -44,6 +76,34 @@ export const UpdateFormEstimate = () => {
             id: Number(id),
             [key]: e.target.value
         })
+    }
+
+    const onAddContact = () => {
+        const values = form.getValues('recipient') as any
+
+        const contact: Omit<ContactType, 'id' | 'display_name'> = {
+            company_name: values.name,
+            email: values.email,
+            phone: values.phone,
+            vat_number: values.vat_number,
+            billing_address: {
+                street: values.street,
+                street_number: values.street_number,
+                city: values.city,
+                zipcode: values.zipcode,
+                country: values.country
+            }
+        }
+
+        // @ts-ignore TODO Ne respecte pas le type à cause d'omit
+        createContact(contact, {
+            onSuccess: (data) => {
+                const contactRes = data.data;
+
+                changeRecipient(contactRes);
+                updateEstimate.mutate(form.getValues());
+            }
+        });
     }
 
     if (data?.status !== ESTIMATE_STATUS_DRAFT) {
@@ -86,18 +146,26 @@ export const UpdateFormEstimate = () => {
                                 name="contact_id"
                                 label="Contact"
                                 onChange={onSelectContact}
-                                options={
-                                    contacts?.data.map((contact: ContactType) => {
+                                options={[
+                                    { label: "Créer un nouveau contact", value: -1 },
+                                    ...contacts?.data.map((contact: ContactType) => {
                                         return {
                                             label: contact.display_name,
                                             value: contact.id
                                         }
                                     }) ?? []
-                                }
+                                ]}
                             />
                             <RecipientFields />
                         </Tabs.Content>
                     </Tabs>
+
+                    {createContactVisible &&
+                        <Button type={"button"} className={`mt-12 w-full`} intent={"grey200"} onClick={onAddContact}>
+                            Créer fiche contact
+                        </Button>
+                    }
+
                     <Button className="w-full mt-12" isLoading={updateEstimate.isPending}>
                         Mettre à jour
                     </Button>
