@@ -2,10 +2,12 @@
 
 import { useRouter } from 'next/navigation'
 
-import { Table } from '@digico/ui'
+import { Table, Tag } from '@digico/ui'
 import { DateHelper, formatCurrency } from '@digico/utils'
+import clsx from 'clsx'
 
 import { ContactType } from '@contact/types/contact'
+import { EXPENSE_TYPES } from '@expense/data/expense_types'
 
 import { useAuth } from 'helpers/auth-context/useAuth'
 
@@ -47,7 +49,17 @@ export const ExpenseTable = ({ items }: Props) => {
                     return formatCurrency(expense.total ?? 0)
                 }}
             </Table.Col>
-            <Table.Col name="document_type" />
+            <Table.Col>
+                {(expense: any) => {
+                    // @ts-ignore
+                    const type = EXPENSE_TYPES[expense.document_type] ?? EXPENSE_TYPES.INVOICE
+                    return (
+                        <Tag className={clsx(`text-${type.color}`)} size="xs">
+                            {type.label}
+                        </Tag>
+                    )
+                }}
+            </Table.Col>
         </Table>
     )
 }

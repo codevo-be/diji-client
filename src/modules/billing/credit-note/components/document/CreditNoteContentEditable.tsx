@@ -17,6 +17,7 @@ export const CreditNoteContentEditable = () => {
             <Header />
             <CreditNoteItemListEditable />
             <ItemManager />
+            {/*@ts-ignore*/}
             <Summary data={data} />
         </>
     )
