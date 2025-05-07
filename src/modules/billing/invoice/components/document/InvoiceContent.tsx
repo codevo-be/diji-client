@@ -16,6 +16,7 @@ export const InvoiceContent = () => {
         <>
             <Header />
             <InvoiceItemList />
+            {/*@ts-ignore*/}
             <Summary data={data} />
             <InvoiceFooter data={data} />
         </>

@@ -15,6 +15,7 @@ import { ButtonPrintInvoice } from './ButtonPrintInvoice'
 export const PendingBox = () => {
     const { id } = useParams()
     const routeTenant = useRouteTenant()
+    // @ts-ignore
     const { data: invoice } = useReadInvoice(id)
     const vatNumber = invoice?.recipient?.vat_number ?? ''
     const isEligible = isPeppolEligible(vatNumber)

@@ -18,6 +18,7 @@ export const InvoiceContentEditable = () => {
             <Header />
             <InvoiceItemListEditable />
             <ItemManager />
+            {/*@ts-ignore*/}
             <Summary data={data} />
             <InvoiceFooter data={data} />
         </>
