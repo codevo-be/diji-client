@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation'
+
 import { useForm } from 'react-hook-form'
 import { Button, Form } from '@digico/ui'
 import dayjs from 'dayjs'
@@ -8,6 +10,8 @@ import { useLogin } from 'hooks/mutations/auth/useLogin'
 import { LoginFormData } from 'types/auth.types'
 
 export const LoginForm = () => {
+    const router = useRouter();
+
     const form = useForm<LoginFormData>({
         defaultValues: {
             email: '',
@@ -28,7 +32,13 @@ export const LoginForm = () => {
                     sameSite: 'Strict'
                 })
 
-                window.location.assign(`/${response.data.tenant.id}`)
+                const tenants = response.data.tenants
+                console.log(tenants)
+                if (tenants.length === 1) {
+                    window.location.assign(`/${tenants[0].id}`)
+                } else {
+                    router.push(`/${tenants[0].id}`) //TODO
+                }
             },
             onError: (error) => {
                 toast.error(error.message)

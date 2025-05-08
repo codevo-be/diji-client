@@ -1,15 +1,15 @@
-﻿import { useEffect, useRef, useState } from 'react'
+﻿'use client'
+
+import { useEffect, useRef, useState } from 'react'
 
 import TenantsDropdown from '@components/dashboard/sidebar/TenantsDropdown'
-
-interface ButtonTenantsProps {
-    tenant_slug: string;
-}
+import { useAuth } from '../../../helpers/auth-context/useAuth'
 
 export default function ButtonTenants() {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLLIElement>(null);
+    const { tenants, tenant } = useAuth()
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -25,14 +25,14 @@ export default function ButtonTenants() {
     }, [])
 
     return (
-        <li ref={dropdownRef} className={"relative"}>
+        <li ref={dropdownRef} className={"relative h-[4.2rem] bg-white rounded"}>
             <button type={"button"} onClick={() => setIsOpen(!isOpen)}
-                  className={"p-5 rounded transition-all hover:bg-white hover:text-main group"}>
-                <div className={"bg-white size-7 group-hover:bg-main"}></div>
+                  className={"hover:cursor-pointer size-full"}>
+
             </button>
 
             <div className={`${isOpen ? "absolute": "hidden"} w-[50rem] z-100`} role={"menu"}>
-                <TenantsDropdown />
+                <TenantsDropdown tenants={tenants} currentTenant={tenant} />
             </div>
         </li>
     );

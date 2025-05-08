@@ -15,6 +15,7 @@ export const getAuthenticatedUser = async (tenant?: string) => {
         .get<{
             data: {
                 user: UserType
+                tenants: TenantType[]
                 tenant: TenantType
                 modules: ModuleType[]
             }

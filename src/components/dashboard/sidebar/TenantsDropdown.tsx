@@ -1,20 +1,32 @@
-﻿import TenantsDropdownItem from '@components/dashboard/sidebar/TenantsDropdownItem'
+﻿import { TenantType } from '../../../types/tenant.types'
+
+import TenantsDropdownItem from '@components/dashboard/sidebar/TenantsDropdownItem'
 
 interface TenantsDropdownProps {
-
+    tenants: TenantType[];
+    currentTenant: TenantType;
 }
 
-export default function TenantsDropdown(props: TenantsDropdownProps) {
-    return (
-        <ul className={"w-full p-4 bg-grey-400 text-main flex flex-col gap-2 rounded"}>
+export default function TenantsDropdown({ tenants, currentTenant }: TenantsDropdownProps) {
 
-            <TenantsDropdownItem />
-            <TenantsDropdownItem />
-            <TenantsDropdownItem />
+    return (
+        <ul className="w-full p-4 bg-grey-400 text-main flex flex-col gap-2 rounded">
+            {currentTenant && (
+                <TenantsDropdownItem tenant={currentTenant} current />
+            )}
+
+            {tenants
+                .filter((tenant) => tenant.id !== currentTenant?.id)
+                .map((tenant) => (
+                    <TenantsDropdownItem key={tenant.id} tenant={tenant} />
+                ))}
 
             <li>
-                Ajouter ou rejoindre un tenant.
+                <button disabled className="cursor-not-allowed opacity-50">
+                    Ajouter ou rejoindre un tenant.
+                </button>
             </li>
         </ul>
+
     )
 }
