@@ -1,4 +1,6 @@
-﻿import { TenantType } from '../../../types/tenant.types'
+﻿import { queryClient } from '@digico/utils'
+
+import { TenantType } from '../../../types/tenant.types'
 
 import { useRouter } from 'next/dist/client/components/navigation'
 
@@ -10,6 +12,7 @@ interface TenantsDropdownItemProps {
 export default function TenantsDropdownItem({ tenant, current = false }: TenantsDropdownItemProps) {
     const router = useRouter();
     const onTenantClicked = () => {
+        queryClient.removeQueries()
         router.push(`/${tenant.name}`)
     }
 
