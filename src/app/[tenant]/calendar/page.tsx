@@ -13,20 +13,24 @@ import { useCreateCalendarEvent } from '@calendar/hooks/mutations/useCreateCalen
 import { useDestroyCalendarEvent } from '@calendar/hooks/mutations/useDestroyCalendarEvent'
 import { useUpdateCalendarEvent } from '@calendar/hooks/mutations/useUpdateCalendarEvent'
 import { useReadCalendarEvents } from '@calendar/hooks/queries/useReadCalendarEvents'
+import { useReadUsers } from '@task/hooks/user/queries/useReadUsers'
 import { CalendarEvent } from '@calendar/types/calendar_event'
 
 import { Modal } from '@components/modal/Modal'
 import { useModal } from '@components/modal/useModal'
+import { SelectMultiUser } from '@task/components/organisms/SelectMultiUser'
 
 export default function Calendar() {
     const { setOpen, setData, data } = useModal()
+    const { data: users } = useReadUsers()
 
     const form = useForm({
         defaultValues: {
             title: '',
             description: '',
             start: '',
-            end: ''
+            end: '',
+            assigned_user_ids: []
         }
     })
 
@@ -50,60 +54,53 @@ export default function Calendar() {
     }
 
     const handleDateClick = (info: any) => {
-        const defaultStart = info.dateStr
-        const defaultEnd = info.allDay ? '' : info.dateStr
-
-        setData({ mode: 'create', start: defaultStart, end: defaultEnd, allDay: info.allDay })
+        setData({ mode: 'create', start: info.dateStr, end: '', allDay: info.allDay })
         form.reset({
             title: '',
             description: '',
-            start: formatForInput(defaultStart),
-            end: defaultEnd ? formatForInput(defaultEnd) : ''
+            start: formatForInput(info.dateStr),
+            end: '',
+            assigned_user_ids: []
         })
         setOpen(true)
     }
 
     const handleEventClick = (info: any) => {
+        const assignedIds = info.event.extendedProps?.assigned_user_ids ?? []
+
         setData({ mode: 'edit', id: info.event.id })
         form.reset({
             title: info.event.title,
             description: info.event.extendedProps?.description || '',
             start: formatForInput(info.event.start),
-            end: info.event.end ? formatForInput(info.event.end) : ''
+            end: info.event.end ? formatForInput(info.event.end) : '',
+            assigned_user_ids: assignedIds
         })
         setOpen(true)
     }
 
     const handleSubmit = (formData: FieldValues) => {
-        if (data?.mode === 'create') {
-            createCalendarEvent.mutate(
-                {
-                    title: formData.title,
-                    description: formData.description,
-                    start: formData.start,
-                    end: formData.end || (data.allDay ? undefined : formData.start),
-                    all_day: data.allDay ?? false
-                },
-                {
-                    onSuccess: (res) => {
-                        setEvents([...events, res.data])
-                        setOpen(false)
-                    }
-                }
-            )
-            return
+        const allDay = data?.allDay ?? false
+
+        const payload = {
+            title: formData.title,
+            description: formData.description,
+            start: formData.start,
+            end: formData.end || (allDay ? undefined : formData.start),
+            all_day: allDay,
+            assigned_user_ids: formData.assigned_user_ids
         }
 
-        if (data?.mode === 'edit') {
+        if (data?.mode === 'create') {
+            createCalendarEvent.mutate(payload, {
+                onSuccess: (res) => {
+                    setEvents([...events, res.data])
+                    setOpen(false)
+                }
+            })
+        } else if (data?.mode === 'edit') {
             updateCalendarEvent.mutate(
-                {
-                    id: data.id,
-                    title: formData.title,
-                    description: formData.description,
-                    start: formData.start,
-                    end: formData.end,
-                    all_day: data.allDay ?? false
-                },
+                { id: data.id, ...payload },
                 {
                     onSuccess: (res) => {
                         const updated = events.map((e) => (e.id === data.id ? res.data : e))
@@ -137,9 +134,7 @@ export default function Calendar() {
             },
             {
                 onSuccess: (res) => {
-                    const updated = events.map((e) =>
-                        e.id === info.event.id ? res.data : e
-                    )
+                    const updated = events.map((e) => (e.id === info.event.id ? res.data : e))
                     setEvents(updated)
                 }
             }
@@ -153,14 +148,14 @@ export default function Calendar() {
                 initialView="dayGridMonth"
                 locale={frLocale}
                 firstDay={1}
-                weekends={true}
+                weekends
                 events={events}
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
                 eventDrop={handleEventDrop}
                 eventResize={handleEventDrop}
-                editable={true}
-                selectable={true}
+                editable
+                selectable
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
@@ -176,6 +171,17 @@ export default function Calendar() {
                     <Form.Field name="description" label="Description" placeholder="Description optionnelle" />
                     <Form.Field name="start" label="Date de début" type="datetime-local" required />
                     <Form.Field name="end" label="Date de fin" type="datetime-local" />
+                    <SelectMultiUser
+                        name="assigned_user_ids"
+                        label="Utilisateurs assignés"
+                        control={form.control}
+                        options={
+                            users?.data.map((user: any) => ({
+                                value: user.id,
+                                label: `${user.firstname} ${user.lastname}`
+                            })) ?? []
+                        }
+                    />
                     <div className="flex gap-4 mt-4">
                         <Button type="submit">Enregistrer</Button>
                         {data?.mode === 'edit' && (
