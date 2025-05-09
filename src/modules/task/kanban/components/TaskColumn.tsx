@@ -54,7 +54,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         )
     }
 
-    const onDestroy = () => {
+    const onDestroyGroup = () => {
         if (!status) return
 
         destroyTaskGroup.mutate({
@@ -90,7 +90,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content sideOffset={4} className="bg-white border border-grey-300 rounded shadow-md p-2 text-sm">
                         <DropdownMenu.Item className="cursor-pointer px-2 py-1 hover:bg-grey-100 rounded">
-                            <Button intent="error" className="flex-1" onClick={onDestroy}>
+                            <Button intent="error" className="flex-1" onClick={onDestroyGroup}>
                                 Supprimer
                             </Button>{' '}
                         </DropdownMenu.Item>
