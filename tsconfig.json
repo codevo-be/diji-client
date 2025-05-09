@@ -24,6 +24,7 @@
             "@billing/*": ["./modules/billing/*"],
             "@task/*": ["./modules/task/*"],
             "@project/*": ["./modules/project/*"],
+            "@calendar/*": ["./modules/calendar/*"],
             "@helpers/*": ["./components/helpers/*"],
             "@components/*": ["./components/*"]
         }

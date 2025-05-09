@@ -13,5 +13,10 @@ export const modulesClient = {
         icon: 'project',
         name: 'Projet',
         href: '/project'
+    },
+    calendar: {
+        icon: 'calendar',
+        name: 'Planning',
+        href: '/calendar'
     }
 }

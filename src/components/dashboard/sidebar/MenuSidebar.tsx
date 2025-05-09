@@ -13,6 +13,9 @@ export const MenuSidebar = () => {
     const { modules = [] } = useAuth()
     const routerTenant = useRouteTenant()
 
+    // Afficher la liste des modules
+    console.log("Modules : ", modules)
+
     return (
         <div className="w-auto bg-main py-8 px-2">
             <ul className="h-full flex flex-col items-center">
