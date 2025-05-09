@@ -1,3 +1,5 @@
+import { useParams } from 'next/navigation'
+
 import React, { useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
@@ -21,6 +23,8 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
     const { columns } = useKanbanContext()
     const { setNodeRef } = useDroppable({ id })
     const updateColumnMutation = useUpdateTaskGroup()
+    const params = useParams()
+    const projectId = Number(params.id)
 
     // Trouver la colonne actuelle
     const status = React.useMemo(() => {
@@ -40,7 +44,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         }
 
         updateColumnMutation.mutate(
-            { project_id: Number(id), id: status.id, name: columnTitle },
+            { project_id: projectId, id: status.id, name: columnTitle },
             {
                 onSuccess: () => {
                     setIsEditing(false)
