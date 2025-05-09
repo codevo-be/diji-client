@@ -12,7 +12,6 @@ import { Card } from '@task/kanban/components/Card'
 
 import { findBoardSectionContainer, initialize } from '../../utils/kanban'
 
-import { FormUpdateTask } from './FormUpdateTask'
 import { Column } from './TaskColumn'
 
 export const TaskKanban = () => {
@@ -145,6 +144,7 @@ export const TaskKanban = () => {
                     onDragStart={handleDragStart}
                     onDragOver={handleDragOver}
                     onDragEnd={handleDragEnd}>
+
                     <ul className="flex gap-8 h-full overflow-y-hidden">
                         {Object.keys(itemsByColumns).map((key) => (
                             <li key={key}>
@@ -154,7 +154,6 @@ export const TaskKanban = () => {
                         <DragOverlay dropAnimation={defaultDropAnimation}>{cardItem ? <Card item={cardItem} /> : null}</DragOverlay>
                     </ul>
                 </DndContext>
-                <FormUpdateTask />
             </div>
         </KanbanContext.Provider>
     )
