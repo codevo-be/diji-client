@@ -30,9 +30,6 @@ export const Card = ({ item }: Props) => {
         }
     })
     const updateTaskItem = useUpdateTaskItem()
-
-    console.log('Item', item)
-
     const handleMouseDown = () => {
         setClickTimer(
             setTimeout(() => {

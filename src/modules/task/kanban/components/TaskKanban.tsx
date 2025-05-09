@@ -6,6 +6,7 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { KanbanCardListType, KanbanContext } from '@task/kanban/contexts/KanbanContext'
 
 import { useReadTaskGroups } from '@task/hooks/task-group/queries/useReadTaskGroups'
+import { useBulkUpdate } from '@task/hooks/task-item/mutations/useBulkUpdateTaskItem'
 import { useKanbanDragAndDrop } from '@task/hooks/useKanbanDragAndDrop'
 
 import { Card } from '@task/kanban/components/Card'
@@ -16,6 +17,8 @@ import { Column } from './TaskColumn'
 
 export const TaskKanban = () => {
     const { id } = useParams()
+    const bulkUpdateTaskItem = useBulkUpdate()
+
     // @ts-ignore
     const queryKanban = useReadTaskGroups(Number(id), {
         include: ['items']
@@ -70,14 +73,10 @@ export const TaskKanban = () => {
     }, [queryKanban.data, queryKanban.isSuccess])
 
     const [taskOpen, setTaskOpen] = useState<any | null>(null)
-
     const [itemsByColumns, setItemsByColumns] = useState<KanbanCardListType>({})
 
     useEffect(() => {
-        if (!formattedData) {
-            return
-        }
-
+        if (!formattedData) return
         const dataSortByColumns = initialize(formattedData.item.tasks, formattedData.item.categories)
         setItemsByColumns(dataSortByColumns)
     }, [formattedData])
@@ -87,10 +86,7 @@ export const TaskKanban = () => {
     const handleDragEnd = (event: DragEndEvent) => {
         const active = event.active
         const over = event.over
-
-        if (!over) {
-            return
-        }
+        if (!over) return
 
         const activeId = active.id as string
         const overId = over.id as string
@@ -98,36 +94,50 @@ export const TaskKanban = () => {
         const activeContainer = findBoardSectionContainer(itemsByColumns, activeId)
         const overContainer = findBoardSectionContainer(itemsByColumns, overId)
 
-        if (!activeContainer || !overContainer) {
-            return
-        }
+        if (!activeContainer || !overContainer) return
 
         const activeIndex = itemsByColumns[activeContainer].findIndex((task) => task.id === active.id)
         const overIndex = itemsByColumns[overContainer].findIndex((task) => task.id === over.id)
 
-        if (activeContainer !== overContainer) {
-            console.log(`Déplacement entre colonnes (${activeContainer} → ${overContainer})`)
-        } else {
-            const newBoard = {
-                ...itemsByColumns,
-                [overContainer]: arrayMove(itemsByColumns[overContainer], activeIndex, overIndex)
-            }
+        const isSameContainer = activeContainer === overContainer
 
-            setItemsByColumns(newBoard)
-
-            /* const updatedTasks = newBoard[overContainer].map((task, index) => ({
-                ...task,
-                order: index,
-                category_id: getIdOfColumn(overContainer)
-            })) */
+        const newBoard = {
+            ...itemsByColumns,
+            [overContainer]: arrayMove(
+                itemsByColumns[overContainer],
+                isSameContainer ? activeIndex : 0,
+                overIndex === -1 ? 0 : overIndex
+            ),
+            ...(isSameContainer
+                ? {}
+                : {
+                    [activeContainer]: itemsByColumns[activeContainer].filter((task) => task.id !== active.id)
+                })
         }
+
+        setItemsByColumns(newBoard)
+
+        const updatedTasks = Object.entries(newBoard).flatMap(([columnId, tasks]) => {
+            const taskGroupId = parseInt(columnId.replace('column_', '')) // 🔥 suppression du préfixe
+
+            return tasks.map((task: any, index: number) => ({
+                id: task.id,
+                position: index + 1,
+                task_group_id: taskGroupId
+            }))
+        })
+
+        console.log('%cToutes les tâches réordonnées', 'color: orange; font-weight: bold;', updatedTasks)
+
+        bulkUpdateTaskItem.mutate({
+            project_id: Number(id),
+            tasks: updatedTasks
+        })
     }
 
     const cardItem = activeTaskId ? formattedData?.item.tasks.find((task: any) => task.id === activeTaskId) : null
 
-    if (!formattedData) {
-        return
-    }
+    if (!formattedData) return
 
     return (
         <KanbanContext.Provider
@@ -144,14 +154,15 @@ export const TaskKanban = () => {
                     onDragStart={handleDragStart}
                     onDragOver={handleDragOver}
                     onDragEnd={handleDragEnd}>
-
                     <ul className="flex gap-8 h-full overflow-y-hidden">
                         {Object.keys(itemsByColumns).map((key) => (
                             <li key={key}>
                                 <Column id={key} items={itemsByColumns[key]} />
                             </li>
                         ))}
-                        <DragOverlay dropAnimation={defaultDropAnimation}>{cardItem ? <Card item={cardItem} /> : null}</DragOverlay>
+                        <DragOverlay dropAnimation={defaultDropAnimation}>
+                            {cardItem ? <Card item={cardItem} /> : null}
+                        </DragOverlay>
                     </ul>
                 </DndContext>
             </div>
