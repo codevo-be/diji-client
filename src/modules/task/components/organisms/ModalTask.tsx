@@ -14,7 +14,7 @@ export const ModalTask = () => {
     const { task, setTask } = useTask()
 
     const form = useForm({
-        defaultValues: task ?? {}
+        values: task ? task : {}
     })
 
     const updateTaskItem = useUpdateTaskItem()
