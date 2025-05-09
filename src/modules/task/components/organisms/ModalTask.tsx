@@ -1,3 +1,5 @@
+'use client'
+
 import { useParams } from 'next/navigation'
 
 import { FieldValues, useForm } from 'react-hook-form'
@@ -9,6 +11,8 @@ import { TASK_STATUSES } from '@task/data/statuses'
 import { useDestroyTaskItem } from '@task/hooks/task-item/mutations/useDestroyTaskItem'
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
 import { useReadUsers } from '@task/hooks/user/queries/useReadUsers'
+
+import { SelectMultiUser } from '@task/components/organisms/SelectMultiUser'
 
 export const ModalTask = () => {
     const { id } = useParams()
@@ -50,14 +54,15 @@ export const ModalTask = () => {
                 <Form.Field type="textarea" rows={5} label="Description" name="description" placeholder="Le détail ..." />
                 <Form.Select name="status" label="Statut" options={Object.values(TASK_STATUSES)} />
                 <Form.Select name="priority" label="Priorité" options={Object.values(TASK_PRIORITIES)} />
-                <Form.Select
-                    multiple
+
+                <SelectMultiUser
                     name="assigned_user_ids"
                     label="Utilisateurs assignés"
+                    control={form.control}
                     options={
                         users?.data.map((user: any) => ({
                             value: user.id,
-                            label: user.name
+                            label: `${user.firstname} ${user.lastname}`
                         })) ?? []
                     }
                 />
