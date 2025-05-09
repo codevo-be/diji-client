@@ -13,6 +13,7 @@ import { useCreateCalendarEvent } from '@calendar/hooks/mutations/useCreateCalen
 import { useDestroyCalendarEvent } from '@calendar/hooks/mutations/useDestroyCalendarEvent'
 import { useUpdateCalendarEvent } from '@calendar/hooks/mutations/useUpdateCalendarEvent'
 import { useReadCalendarEvents } from '@calendar/hooks/queries/useReadCalendarEvents'
+import { useReadProjects } from '@project/hooks/queries'
 import { useReadUsers } from '@task/hooks/user/queries/useReadUsers'
 import { CalendarEvent } from '@calendar/types/calendar_event'
 
@@ -23,7 +24,7 @@ import { SelectMultiUser } from '@task/components/organisms/SelectMultiUser'
 export default function Calendar() {
     const { setOpen, setData, data } = useModal()
     const { data: users } = useReadUsers()
-
+    const { data: projectResponse } = useReadProjects({ page: 1 })
     const form = useForm({
         defaultValues: {
             title: '',
@@ -42,10 +43,22 @@ export default function Calendar() {
     const [events, setEvents] = useState<CalendarEvent[]>([])
 
     useEffect(() => {
-        if (queryCalendarEvents.data?.data) {
-            setEvents(queryCalendarEvents.data.data)
-        }
-    }, [queryCalendarEvents.data])
+        const calendarEvents = queryCalendarEvents.data?.data ?? []
+        const projectEvents =
+            projectResponse?.data
+                .filter((p) => p.start_date || p.end_date)
+                .map((p) => ({
+                    id: `project-${p.id}`,
+                    title: `[Projet] ${p.name}`,
+                    start: p.start_date ?? p.end_date ?? '',
+                    end: p.end_date ?? p.start_date ?? '',
+                    allDay: true,
+                    backgroundColor: '#6c5ce7',
+                    borderColor: '#6c5ce7'
+                })) ?? []
+
+        setEvents([...calendarEvents, ...projectEvents])
+    }, [queryCalendarEvents.data, projectResponse])
 
     const formatForInput = (date: string | Date) => {
         const d = new Date(date)
@@ -66,6 +79,8 @@ export default function Calendar() {
     }
 
     const handleEventClick = (info: any) => {
+        if (info.event.id?.toString().startsWith('project-')) return
+
         const assignedIds = info.event.extendedProps?.assigned_user_ids ?? []
 
         setData({ mode: 'edit', id: info.event.id })
@@ -81,7 +96,6 @@ export default function Calendar() {
 
     const handleSubmit = (formData: FieldValues) => {
         const allDay = data?.allDay ?? false
-
         const payload = {
             title: formData.title,
             description: formData.description,
@@ -124,6 +138,8 @@ export default function Calendar() {
     }
 
     const handleEventDrop = (info: any) => {
+        if (info.event.id?.toString().startsWith('project-')) return
+
         updateCalendarEvent.mutate(
             {
                 id: info.event.id,
