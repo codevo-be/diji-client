@@ -37,7 +37,7 @@ export const LoginForm = () => {
                 if (tenants.length === 1) {
                     window.location.assign(`/${tenants[0].id}`)
                 } else {
-                    router.push(`/${tenants[0].id}`) //TODO
+                    router.push('/login/tenants');
                 }
             },
             onError: (error) => {
