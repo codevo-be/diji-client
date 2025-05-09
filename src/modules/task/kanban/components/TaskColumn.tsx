@@ -75,7 +75,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
             </div>
 
             {/* Ajout d'une tâche */}
-            <AddCard />
+            <AddCard taskGroupId={status?.id} />
 
             {/* Liste des tâches */}
             <div className="flex-grow-0 h-full overflow-y-auto">
