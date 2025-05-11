@@ -8,8 +8,8 @@ import downloadBatchCreditNotes from '@billing/credit-note/services/batch/downlo
 export default function useDownloadBatchCreditNotes() {
     return useMutation({
         mutationFn: downloadBatchCreditNotes,
-        onSuccess: () => {
-            toast.success('Les notes de crédit ont été téléchargées !')
+        onSuccess: (data) => {
+            toast.success(data.message);
         },
         onError: (error) => {
             toast.error(error.message)

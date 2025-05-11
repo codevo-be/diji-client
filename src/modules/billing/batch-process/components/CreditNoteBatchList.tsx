@@ -16,7 +16,7 @@ import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const CreditNoteBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
@@ -72,7 +72,17 @@ export const CreditNoteBatchList = () => {
 
     const onDownload = () => {
         downloadBatchCreditsNotes.mutate({
+            email: user.email,
             ids: formList.watch('invoices').map((id) => Number(id))
+        }, {
+            onSuccess: (data) => {
+                const skippedIds = data.errors;
+                console.log(data);
+                console.log(Object.keys(skippedIds).length > 0)
+                if (Object.keys(skippedIds).length > 0) {
+                    setErrors(skippedIds);
+                }
+            }
         })
     }
 
@@ -172,7 +182,7 @@ export const CreditNoteBatchList = () => {
                     </Grid.Col>
                     {errors && (
                         <Grid.Col>
-                            <Box title="Erreurs sur les factures" intent="error" className="text-error border border-error">
+                            <Box title="Erreurs sur les notes de crédits" intent="error" className="text-error border border-error">
                                 <ul>
                                     {Object.keys(errors).map((id) => {
                                         return (
