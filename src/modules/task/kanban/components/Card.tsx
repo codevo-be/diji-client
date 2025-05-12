@@ -7,6 +7,7 @@ import { formatCurrency } from '@digico/utils'
 import { TASK_PRIORITIES } from '@task/data/priorities'
 import { TASK_STATUSES } from '@task/data/statuses'
 
+import { useDestroyTaskItem } from '@task/hooks/task-item/mutations/useDestroyTaskItem'
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
 
 import { Icon } from '@components/Icon'
@@ -19,6 +20,7 @@ type Props = {
 export const Card = ({ item }: Props) => {
     const { id } = useParams()
     const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null)
+
     const form = useForm({
         defaultValues: {
             id: item.id,
@@ -29,7 +31,10 @@ export const Card = ({ item }: Props) => {
             priority: item.priority
         }
     })
+
     const updateTaskItem = useUpdateTaskItem()
+    const destroyTaskItem = useDestroyTaskItem()
+
     const handleMouseDown = () => {
         setClickTimer(
             setTimeout(() => {
@@ -82,6 +87,27 @@ export const Card = ({ item }: Props) => {
 
                         <Button isLoading={updateTaskItem.isPending} type="submit">
                             Mettre à jour
+                        </Button>
+
+                        <Button
+                            intent="error"
+                            isLoading={destroyTaskItem.isPending}
+                            type="button"
+                            onClick={() => {
+                                destroyTaskItem.mutate(
+                                    {
+                                        project_id: Number(id),
+                                        task_group_id: item.category_id,
+                                        id: item.id
+                                    },
+                                    {
+                                        onSuccess: () => {
+                                            handleClose()
+                                        }
+                                    }
+                                )
+                            }}>
+                            Supprimer
                         </Button>
                     </Form>
                 )}
