@@ -5,7 +5,6 @@ export const SettingsBillingFields = () => {
     return (
         <>
             <Form.Group>
-                <Form.File name="logo" />
                 <Form.Field label="Nom" name="name" id="name" placeholder="Diji" />
                 <Form.Row>
                     <Form.Field label="Adresse email" name="email" id="email" placeholder="info@diji.be" />

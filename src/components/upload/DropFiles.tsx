@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, useCallback } from 'react'
+import { MouseEvent, ReactNode, useCallback, useMemo } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useFormContext } from 'react-hook-form'
 
@@ -10,7 +10,11 @@ interface DropFilesProps {
 
 export default function DropFiles({ name, accept, multiple = false }: DropFilesProps): ReactNode {
     const { watch, setValue, register } = useFormContext()
-    const files = watch(name) || [];
+    const rawValue = watch(name);
+
+    const files = useMemo(() => {
+        return Array.isArray(rawValue) ? rawValue : [];
+    }, [rawValue]);
 
     const onDrop = useCallback(
         (acceptedFiles: File[]) => {
@@ -31,7 +35,7 @@ export default function DropFiles({ name, accept, multiple = false }: DropFilesP
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept,
-        multiple,
+        multiple
     })
 
     const onRemoveFile = (e: MouseEvent<HTMLButtonElement>, index: number) => {
