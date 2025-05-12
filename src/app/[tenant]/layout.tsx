@@ -1,6 +1,7 @@
 import { getAuthenticatedUser } from 'services/auth'
 
 import { DashboardLayout } from 'layouts/DashboardLayout'
+import { ModalProvider } from '@components/modal/ModalProvider'
 import { AuthProvider } from 'helpers/auth-context/AuthProvider'
 
 export default async function RootLayout({
@@ -12,7 +13,9 @@ export default async function RootLayout({
 
     return (
         <AuthProvider tenant={tenant} user={user} modules={modules}>
-            <DashboardLayout>{children}</DashboardLayout>
+            <ModalProvider>
+                <DashboardLayout>{children}</DashboardLayout>
+            </ModalProvider>
         </AuthProvider>
     )
 }

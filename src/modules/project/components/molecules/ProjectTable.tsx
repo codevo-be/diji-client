@@ -21,9 +21,13 @@ export const ProjectTable = ({ items }: Props) => {
         <Table items={items} onClick={toSingle}>
             <Table.Head>ID</Table.Head>
             <Table.Head>Nom</Table.Head>
+            <Table.Head>Date de début</Table.Head>
+            <Table.Head>Date de fin</Table.Head>
 
             <Table.Col name="id" />
             <Table.Col name="name" />
+            <Table.Col name="start_date" />
+            <Table.Col name="end_date" />
         </Table>
     )
 }
