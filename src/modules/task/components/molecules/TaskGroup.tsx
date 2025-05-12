@@ -4,7 +4,7 @@ import React from 'react'
 import { Box } from '@digico/ui'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
-import { arrayMove,SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 import { useUpdateTaskGroup } from '@task/hooks/task-group/mutations/useUpdateTaskGroup'
 import { useBulkUpdate } from '@task/hooks/task-item/mutations/useBulkUpdateTaskItem'
@@ -25,7 +25,7 @@ export const TaskGroup = ({ group }: Props) => {
     const updateTaskGroup = useUpdateTaskGroup()
     const bulkUpdateTaskItem = useBulkUpdate()
 
-    const [items, setItems] = React.useState(group.items ?? [])
+    const items = group.items ?? []
 
     const onCreateTask = () => {
         createTaskItem.mutate({
@@ -59,7 +59,6 @@ export const TaskGroup = ({ group }: Props) => {
         if (oldIndex === -1 || newIndex === -1) return
 
         const newItems = arrayMove(items, oldIndex, newIndex)
-        setItems(newItems)
 
         bulkUpdateTaskItem.mutate({
             project_id: Number(id),
