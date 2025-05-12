@@ -51,6 +51,7 @@ export const BoxBilling = () => {
                 formData.append('model', 'metas');
                 formData.append('model_id', 'tenant_billing_details');
                 formData.append('files[]', file)
+                formData.append('name', 'tenantLogo')
 
                 createUpload.mutate(formData, {
                     onSuccess: () => {
