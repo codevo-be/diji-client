@@ -57,7 +57,6 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
 
         formData.append('model', props.modelType);
         formData.append('model_id', props.modelId);
-        formData.append('name', 'files');
 
         if (files.length > 0) {
             for (let i = 0; i < files.length; i++) {
