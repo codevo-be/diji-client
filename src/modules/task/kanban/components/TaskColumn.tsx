@@ -1,8 +1,13 @@
+import { useParams } from 'next/navigation'
+
 import React, { useState } from 'react'
+import { Button } from '@digico/ui'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useKanbanContext } from '@task/kanban/contexts/KanbanContext'
 
+import { useDestroyTaskGroup } from '@task/hooks/task-group/mutations/useDestroyTaskGroup'
 import { useUpdateTaskGroup } from '@task/hooks/task-group/mutations/useUpdateTaskGroup'
 
 import { Card } from '@task/kanban/components/Card'
@@ -21,18 +26,18 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
     const { columns } = useKanbanContext()
     const { setNodeRef } = useDroppable({ id })
     const updateColumnMutation = useUpdateTaskGroup()
+    const destroyTaskGroup = useDestroyTaskGroup()
+    const params = useParams()
+    const projectId = Number(params.id)
 
-    // Trouver la colonne actuelle
     const status = React.useMemo(() => {
         if (!columns) return undefined
         return columns.find((column) => column.id == getIdOfColumn(id)) || undefined
     }, [columns, id])
 
-    // State pour gérer l'édition du titre
     const [isEditing, setIsEditing] = useState(false)
     const [columnTitle, setColumnTitle] = useState(status?.name || '')
 
-    // Gère la validation du nouveau titre
     const handleBlur = () => {
         if (!status || columnTitle.trim() === '' || columnTitle === status.name) {
             setIsEditing(false)
@@ -40,7 +45,7 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         }
 
         updateColumnMutation.mutate(
-            { project_id: Number(id), id: status.id, name: columnTitle },
+            { project_id: projectId, id: status.id, name: columnTitle },
             {
                 onSuccess: () => {
                     setIsEditing(false)
@@ -49,31 +54,52 @@ export const Column = ({ id, items = [] }: ColumnProps) => {
         )
     }
 
+    const onDestroyGroup = () => {
+        if (!status) return
+
+        destroyTaskGroup.mutate({
+            project_id: projectId,
+            task_group_id: status.id
+        })
+    }
+
     return (
         <div className="w-[32rem] h-full flex flex-col gap-8">
-            {/* Header de la colonne */}
             <div className="flex justify-between items-center flex-shrink-0">
-                {isEditing ? (
-                    <input
-                        type="text"
-                        className="font-semibold text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                        value={columnTitle}
-                        onChange={(e) => setColumnTitle(e.target.value)}
-                        onBlur={handleBlur}
-                        onKeyDown={(e) => e.key === 'Enter' && handleBlur()}
-                        autoFocus
-                    />
-                ) : (
-                    <h2 className="font-semibold text-sm cursor-pointer hover:underline w-full" onClick={() => setIsEditing(true)}>
-                        {status ? status.name : null} {items.length > 0 ? `(${items.length})` : null}
-                    </h2>
-                )}
+                <div className="w-full">
+                    {isEditing ? (
+                        <input
+                            type="text"
+                            className="font-semibold text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                            value={columnTitle}
+                            onChange={(e) => setColumnTitle(e.target.value)}
+                            onBlur={handleBlur}
+                            onKeyDown={(e) => e.key === 'Enter' && handleBlur()}
+                            autoFocus
+                        />
+                    ) : (
+                        <h2 className="font-semibold text-sm cursor-pointer hover:underline w-full" onClick={() => setIsEditing(true)}>
+                            {status ? status.name : null} {items.length > 0 ? `(${items.length})` : null}
+                        </h2>
+                    )}
+                </div>
+
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                        <button className="text-grey-700 px-2 cursor-pointer font-bold">⋮</button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content sideOffset={4} className="bg-white border border-grey-300 rounded shadow-md p-2 text-sm">
+                        <DropdownMenu.Item className="cursor-pointer px-2 py-1 hover:bg-grey-100 rounded">
+                            <Button intent="error" className="flex-1" onClick={onDestroyGroup}>
+                                Supprimer
+                            </Button>{' '}
+                        </DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                </DropdownMenu.Root>
             </div>
 
-            {/* Ajout d'une tâche */}
-            <AddCard />
+            <AddCard taskGroupId={status?.id} />
 
-            {/* Liste des tâches */}
             <div className="flex-grow-0 h-full overflow-y-auto">
                 <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
                     <div ref={setNodeRef}>
