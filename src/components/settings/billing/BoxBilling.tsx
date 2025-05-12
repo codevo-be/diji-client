@@ -55,7 +55,7 @@ export const BoxBilling = () => {
 
                 createUpload.mutate(formData, {
                     onSuccess: () => {
-                        form.reset('logo')
+                        form.resetField('logo')
                     }
                 })
 
