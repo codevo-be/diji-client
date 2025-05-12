@@ -5,9 +5,10 @@ import { useFormContext } from 'react-hook-form'
 interface DropFilesProps {
     name: string
     accept?: any
+    multiple?: boolean
 }
 
-export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
+export default function DropFiles({ name, accept, multiple = false }: DropFilesProps): ReactNode {
     const { watch, setValue, register } = useFormContext()
     const files = watch(name) || [];
 
@@ -30,7 +31,7 @@ export default function DropFiles({ name, accept }: DropFilesProps): ReactNode {
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept,
-        multiple: true,
+        multiple,
     })
 
     const onRemoveFile = (e: MouseEvent<HTMLButtonElement>, index: number) => {

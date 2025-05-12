@@ -144,7 +144,7 @@ export default function FilesBox(props: FilesBoxProps): ReactNode {
                 </Grid>
             }
             <Form useForm={form} onSubmit={onSubmit}>
-                <DropFiles name={"files"} />
+                <DropFiles name={"files"} multiple={true} />
 
                 <Button>Sauvegarder</Button>
             </Form>
