@@ -37,15 +37,17 @@ export const BoxBilling = () => {
 
             if (logo?.file) {
                 const formData = new FormData()
-                formData.append('file', logo.file)
+                formData.append('files[]', logo.file)
 
-                const uploadedLogo = await new Promise((resolve) => {
+                data.logo = await new Promise((resolve) => {
                     createUpload.mutate(formData, {
-                        onSuccess: ({ data: el }) => resolve(el.url)
+                        onSuccess: (result) => {
+                            const filePath = result.files[0];
+
+                            resolve(filePath.substring(filePath.indexOf('/')+1))
+                        }
                     })
                 })
-
-                data.logo = uploadedLogo
             }
 
             updateOrCreateMeta.mutate(
