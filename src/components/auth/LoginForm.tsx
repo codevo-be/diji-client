@@ -5,9 +5,15 @@ import Cookies from 'js-cookie'
 import { toast } from 'sonner'
 
 import { useLogin } from 'hooks/mutations/auth/useLogin'
+import { TenantType } from '../../types/tenant.types'
 import { LoginFormData } from 'types/auth.types'
 
-export const LoginForm = () => {
+interface LoginFormProps {
+    setTenants: (tenants: TenantType[]) => void
+}
+
+export const LoginForm = ({ setTenants }: LoginFormProps) => {
+
     const form = useForm<LoginFormData>({
         defaultValues: {
             email: '',
@@ -21,14 +27,20 @@ export const LoginForm = () => {
     const handleSubmit = (data: LoginFormData) => {
         login.mutate(data, {
             onSuccess: (response: any) => {
-                const expires_at = dayjs().add(response.data.expires_in, 'second').add(1, 'hours').toDate()
+                const data = response.data;
+                const expires_at = dayjs().add(data.expires_in, 'second').add(1, 'hours').toDate()
 
-                Cookies.set('Authorization', response.data.token_type + ' ' + response.data.access_token, {
+                Cookies.set('Authorization', data.token_type + ' ' + data.access_token, {
                     expires: expires_at,
                     sameSite: 'Strict'
                 })
 
-                window.location.assign(`/${response.data.tenant.id}`)
+                const tenants = data.tenants as TenantType[]
+                if (tenants.length === 1) {
+                    window.location.assign(`/${tenants[0].id}`)
+                } else {
+                    setTenants(tenants);
+                }
             },
             onError: (error) => {
                 toast.error(error.message)

@@ -3,6 +3,7 @@
 import { modulesClient } from 'data/modules'
 
 import { ButtonLogout } from '@components/auth/ButtonLogout'
+import ButtonTenants from '@components/dashboard/sidebar/ButtonTenants'
 import { MenuItemSidebar } from '@components/dashboard/sidebar/MenuItemSidebar'
 import { useAuth } from 'helpers/auth-context/useAuth'
 import { useRouteTenant } from 'helpers/route-tenant'
@@ -14,8 +15,9 @@ export const MenuSidebar = () => {
     const routerTenant = useRouteTenant()
 
     return (
-        <div className="w-auto bg-main py-8 px-2">
-            <ul className="h-full flex flex-col items-center">
+        <div className="w-auto bg-main py-8 px-4">
+            <ul className="h-full flex flex-col items-centers gap-4">
+                <ButtonTenants />
                 <MenuItemSidebar icon="app" href={routerTenant.get('/')} />
 
                 {modules.map((module) => {
