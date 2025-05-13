@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import { Box, ImageBuilder } from '@digico/ui'
 
+import { TenantType } from '../../../types/tenant.types'
+
 import TenantsList from '@components/auth/TenantsList'
 import { LoginForm } from 'components/auth/LoginForm'
 
 export default function Index() {
 
-    const [tenants, setTenants] = useState<any|undefined>(undefined)
+    const [tenants, setTenants] = useState<TenantType[]|undefined>(undefined)
     return (
         <div className="h-screen flex">
             <div className="w-full max-mobile:hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-primary/80">

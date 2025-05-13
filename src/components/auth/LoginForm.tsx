@@ -5,10 +5,11 @@ import Cookies from 'js-cookie'
 import { toast } from 'sonner'
 
 import { useLogin } from 'hooks/mutations/auth/useLogin'
+import { TenantType } from '../../types/tenant.types'
 import { LoginFormData } from 'types/auth.types'
 
 interface LoginFormProps {
-    setTenants: (tenants: any) => void
+    setTenants: (tenants: TenantType[]) => void
 }
 
 export const LoginForm = ({ setTenants }: LoginFormProps) => {
@@ -34,7 +35,7 @@ export const LoginForm = ({ setTenants }: LoginFormProps) => {
                     sameSite: 'Strict'
                 })
 
-                const tenants = data.tenants
+                const tenants = data.tenants as TenantType[]
                 if (tenants.length === 1) {
                     window.location.assign(`/${tenants[0].id}`)
                 } else {
