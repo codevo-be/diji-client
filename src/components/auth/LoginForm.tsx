@@ -1,5 +1,3 @@
-import { useRouter } from 'next/navigation'
-
 import { useForm } from 'react-hook-form'
 import { Button, Form } from '@digico/ui'
 import dayjs from 'dayjs'
@@ -9,8 +7,11 @@ import { toast } from 'sonner'
 import { useLogin } from 'hooks/mutations/auth/useLogin'
 import { LoginFormData } from 'types/auth.types'
 
-export const LoginForm = () => {
-    const router = useRouter();
+interface LoginFormProps {
+    setTenants: (tenants: any) => void
+}
+
+export const LoginForm = ({ setTenants }: LoginFormProps) => {
 
     const form = useForm<LoginFormData>({
         defaultValues: {
@@ -25,19 +26,19 @@ export const LoginForm = () => {
     const handleSubmit = (data: LoginFormData) => {
         login.mutate(data, {
             onSuccess: (response: any) => {
-                const expires_at = dayjs().add(response.data.expires_in, 'second').add(1, 'hours').toDate()
+                const data = response.data;
+                const expires_at = dayjs().add(data.expires_in, 'second').add(1, 'hours').toDate()
 
-                Cookies.set('Authorization', response.data.token_type + ' ' + response.data.access_token, {
+                Cookies.set('Authorization', data.token_type + ' ' + data.access_token, {
                     expires: expires_at,
                     sameSite: 'Strict'
                 })
 
-                const tenants = response.data.tenants
-                console.log(tenants)
+                const tenants = data.tenants
                 if (tenants.length === 1) {
                     window.location.assign(`/${tenants[0].id}`)
                 } else {
-                    router.push('/login/tenants');
+                    setTenants(tenants);
                 }
             },
             onError: (error) => {

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import TenantsDropdown from '@components/dashboard/sidebar/TenantsDropdown'
 import { useAuth } from '../../../helpers/auth-context/useAuth'
+import TenantLogo from '@components/dashboard/sidebar/TenantLogo'
 
 export default function ButtonTenants() {
 
@@ -25,11 +26,12 @@ export default function ButtonTenants() {
     }, [])
 
     return (
-        <li ref={dropdownRef} className={"relative h-[4.2rem] bg-white rounded"}>
+        <li ref={dropdownRef} className={"relative max-w-[4.2rem] h-[4.2rem] aspect-square bg-white rounded"}>
             <button type={"button"} onClick={() => setIsOpen(!isOpen)}
-                  className={"hover:cursor-pointer size-full"}>
-
+                  className={"hover:cursor-pointer size-full flex justify-center items-center"}>
+                <TenantLogo tenant={tenant} />
             </button>
+
 
             <div className={`${isOpen ? "absolute": "hidden"} w-[50rem] z-100`} role={"menu"}>
                 <TenantsDropdown tenants={tenants} currentTenant={tenant} />
