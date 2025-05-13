@@ -68,8 +68,6 @@ export const ModalTask = () => {
                     initialTrackedTime={task.tracked_time ?? 0}
                     taskGroupId={task.task_group_id}
                 />
-                <Form.Select name="status" label="Statut" options={Object.values(TASK_STATUSES)} />
-                <Form.Select name="priority" label="Priorité" options={Object.values(TASK_PRIORITIES)} />
 
                 <SelectMultiUser
                     name="assigned_user_ids"

@@ -18,10 +18,11 @@ export const AddCard = ({ taskGroupId }: { taskGroupId: number }) => {
         defaultValues: {
             name: '',
             description: '',
-            status: 'todo',
-            priority: 0
+            status: Object.values(TASK_STATUSES)[0]?.value ?? 'todo',
+            priority: Object.values(TASK_PRIORITIES)[0]?.value ?? 0
         }
     })
+
 
     return (
         <Modal>
