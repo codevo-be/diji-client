@@ -207,10 +207,13 @@ export default function Calendar() {
                             })) ?? []
                         }
                     />
-                    <div className="flex gap-4 mt-4">
-                        <Button type="submit">Enregistrer</Button>
+
+                    <div className="flex flex-col gap-2 mt-4">
+                        <Button type="submit" className="w-full">
+                            Enregistrer
+                        </Button>
                         {data?.mode === 'edit' && (
-                            <Button type="button" intent="error" onClick={handleDelete}>
+                            <Button type="button" intent="error" className="w-full" onClick={handleDelete}>
                                 Supprimer
                             </Button>
                         )}

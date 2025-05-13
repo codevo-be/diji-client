@@ -85,30 +85,33 @@ export const Card = ({ item }: Props) => {
                         <Form.Select name="status" label="Statut" options={Object.values(TASK_STATUSES)} />
                         <Form.Select name="priority" label="Priorité" options={Object.values(TASK_PRIORITIES)} />
 
-                        <Button isLoading={updateTaskItem.isPending} type="submit">
-                            Mettre à jour
-                        </Button>
+                        <div className="flex flex-col gap-2 mt-4">
+                            <Button isLoading={updateTaskItem.isPending} type="submit" className="w-full">
+                                Mettre à jour
+                            </Button>
 
-                        <Button
-                            intent="error"
-                            isLoading={destroyTaskItem.isPending}
-                            type="button"
-                            onClick={() => {
-                                destroyTaskItem.mutate(
-                                    {
-                                        project_id: Number(id),
-                                        task_group_id: item.category_id,
-                                        id: item.id
-                                    },
-                                    {
-                                        onSuccess: () => {
-                                            handleClose()
+                            <Button
+                                intent="error"
+                                isLoading={destroyTaskItem.isPending}
+                                type="button"
+                                className="w-full"
+                                onClick={() => {
+                                    destroyTaskItem.mutate(
+                                        {
+                                            project_id: Number(id),
+                                            task_group_id: item.category_id,
+                                            id: item.id
+                                        },
+                                        {
+                                            onSuccess: () => {
+                                                handleClose()
+                                            }
                                         }
-                                    }
-                                )
-                            }}>
-                            Supprimer
-                        </Button>
+                                    )
+                                }}>
+                                Supprimer
+                            </Button>
+                        </div>
                     </Form>
                 )}
             </Modal.Content>
