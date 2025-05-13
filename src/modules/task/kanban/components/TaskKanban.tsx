@@ -127,8 +127,6 @@ export const TaskKanban = () => {
             }))
         })
 
-        console.log('%cToutes les tâches réordonnées', 'color: orange; font-weight: bold;', updatedTasks)
-
         bulkUpdateTaskItem.mutate({
             project_id: Number(id),
             tasks: updatedTasks

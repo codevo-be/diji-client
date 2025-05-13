@@ -12,9 +12,8 @@ import { useDestroyTaskItem } from '@task/hooks/task-item/mutations/useDestroyTa
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
 import { useReadUsers } from '@task/hooks/user/queries/useReadUsers'
 
-import { SelectMultiUser } from '@task/components/organisms/SelectMultiUser'
-
 import { TaskTimer } from '@task/components/molecules/TaskTimer'
+import { SelectMultiUser } from '@task/components/organisms/SelectMultiUser'
 
 export const ModalTask = () => {
     const { id } = useParams()
