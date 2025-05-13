@@ -104,7 +104,7 @@ export default function Calendar() {
     }
 
     const handleSubmit = (formData: FieldValues) => {
-        const allDay = data?.allDay ?? false
+        const allDay = false
         const payload = {
             title: formData.title,
             description: formData.description,
