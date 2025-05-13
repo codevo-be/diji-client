@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Box, Button } from '@digico/ui'
+import { Box } from '@digico/ui'
 import { Dialog } from 'radix-ui'
 
 import { useModal } from '@components/modal/useModal'
@@ -27,7 +27,7 @@ export const Modal = ({ children }: Props) => {
                     <Dialog.Description />
                     <Box className="cursor-default min-w-[46rem]">
                         <Dialog.Close className="mb-8 flex justify-end w-full">
-                            <Button intent="main">Fermer</Button>
+                            <span className="cursor-pointer">Fermer</span>
                         </Dialog.Close>
                         {children}
                     </Box>
