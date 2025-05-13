@@ -38,7 +38,11 @@ export const BoxBilling = () => {
     })
 
     const onDeleteImage = () => {
-        deleteUpload.mutate(String(logo?.id));
+        deleteUpload.mutate(String(logo?.id), {
+            onSuccess: () => {
+                window.location.reload();
+            }
+        });
     }
 
     const onSubmit = async (data: FieldValues) => {
@@ -48,6 +52,7 @@ export const BoxBilling = () => {
             if (hasLogo) {
                 const file = data.logo[0].file
                 const formData = new FormData();
+                formData.append('public', '1');
                 formData.append('model', 'metas');
                 formData.append('model_id', 'tenant_billing_details');
                 formData.append('files[]', file)
@@ -71,6 +76,7 @@ export const BoxBilling = () => {
                 {
                     onSuccess: () => {
                         toast.success('Coordonnées mises à jour !')
+                        window.location.reload();
                     }
                 }
             )
