@@ -44,21 +44,30 @@ export default function Calendar() {
 
     useEffect(() => {
         const calendarEvents = queryCalendarEvents.data?.data ?? []
+
         const projectEvents =
             projectResponse?.data
                 .filter((p) => p.start_date || p.end_date)
-                .map((p) => ({
-                    id: `project-${p.id}`,
-                    title: `[Projet] ${p.name}`,
-                    start: p.start_date ?? p.end_date ?? '',
-                    end: p.end_date ?? p.start_date ?? '',
-                    allDay: true,
-                    backgroundColor: '#6c5ce7',
-                    borderColor: '#6c5ce7'
-                })) ?? []
+                .map((p) => {
+                    const start = p.start_date ?? p.end_date ?? ''
+                    const endRaw = p.end_date ?? p.start_date ?? ''
+                    const end = new Date(endRaw)
+                    end.setDate(end.getDate() + 1)
+
+                    return {
+                        id: `project-${p.id}`,
+                        title: `[Projet] ${p.name}`,
+                        start,
+                        end: end.toISOString().split('T')[0],
+                        allDay: true,
+                        backgroundColor: '#6c5ce7',
+                        borderColor: '#6c5ce7'
+                    }
+                }) ?? []
 
         setEvents([...calendarEvents, ...projectEvents])
     }, [queryCalendarEvents.data, projectResponse])
+
 
     const formatForInput = (date: string | Date) => {
         const d = new Date(date)
