@@ -31,6 +31,7 @@ export type InvoiceType = {
     contact_id?: number
     date: string
     due_date: string
+    check_paid_notification: boolean
     payment_date?: string
     structured_communication?: string
     subtotal?: number
