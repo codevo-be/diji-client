@@ -12,7 +12,7 @@ export default function TenantLogo({ tenant }: TenantLogoProps) {
         .toUpperCase();
 
     return (
-        <div className={"size-32 flex justify-center items-center bg-white rounded-2xl"}>
+        <div className={"size-full flex justify-center items-center bg-white rounded-2xl"}>
             {tenant.logoUrl && tenant.logoUrl !== '' ?
                 <img src={process.env.NEXT_PUBLIC_API_URL + tenant.logoUrl} alt={`${tenant.name} logo`} className={"w-full h-full object-cover"} />
                 :

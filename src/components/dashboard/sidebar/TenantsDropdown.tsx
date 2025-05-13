@@ -20,12 +20,6 @@ export default function TenantsDropdown({ tenants, currentTenant }: TenantsDropd
                 .map((tenant) => (
                     <TenantsDropdownItem key={tenant.id} tenant={tenant} />
                 ))}
-
-            <li>
-                <button disabled className="cursor-not-allowed opacity-50">
-                    Ajouter ou rejoindre un tenant.
-                </button>
-            </li>
         </ul>
 
     )

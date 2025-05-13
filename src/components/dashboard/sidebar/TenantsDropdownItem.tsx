@@ -2,6 +2,7 @@
 
 import { TenantType } from '../../../types/tenant.types'
 
+import TenantLogo from '@components/dashboard/sidebar/TenantLogo'
 import { useRouter } from 'next/dist/client/components/navigation'
 
 interface TenantsDropdownItemProps {
@@ -17,9 +18,9 @@ export default function TenantsDropdownItem({ tenant, current = false }: Tenants
     }
 
     return (
-        <button onClick={onTenantClicked} className={`flex gap-8 items-center py-2 px-4 h-20 hover:cursor-pointer ${current ? 'bg-main text-white' : 'group hover:bg-main text-main hover:text-white'}`}>
-            <div className={`${current ? 'bg-white' : 'bg-main group-hover:bg-white'} h-full aspect-square`}>
-
+        <button onClick={onTenantClicked} className={`rounded flex gap-8 items-center py-2 px-4 h-20 hover:cursor-pointer ${current ? 'bg-primary text-white' : 'group hover:bg-main text-main hover:text-white'}`}>
+            <div className={"h-full aspect-square"}>
+                <TenantLogo tenant={tenant} />
             </div>
 
             <p className={"text-md"}>{tenant.name}</p>

@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+import TenantLogo from '@components/dashboard/sidebar/TenantLogo'
 import TenantsDropdown from '@components/dashboard/sidebar/TenantsDropdown'
 import { useAuth } from '../../../helpers/auth-context/useAuth'
-import TenantLogo from '@components/dashboard/sidebar/TenantLogo'
 
 export default function ButtonTenants() {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLLIElement>(null);
-    const { tenants, tenant } = useAuth()
+    const { tenant, tenants } = useAuth()
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
