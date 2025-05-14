@@ -1,3 +1,5 @@
+'use client'
+
 import { useForm } from 'react-hook-form'
 import { Button, Form } from '@digico/ui'
 import { toast } from 'sonner'
@@ -19,8 +21,8 @@ export const RegisterForm = () => {
     const handleSubmit = (data: RegisterFormData) => {
         register.mutate(data, {
             onSuccess: (response: any) => {
-                toast.success('Inscription réussie !')
-                console.log('Réponse inscription :', response)
+                toast.success('Inscription réussie, veuillez vous connecter.')
+                window.location.assign('/login')
             },
             onError: (error) => {
                 toast.error(error.message)

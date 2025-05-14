@@ -1,10 +1,16 @@
-'use client'
+import { redirect } from 'next/navigation'
 
 import { Box, ImageBuilder } from '@digico/ui'
 
 import { RegisterForm } from '@components/auth/RegisterForm'
 
-export default function Index() {
+export default function RegisterPage({ searchParams }: { searchParams: { token?: string } }) {
+    const token = searchParams.token
+
+    if (!token) {
+        redirect('/login')
+    }
+
     return (
         <div className="h-screen flex">
             <div className="w-full max-mobile:hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-primary/80">
@@ -17,8 +23,8 @@ export default function Index() {
                     <p className="text-grey-800 text-sm">Votre outil personnel</p>
                 </div>
 
-                <Box className="w-full" intent={'info'} size={'default'}>
-                    <RegisterForm />
+                <Box className="w-full" intent="info" size="default">
+                    <RegisterForm token={token} />
                 </Box>
             </div>
         </div>
