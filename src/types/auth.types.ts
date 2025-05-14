@@ -11,6 +11,7 @@ export interface RegisterFormData {
     email: string
     password: string
     company: string
+    token: string
 }
 
 export interface AuthResponse {

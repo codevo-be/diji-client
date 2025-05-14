@@ -26,7 +26,9 @@ export const RegisterForm = ({ token }: RegisterFormProps) => {
     const register = useRegister()
 
     const handleSubmit = (formData: RegisterFormData) => {
-        register.mutate(formData, {
+        if (!token) return
+
+        register.mutate({ ...formData, token }, {
             onSuccess: () => {
                 toast.success('Inscription réussie, veuillez vous connecter.')
                 window.location.assign('/login')
@@ -36,6 +38,7 @@ export const RegisterForm = ({ token }: RegisterFormProps) => {
             }
         })
     }
+
 
     if (isLoading) {
         return <div>Vérification du lien</div>
@@ -65,7 +68,6 @@ export const RegisterForm = ({ token }: RegisterFormProps) => {
                     name="email"
                     label="Adresse email"
                     placeholder="info@diji.be"
-                    disabled // désactivé car prérempli depuis le lien
                 />
                 <Form.Field
                     type="password"
