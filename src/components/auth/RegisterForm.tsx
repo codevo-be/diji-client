@@ -28,54 +28,34 @@ export const RegisterForm = ({ token }: RegisterFormProps) => {
     const handleSubmit = (formData: RegisterFormData) => {
         if (!token) return
 
-        register.mutate({ ...formData, token }, {
-            onSuccess: () => {
-                toast.success('Inscription réussie, veuillez vous connecter.')
-                window.location.assign('/login')
-            },
-            onError: (err) => {
-                toast.error(err.message || 'Une erreur est survenue.')
+        register.mutate(
+            { ...formData, token },
+            {
+                onSuccess: () => {
+                    toast.success('Inscription réussie, veuillez vous connecter.')
+                    window.location.assign('/login')
+                },
+                onError: (err) => {
+                    toast.error(err.message || 'Une erreur est survenue.')
+                }
             }
-        })
+        )
     }
-
 
     if (isLoading) {
         return <div>Vérification du lien</div>
     }
 
     if (isError) {
-        return (
-            <p className="text-center text-red-600 text-sm">
-                {error?.message || 'Ce lien est invalide ou expiré.'}
-            </p>
-        )
+        return <p className="text-center text-red-600 text-sm">{error?.message || 'Ce lien est invalide ou expiré.'}</p>
     }
 
     return (
         <Form useForm={form} onSubmit={handleSubmit}>
             <Form.Group>
-                <Form.Field
-                    type="text"
-                    id="company"
-                    name="company"
-                    label="Nom de la société"
-                    placeholder="Ma société"
-                />
-                <Form.Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    label="Adresse email"
-                    placeholder="info@diji.be"
-                />
-                <Form.Field
-                    type="password"
-                    id="password"
-                    name="password"
-                    label="Mot de passe"
-                    placeholder="********"
-                />
+                <Form.Field type="text" id="company" name="company" label="Nom de la société" placeholder="Ma société" />
+                <Form.Field type="email" id="email" name="email" label="Adresse email" placeholder="info@diji.be" />
+                <Form.Field type="password" id="password" name="password" label="Mot de passe" placeholder="********" />
 
                 <Button isLoading={register.isPending} type="submit" className="w-full">
                     S’enregistrer
