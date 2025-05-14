@@ -7,6 +7,12 @@ export interface LoginFormData {
     remember: boolean
 }
 
+export interface RegisterFormData {
+    email: string
+    password: string
+    company: string
+}
+
 export interface AuthResponse {
     access_token: string
     expires_in: number
