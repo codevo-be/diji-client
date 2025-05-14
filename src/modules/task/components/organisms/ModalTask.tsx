@@ -9,6 +9,8 @@ import { TASK_STATUSES } from '@task/data/statuses'
 import { useDestroyTaskItem } from '@task/hooks/task-item/mutations/useDestroyTaskItem'
 import { useUpdateTaskItem } from '@task/hooks/task-item/mutations/useUpdateTaskItem'
 
+import { TaskTimer } from '@task/components/molecules/TaskTimer'
+
 export const ModalTask = () => {
     const { id } = useParams()
     const { task, setTask } = useTask()
@@ -21,9 +23,16 @@ export const ModalTask = () => {
     const destroyTaskItem = useDestroyTaskItem()
 
     const onSubmit = (data: FieldValues) => {
+        const cleanedData = { ...data }
+
+        if (typeof data.tracked_time === 'string' && data.tracked_time.includes(':')) {
+            const [h, m, s = 0] = data.tracked_time.split(':').map(Number)
+            cleanedData.tracked_time = h * 3600 + m * 60 + s
+        }
+
         updateTaskItem.mutate({
             project_id: Number(id),
-            ...data
+            ...cleanedData
         })
     }
 
@@ -52,7 +61,11 @@ export const ModalTask = () => {
                 <Form.Field type="textarea" rows={5} label="Description" name="description" placeholder="Le détail ..." />
                 <Form.Select name="status" label={'Statut'} options={Object.values(TASK_STATUSES)} />
                 <Form.Select name="priority" label={'Priorité'} options={Object.values(TASK_PRIORITIES)} />
-
+                <TaskTimer
+                    taskId={task.id}
+                    initialTrackedTime={task.tracked_time ?? 0}
+                    taskGroupId={task.task_group_id}
+                />
                 <Button isLoading={updateTaskItem.isPending} type="submit">
                     Mettre à jour
                 </Button>

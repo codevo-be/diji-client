@@ -7,4 +7,5 @@ export type TaskItemType = {
     position: number
     task_group_id: number
     task_number: string | number
+    tracked_time?: number
 }

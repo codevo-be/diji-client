@@ -9,6 +9,8 @@ export type IconName =
 	| "edit"
 	| "list"
 	| "logout"
+	| "pause"
+	| "play"
 	| "project"
 	| "search"
 	| "settings"
