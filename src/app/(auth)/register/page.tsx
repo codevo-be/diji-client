@@ -4,6 +4,7 @@ import { Box, ImageBuilder } from '@digico/ui'
 
 import { RegisterForm } from '@components/auth/RegisterForm'
 
+
 export default function RegisterPage({ searchParams }: { searchParams: { token?: string } }) {
     const token = searchParams.token
 
