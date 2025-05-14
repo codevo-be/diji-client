@@ -1,16 +1,6 @@
 import { useState } from 'react'
-import {
-    DragOverEvent,
-    DragStartEvent,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors
-} from '@dnd-kit/core'
-import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { DragOverEvent, DragStartEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { findBoardSectionContainer } from '@task/utils/kanban'
-
-
 
 export const useKanbanDragAndDrop = (itemsByColumns: any, setItemsByColumns: (update: any) => void) => {
     const [activeTaskId, setActiveTaskId] = useState<null | number>(null)
@@ -21,9 +11,6 @@ export const useKanbanDragAndDrop = (itemsByColumns: any, setItemsByColumns: (up
                 distance: 8
             }
         }),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates
-        })
     )
 
     const handleDragStart = ({ active }: DragStartEvent) => {
