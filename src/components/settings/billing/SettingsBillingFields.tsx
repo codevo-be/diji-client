@@ -36,6 +36,16 @@ export const SettingsBillingFields = () => {
                         placeholder="50"
                     />
                 </Form.Row>
+                <Form.Row>
+                    <Form.Field label="Numéro de départ des devis" name="estimate_start_number" id="estimate_start_number" type="number" placeholder="50" />
+                    <Form.Field
+                        label="Numéro de départ des autofacturations"
+                        name="self_invoice_start_number"
+                        id="self_invoice_start_number"
+                        type="number"
+                        placeholder="50"
+                    />
+                </Form.Row>
             </Form.Group>
         </>
     )
