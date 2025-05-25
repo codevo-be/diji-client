@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Button, ImageBuilder } from '@digico/ui'
 
 import { FormResetPassword } from '@components/auth/FormResetPassword'

@@ -1,3 +1,5 @@
+'use client'
+
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
