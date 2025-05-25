@@ -94,7 +94,7 @@ export const DocumentInvoiceContentEditable = () => {
             </DocumentItems>
             <DocumentItemManager onCreate={onCreate} />
             <DocumentSummary data={data} />
-            <DocumentFooter />
+            <DocumentFooter data={data} />
         </>
     )
 }

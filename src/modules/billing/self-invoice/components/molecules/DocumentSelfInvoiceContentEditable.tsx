@@ -95,7 +95,7 @@ export const DocumentSelfInvoiceContentEditable = () => {
             </DocumentItems>
             <DocumentItemManager onCreate={onCreate} />
             <DocumentSummary data={data} />
-            <DocumentFooter />
+            <DocumentFooter data={data} type="selfinvoice" />
         </>
     )
 }

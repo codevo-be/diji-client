@@ -20,7 +20,7 @@ export const DocumentSelfInvoiceContent = () => {
             <DocumentSelfInvoiceHeader />
             <DocumentItems items={querySelfInvoiceItem.data?.data ?? []} />
             <DocumentSummary data={data} />
-            <DocumentFooter />
+            <DocumentFooter data={data} type="selfinvoice" />
         </>
     )
 }

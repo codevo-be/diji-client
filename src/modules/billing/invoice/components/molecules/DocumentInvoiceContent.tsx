@@ -19,7 +19,7 @@ export const DocumentInvoiceContent = () => {
             <DocumentInvoiceHeader />
             <DocumentItems items={queryInvoiceItems.data?.data ?? []} />
             <DocumentSummary data={data} />
-            <DocumentFooter />
+            <DocumentFooter data={data} />
         </>
     )
 }

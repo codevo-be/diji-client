@@ -2,7 +2,7 @@ import { cookiesNext } from '@digico/utils'
 
 interface downloadBatchCreditNotesProps {
     email: string;
-    ids: number[];
+    ids: number[]
 }
 
 export default async function downloadBatchCreditNotes(data: downloadBatchCreditNotesProps) {
