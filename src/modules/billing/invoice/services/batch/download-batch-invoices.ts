@@ -1,7 +1,8 @@
 import { cookiesNext } from '@digico/utils'
 
 interface downloadBatchInvoicesProps {
-    ids: number[]
+    email: string;
+    ids: number[];
 }
 
 export default async function downloadBatchInvoices(data: downloadBatchInvoicesProps) {
@@ -27,15 +28,5 @@ export default async function downloadBatchInvoices(data: downloadBatchInvoicesP
         throw error
     }
 
-    const blob = await response.blob()
-
-    const date = new Date().toISOString().split('T')[0]
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `factures-${date}.zip`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    window.URL.revokeObjectURL(url)
+    return await response.json();
 }

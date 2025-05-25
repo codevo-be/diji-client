@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { useState } from 'react'
@@ -16,7 +18,7 @@ import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const SelfInvoiceBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const querySelfInvoices = useReadSelfInvoices(useQueryParams())
@@ -72,7 +74,17 @@ export const SelfInvoiceBatchList = () => {
 
     const onDownload = () => {
         downloadBatchSelfInvoice.mutate({
+            email: user.email,
             ids: formList.watch('invoices').map((id) => Number(id))
+        }, {
+            onSuccess: (data) => {
+                const skippedIds = data.errors;
+                console.log(data);
+                console.log(Object.keys(skippedIds).length > 0)
+                if (Object.keys(skippedIds).length > 0) {
+                    setErrors(skippedIds);
+                }
+            }
         });
     }
 

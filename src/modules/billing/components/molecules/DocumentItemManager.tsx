@@ -1,3 +1,5 @@
+'use client'
+
 import { useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 import { taxes } from 'data/taxes'

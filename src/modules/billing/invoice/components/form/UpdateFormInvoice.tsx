@@ -24,6 +24,8 @@ export const UpdateFormInvoice = () => {
         values: data
     })
 
+    console.log(data);
+
     const onSelectContact = (contact_id: number | string) => {
         const contact = contacts?.data.find((contact: ContactType) => contact.id === contact_id)
 
@@ -70,6 +72,14 @@ export const UpdateFormInvoice = () => {
                                 type="date"
                                 label="Date d'échéance"
                             />
+
+                            <Form.Field
+                                type="checkbox"
+                                id={"check_paid_notification"}
+                                name={"check_paid_notification"}
+                                label={"Notifications"}
+                            />
+
                         </Form.Row>
                     </Form.Group>
                 </Box>

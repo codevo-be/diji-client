@@ -2,14 +2,15 @@ import { DateHelper, formatCurrency, formatStructuredCommunication } from '@digi
 
 import { EstimateType } from '@billing/estimate/types/estimate'
 import { InvoiceType } from '@billing/invoice/types/invoice'
+import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
 
 type Props = {
-    data?: EstimateType | InvoiceType | undefined
+    data?: EstimateType | InvoiceType | undefined | SelfInvoiceType
     type?: 'invoice' | 'selfinvoice'
 }
 
 export const DocumentFooter = ({ data, type }: Props) => {
-    const isInvoice = (d: EstimateType | InvoiceType): d is InvoiceType => {
+    const isInvoice = (d: EstimateType | InvoiceType | SelfInvoiceType): d is InvoiceType => {
         return 'structured_communication' in d
     }
 

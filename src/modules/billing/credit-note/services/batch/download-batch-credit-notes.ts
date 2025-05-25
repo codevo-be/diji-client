@@ -1,6 +1,7 @@
 import { cookiesNext } from '@digico/utils'
 
 interface downloadBatchCreditNotesProps {
+    email: string;
     ids: number[]
 }
 
@@ -27,15 +28,5 @@ export default async function downloadBatchCreditNotes(data: downloadBatchCredit
         throw error
     }
 
-    const blob = await response.blob()
-
-    const date = new Date().toISOString().split('T')[0]
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `credit-notes-${date}.zip`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    window.URL.revokeObjectURL(url)
+    return await response.json();
 }

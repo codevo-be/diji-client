@@ -8,8 +8,8 @@ import downloadBatchInvoices from '@billing/invoice/services/batch/download-batc
 export default function useDownloadBatchInvoices() {
     return useMutation({
         mutationFn: downloadBatchInvoices,
-        onSuccess: () => {
-            toast.success('Les factures ont été téléchargées !')
+        onSuccess: (data) => {
+            toast.success(data.message);
         },
         onError: (error) => {
             toast.error(error.message)
