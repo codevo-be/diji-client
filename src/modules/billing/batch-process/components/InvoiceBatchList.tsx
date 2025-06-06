@@ -74,8 +74,6 @@ export const InvoiceBatchList = () => {
             }, {
                 onSuccess: (data) => {
                     const skippedIds = data.errors;
-                    console.log(data);
-                    console.log(Object.keys(skippedIds).length > 0)
                     if (Object.keys(skippedIds).length > 0) {
                         setErrors(skippedIds);
                     }
