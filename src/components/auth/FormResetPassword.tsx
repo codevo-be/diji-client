@@ -8,10 +8,24 @@ import { toast } from 'sonner'
 
 import { useResetPassword } from 'hooks/mutations/auth/useResetPassword'
 
-export const FormResetPassword = ({ token, email }: any) => {
+// Types pour les props du composant
+interface FormResetPasswordProps {
+    token: string
+    email: string
+}
+
+// Types pour les données du formulaire
+interface ResetPasswordFormData {
+    token: string
+    email: string
+    password: string
+    password_confirmation: string
+}
+
+export const FormResetPassword = ({ token, email }: FormResetPasswordProps) => {
     const router = useRouter()
 
-    const form = useForm({
+    const form = useForm<ResetPasswordFormData>({
         defaultValues: {
             token: '',
             email: '',
@@ -20,18 +34,17 @@ export const FormResetPassword = ({ token, email }: any) => {
         },
         values: {
             token: String(token),
-            email: String(email)
+            email: String(email),
+            password: '',
+            password_confirmation: ''
         }
     })
 
     const resetPassword = useResetPassword()
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: ResetPasswordFormData) => {
         if (data.password !== data.password_confirmation) {
-            form.setError('password_confirmation', {
-                type: 'manual',
-                message: 'La confirmation de mot de passe ne correspondent pas au mot de passe !'
-            })
+            toast.error('La confirmation de mot de passe ne correspond pas au mot de passe !')
             return
         }
 
@@ -49,7 +62,7 @@ export const FormResetPassword = ({ token, email }: any) => {
             <Form.Field label={'Confirmer le nouveau mot de passe'} type="password" name="password_confirmation" placeholder="********" />
 
             <Button className="w-full" type="submit" isLoading={resetPassword.isPending}>
-                Demander un nouveau mot de passe
+                Réinitialiser le mot de passe
             </Button>
         </Form>
     )
