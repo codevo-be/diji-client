@@ -7,7 +7,10 @@ export const SettingsBillingFields = () => {
     return (
         <>
             <Form.Group>
-                <Form.File name="logo" />
+                <div>
+                    <h2 className="font-medium mb-2 text-sm">Logo</h2>
+                    <Form.File name="logo" />
+                </div>
                 <Form.Field label="Nom" name="name" id="name" placeholder="Diji" />
                 <Form.Row>
                     <Form.Field label="Adresse email" name="email" id="email" placeholder="info@diji.be" />
@@ -24,29 +27,6 @@ export const SettingsBillingFields = () => {
                     <Form.Field label="Ville" name="city" id="city" placeholder="Marche-En-Famenne" />
                     <Form.Field label="Code postal" name="zipcode" id="zipcode" placeholder="5590" />
                     <Form.Select label="Pays" name="country" options={countries} />
-                </Form.Row>
-            </Form.Group>
-
-            <Form.Group title="Facturation">
-                <Form.Row>
-                    <Form.Field label="Numéro de départ des factures" name="invoice_start_number" id="invoice_start_number" type="number" placeholder="50" />
-                    <Form.Field
-                        label="Numéro de départ des notes de crédit"
-                        name="credit_note_start_number"
-                        id="credit_note_start_number"
-                        type="number"
-                        placeholder="50"
-                    />
-                </Form.Row>
-                <Form.Row>
-                    <Form.Field label="Numéro de départ des devis" name="estimate_start_number" id="estimate_start_number" type="number" placeholder="50" />
-                    <Form.Field
-                        label="Numéro de départ des autofacturations"
-                        name="self_invoice_start_number"
-                        id="self_invoice_start_number"
-                        type="number"
-                        placeholder="50"
-                    />
                 </Form.Row>
             </Form.Group>
         </>

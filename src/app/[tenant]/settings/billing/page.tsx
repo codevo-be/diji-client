@@ -2,7 +2,7 @@
 
 import { Grid } from '@digico/ui'
 
-import { BoxBilling } from '@components/settings/billing/BoxBilling'
+import { SettingNumberField } from '@components/settings/billing/SettingNumberField'
 import { MenuSettings } from '@components/settings/MenuSettings'
 
 export default function Page() {
@@ -12,7 +12,7 @@ export default function Page() {
                 <MenuSettings />
             </Grid.Col>
             <Grid.Col column={6}>
-                <BoxBilling />
+                <SettingNumberField />
             </Grid.Col>
         </Grid>
     )
