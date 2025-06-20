@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { useState } from 'react'
@@ -8,6 +10,7 @@ import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useDestroyBatchCreditNotes'
+import useDownloadBatchCreditNotes from '@billing/credit-note/hooks/mutations/batch/useDownloadBatchCreditNotes'
 import { useUpdateBatchCreditNotes } from '@billing/credit-note/hooks/mutations/batch/useUpdateBatchCreditNotes'
 import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 import { CreditNoteType } from '@billing/credit-note/types/credit-note'
@@ -15,12 +18,13 @@ import { CreditNoteType } from '@billing/credit-note/types/credit-note'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const CreditNoteBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
     const destroyBatchCreditNotes = useDestroyBatchCreditNotes()
     const updateBatchCreditNotes = useUpdateBatchCreditNotes()
+    const downloadBatchCreditsNotes = useDownloadBatchCreditNotes();
 
     const form = useForm()
 
@@ -65,6 +69,22 @@ export const CreditNoteBatchList = () => {
     const onDestroy = () => {
         destroyBatchCreditNotes.mutate({
             credit_note_ids: formList.watch('invoices').map((id) => Number(id))
+        })
+    }
+
+    const onDownload = () => {
+        downloadBatchCreditsNotes.mutate({
+            email: user.email,
+            ids: formList.watch('invoices').map((id) => Number(id))
+        }, {
+            onSuccess: (data) => {
+                const skippedIds = data.errors;
+                console.log(data);
+                console.log(Object.keys(skippedIds).length > 0)
+                if (Object.keys(skippedIds).length > 0) {
+                    setErrors(skippedIds);
+                }
+            }
         })
     }
 
@@ -146,6 +166,9 @@ export const CreditNoteBatchList = () => {
                                         <Button type="submit" className="w-full" isLoading={updateBatchCreditNotes.isPending}>
                                             Appliquer les modifications
                                         </Button>
+                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchCreditsNotes.isPending} onClick={onDownload} >
+                                            Télécharger
+                                        </Button>
                                         <Button
                                             type="button"
                                             className="w-full"
@@ -161,7 +184,7 @@ export const CreditNoteBatchList = () => {
                     </Grid.Col>
                     {errors && (
                         <Grid.Col>
-                            <Box title="Erreurs sur les factures" intent="error" className="text-error border border-error">
+                            <Box title="Erreurs sur les notes de crédits" intent="error" className="text-error border border-error">
                                 <ul>
                                     {Object.keys(errors).map((id) => {
                                         return (

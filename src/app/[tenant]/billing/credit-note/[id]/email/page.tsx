@@ -3,13 +3,12 @@
 import { useParams } from 'next/navigation'
 
 import { FieldValues, useForm } from 'react-hook-form'
-import { BillingDocument } from '@billing/document'
 import { Box, Button, Form, Grid, PageHeader } from '@digico/ui'
 
 import { useEmailCreditNote } from '@billing/credit-note/hooks/mutations/useEmailCreditNote'
 import { useReadCreditNote } from '@billing/credit-note/hooks/queries'
 
-import { CreditNoteContent } from '@billing/credit-note/components/document/CreditNoteContent'
+import { DocumentCreditNote } from '@billing/credit-note/components/organisms/DocumentCreditNote'
 import { useAuth } from 'helpers/auth-context/useAuth'
 import { useRouteTenant } from 'helpers/route-tenant'
 
@@ -56,9 +55,7 @@ L'équipe ${tenant?.name}`
                 </PageHeader>
             </Grid.Col>
             <Grid.Col column={7}>
-                <BillingDocument data={data}>
-                    <CreditNoteContent />
-                </BillingDocument>
+                <DocumentCreditNote />
             </Grid.Col>
             <Grid.Col column={5}>
                 <Box>

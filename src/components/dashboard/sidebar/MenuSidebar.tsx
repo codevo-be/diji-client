@@ -10,7 +10,7 @@ import { useRouteTenant } from 'helpers/route-tenant'
 import { ButtonSettings } from './ButtonSettings'
 
 export const MenuSidebar = () => {
-    const { modules } = useAuth()
+    const { modules = [] } = useAuth()
     const routerTenant = useRouteTenant()
 
     return (

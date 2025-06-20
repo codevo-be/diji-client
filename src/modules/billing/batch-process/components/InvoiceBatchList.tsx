@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { useState } from 'react'
@@ -8,6 +10,7 @@ import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useDestroyBatchInvoices'
+import useDownloadBatchInvoices from '@billing/invoice/hooks/mutations/batch/useDownloadBatchInvoices'
 import { useUpdateBatchInvoices } from '@billing/invoice/hooks/mutations/batch/useUpdateBatchInvoices'
 import { useReadInvoices } from '@billing/invoice/hooks/queries'
 import { InvoiceType } from '@billing/invoice/types/invoice'
@@ -15,12 +18,13 @@ import { InvoiceType } from '@billing/invoice/types/invoice'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const InvoiceBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const queryInvoices = useReadInvoices(useQueryParams())
     const destroyInvoices = useDestroyBatchInvoices()
     const updateBatchInvoices = useUpdateBatchInvoices()
+    const downloadBatchInvoices = useDownloadBatchInvoices()
 
     const form = useForm()
 
@@ -62,6 +66,25 @@ export const InvoiceBatchList = () => {
         )
     }
 
+    const downloadInvoices = () => {
+        downloadBatchInvoices.mutate(
+            {
+                email: user.email,
+                ids: formList.watch('invoices').map((id) => Number(id))
+            }, {
+                onSuccess: (data) => {
+                    const skippedIds = data.errors;
+                    if (Object.keys(skippedIds).length > 0) {
+                        setErrors(skippedIds);
+                    }
+                },
+                onError: (error: any) => {
+                    setErrors(error.errors)
+                }
+            }
+        )
+    }
+
     const onDestroy = () => {
         destroyInvoices.mutate({
             invoice_ids: formList.watch('invoices').map((id) => Number(id))
@@ -81,7 +104,6 @@ export const InvoiceBatchList = () => {
                         <Table.Head>Client</Table.Head>
                         <Table.Head>Date</Table.Head>
                         <Table.Head>Sous-total</Table.Head>
-                        <Table.Head>Total</Table.Head>
 
                         <Table.Col>
                             {({ id }: InvoiceType) => {
@@ -113,11 +135,6 @@ export const InvoiceBatchList = () => {
                         </Table.Col>
                         <Table.Col>
                             {(invoice: InvoiceType) => {
-                                return formatCurrency(invoice.total ?? 0)
-                            }}
-                        </Table.Col>
-                        <Table.Col>
-                            {(invoice: InvoiceType) => {
                                 const status = INVOICE_STATUSES[invoice.status]
 
                                 return (
@@ -145,6 +162,14 @@ export const InvoiceBatchList = () => {
                                         </span>
                                         <Button type="submit" className="w-full" isLoading={updateBatchInvoices.isPending}>
                                             Appliquer les modifications
+                                        </Button>
+                                        <Button
+                                            type="button"
+                                            intent="grey200"
+                                            className="w-full"
+                                            onClick={downloadInvoices}
+                                            isLoading={downloadBatchInvoices.isPending}>
+                                            Télécharger
                                         </Button>
                                         <Button type="button" className="w-full" intent={'error'} onClick={onDestroy} isLoading={destroyInvoices.isPending}>
                                             Supprimer

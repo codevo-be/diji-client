@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { Form } from '@digico/ui'

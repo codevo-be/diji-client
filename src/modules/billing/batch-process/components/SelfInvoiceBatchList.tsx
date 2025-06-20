@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { useState } from 'react'
@@ -8,6 +10,7 @@ import { formatCurrency } from '@digico/utils'
 import clsx from 'clsx'
 
 import { useDestroyBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useDestroyBatchSelfInvoices'
+import useDownloadBatchSelfInvoice from '@billing/self-invoice/hooks/mutations/batch/useDownloadBatchSelfInvoice'
 import { useUpdateBatchSelfInvoices } from '@billing/self-invoice/hooks/mutations/batch/useUpdateBatchSelfInvoices'
 import { useReadSelfInvoices } from '@billing/self-invoice/hooks/queries'
 import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
@@ -15,12 +18,13 @@ import { SelfInvoiceType } from '@billing/self-invoice/types/self-invoice'
 import { useAuth } from 'helpers/auth-context/useAuth'
 
 export const SelfInvoiceBatchList = () => {
-    const { tenant } = useAuth()
+    const { tenant, user } = useAuth()
     const [errors, setErrors] = useState(null)
 
     const querySelfInvoices = useReadSelfInvoices(useQueryParams())
     const destroySelfInvoices = useDestroyBatchSelfInvoices()
     const updateBatchSelfInvoices = useUpdateBatchSelfInvoices()
+    const downloadBatchSelfInvoice = useDownloadBatchSelfInvoice();
 
     const form = useForm()
 
@@ -66,6 +70,22 @@ export const SelfInvoiceBatchList = () => {
         destroySelfInvoices.mutate({
             self_invoice_ids: formList.watch('invoices').map((id) => Number(id))
         })
+    }
+
+    const onDownload = () => {
+        downloadBatchSelfInvoice.mutate({
+            email: user.email,
+            ids: formList.watch('invoices').map((id) => Number(id))
+        }, {
+            onSuccess: (data) => {
+                const skippedIds = data.errors;
+                console.log(data);
+                console.log(Object.keys(skippedIds).length > 0)
+                if (Object.keys(skippedIds).length > 0) {
+                    setErrors(skippedIds);
+                }
+            }
+        });
     }
 
     return (
@@ -147,6 +167,9 @@ export const SelfInvoiceBatchList = () => {
                                         </span>
                                         <Button type="submit" className="w-full" isLoading={updateBatchSelfInvoices.isPending}>
                                             Appliquer les modifications
+                                        </Button>
+                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchSelfInvoice.isPending} onClick={onDownload}>
+                                            Télécharger
                                         </Button>
                                         <Button type="button" className="w-full" intent={'error'} onClick={onDestroy} isLoading={destroySelfInvoices.isPending}>
                                             Supprimer

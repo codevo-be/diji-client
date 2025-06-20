@@ -5,7 +5,7 @@ import { DateHelper, formatCurrency } from '@digico/utils'
 
 import { useUpdateInvoice } from '../hooks/mutations'
 import { useReadInvoice } from '@billing/invoice/hooks/queries'
-import { TransactionType } from '@billing/types/transaction'
+import { TransactionType } from '@billing/transaction/types/transaction'
 
 import { INVOICE_STATUS_PAYED, INVOICE_STATUS_PENDING } from '../data/invoice-statuses'
 

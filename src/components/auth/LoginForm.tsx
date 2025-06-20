@@ -44,7 +44,7 @@ export const LoginForm = () => {
 
                 <div className="flex flex-wrap gap-4 justify-between items-center">
                     <Form.Checkbox id="remember" name="remember" label="Se souvenir de moi" />
-                    <Button disabled={true} intent="text" className="text-primary hover:text-primary-active">
+                    <Button href="/forgot-password" intent="text" className="text-primary hover:text-primary-active">
                         Mot de passe oublié ?
                     </Button>
                 </div>

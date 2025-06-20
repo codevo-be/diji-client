@@ -4,14 +4,15 @@ export type BillingItemType = {
     name: string
     quantity?: number
     vat?: number
+    type: 'title' | 'text' | 'product'
     cost?: {
         subtotal: number
-        tax: number
-        total: number
+        tax?: number
+        total?: number
     }
     retail?: {
         subtotal: number
-        tax: number
-        total: number
+        tax?: number
+        total?: number
     }
 }

@@ -5,9 +5,13 @@ import { Button, Grid, PageHeader, QuerySearchBar, useQueryParams } from '@digic
 import { useReadContacts } from '@contact/hooks/queries'
 
 import { ContactTable } from '@contact/components/ContactTable'
+import { Paginate } from '@helpers/Paginate'
 
 export default function Page() {
-    const queryContacts = useReadContacts(useQueryParams())
+    const queryContacts = useReadContacts({
+        page: 1,
+        ...useQueryParams()
+    })
 
     return (
         <Grid>
@@ -23,6 +27,7 @@ export default function Page() {
             <Grid.Col>
                 {/* @ts-ignore */}
                 <ContactTable items={queryContacts.data?.data ?? []} />
+                <Paginate className="mt-12" paginate={queryContacts.data?.meta} />
             </Grid.Col>
         </Grid>
     )

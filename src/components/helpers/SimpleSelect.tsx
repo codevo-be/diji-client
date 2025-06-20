@@ -6,7 +6,7 @@ import { useId } from 'react'
 
 const Select = dynamic(() => import('react-select'), { ssr: false })
 
-type OptionType = {
+export type OptionType = {
     label: string
     value: string | number
 }
@@ -49,6 +49,7 @@ type Props = {
     onChange?: (option: OptionType | null) => void
     error?: string
     placeholder?: string
+    value?: string | number | null
 }
 
 export const SimpleSelect = ({
@@ -60,6 +61,7 @@ export const SimpleSelect = ({
     defaultValue,
     onChange,
     error,
+    value,
     placeholder = 'Sélectionner...'
 }: Props) => {
     const id = useId()
@@ -73,6 +75,7 @@ export const SimpleSelect = ({
                 </label>
             )}
             <Select
+                value={value}
                 inputId={id}
                 instanceId={id}
                 name={name}
