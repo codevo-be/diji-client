@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { readExpense } from '@expense/services/read-expense'
+import { readExpense } from '@billing/expense/services/read-expense'
 
 export const useReadExpense = (id: number) => {
     return useQuery({

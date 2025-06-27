@@ -1,8 +1,8 @@
 'use client'
 
+import { ExpenseType } from '@billing/expense/type/expense'
 import { Table } from '@digico/ui'
 import { formatCurrency } from '@digico/utils'
-import { ExpenseType } from '@expense/type/expense'
 
 type Props = {
     data: ExpenseType | undefined
@@ -22,12 +22,8 @@ export const ExpenseItemList = ({ data, className = '' }: Props) => {
 
             <Table.Col name="name" />
             <Table.Col name="quantity" />
-            <Table.Col>
-                {(item) => formatCurrency(item.price ?? 0)}
-            </Table.Col>
-            <Table.Col>
-                {(item) => `${item.vat ?? 0}%`}
-            </Table.Col>
+            <Table.Col>{(item) => formatCurrency(item.price ?? 0)}</Table.Col>
+            <Table.Col>{(item) => `${item.vat ?? 0}%`}</Table.Col>
             <Table.Col>
                 {(item) => {
                     if (!item.quantity || !item.price) return ''

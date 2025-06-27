@@ -1,4 +1,4 @@
-import { ExpenseType } from '@expense/type/expense'
+import { ExpenseType } from '@billing/expense/type/expense'
 
 import { HttpService } from './index'
 

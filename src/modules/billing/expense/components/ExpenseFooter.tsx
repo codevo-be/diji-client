@@ -1,5 +1,5 @@
+import { ExpenseType } from '@billing/expense/type/expense'
 import { DateHelper, formatCurrency, formatStructuredCommunication } from '@digico/utils'
-import { ExpenseType } from '@expense/type/expense'
 
 type Props = {
     data: ExpenseType | undefined

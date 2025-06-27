@@ -1,46 +1,37 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useFormContext, useWatch } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Form } from '@digico/ui'
 import { countries } from 'data/countries'
 
 export const ContactFields = () => {
-    const { control, setValue } = useFormContext()
-    const vatNumber = useWatch({ control, name: 'vat_number' })
-    const peppolType = useWatch({ control, name: 'peppol_type' })
-
-    // Supprimer les caractère inutile et placer ou non le BE en fonction du type sélectionné.
-    useEffect(() => {
-        if (!vatNumber || !peppolType) return
-
-        const cleanedVat = vatNumber.replace(/\s/g, '').replace(/\./g, '')
-
-        let identifier = ''
-
-        if (peppolType === 'vat') {
-            identifier = `9925:${cleanedVat}`
-        } else if (peppolType === 'enterprise') {
-            const vatDigitsOnly = cleanedVat.replace(/\D/g, '')
-            identifier = `0208:${vatDigitsOnly}`
-        }
-
-        setValue('peppol_identifier', identifier)
-    }, [vatNumber, peppolType, setValue])
+    const { watch, setValue } = useFormContext()
 
     return (
         <>
-            <Form.Group>
+            <Form.Group title="Société">
                 <Form.Row>
                     <Form.Field name="company_name" label="Société" placeholder="Google" />
                     <Form.Field name="vat_number" label="Numéro de TVA" placeholder="BE0456.232.567" />
                     <Form.Field name="iban" label="IBAN" placeholder="BE12 3456 7890 1234" />
 
-                    {vatNumber && (
+                    {watch('vat_number') && (
                         <>
                             <Form.Select
+                                onChange={(value) => {
+                                    const vat_number = watch('vat_number')
+
+                                    const cleanedVat = vat_number.replace(/\s/g, '').replace(/\./g, '')
+
+                                    if (value === 'vat') {
+                                        setValue('peppol_identifier', `9925:${cleanedVat}`)
+                                    } else if (value === 'enterprise') {
+                                        const vatDigitsOnly = cleanedVat.replace(/\D/g, '')
+                                        setValue('peppol_identifier', `0208:${vatDigitsOnly}`)
+                                    }
+                                }}
                                 name="peppol_type"
-                                label="Type d’identifiant"
+                                label="Type d’identifiant Peppol"
                                 options={[
                                     { label: 'Numéro de TVA', value: 'vat' },
                                     { label: 'Numéro d’entreprise', value: 'enterprise' }
@@ -49,7 +40,9 @@ export const ContactFields = () => {
                         </>
                     )}
                 </Form.Row>
+            </Form.Group>
 
+            <Form.Group title="Particulier">
                 <Form.Row>
                     <Form.Field name="firstname" label="Prénom" placeholder="Bertrand" />
                     <Form.Field name="lastname" label="Nom" placeholder="Lambda" />
@@ -67,7 +60,6 @@ export const ContactFields = () => {
                     <Form.Select name="billing_address.country" label="Pays" options={countries} />
                 </Form.Row>
             </Form.Group>
-            <Form.Field name="peppol_identifier" readOnly hidden={true} />
         </>
     )
 }

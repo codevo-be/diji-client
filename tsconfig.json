@@ -22,7 +22,6 @@
         "paths": {
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
-            "@expense/*": ["./modules/expense/*"],
             "@components/*": ["./components/*"],
             "@helpers/*": ["./components/helpers/*"],
             "@task/*": ["./modules/task/*"],

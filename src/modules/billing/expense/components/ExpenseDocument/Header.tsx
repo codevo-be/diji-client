@@ -1,4 +1,4 @@
-import { ExpenseType } from '@expense/type/expense'
+import { ExpenseType } from '@billing/expense/type/expense'
 
 import { DocumentInfo } from './DocumentInfo'
 
@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const Header = ({ data }: Props) => {
-    const senderInfo = formatInfoFromPeppol(data.sender, data.sender_address, data.sender.iban)
+    const senderInfo = formatInfoFromPeppol(data.sender, data.sender_address)
     const recipientInfo = formatInfoFromPeppol(data.recipient, data.recipient_address)
 
     return (
@@ -30,5 +30,5 @@ const formatInfoFromPeppol = (
     zipcode: address.zipCode,
     city: address.city,
     country: address.country,
-    iban: iban,
+    iban: iban
 })

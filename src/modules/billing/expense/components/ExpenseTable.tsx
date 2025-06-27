@@ -2,13 +2,13 @@
 
 import { useRouter } from 'next/navigation'
 
+import { ExpenseType } from '@billing/expense/type/expense'
 import { Table, Tag } from '@digico/ui'
 import { DateHelper, formatCurrency } from '@digico/utils'
-import { ExpenseType } from '@expense/type/expense'
 import clsx from 'clsx'
 
+import { EXPENSE_TYPES } from '@billing/expense/data/expense_types'
 import { ContactType } from '@contact/types/contact'
-import { EXPENSE_TYPES } from '@expense/data/expense_types'
 
 import { useAuth } from 'helpers/auth-context/useAuth'
 
@@ -50,7 +50,7 @@ export const ExpenseTable = ({ items }: Props) => {
                     return formatCurrency(expense.total ?? 0)
                 }}
             </Table.Col>
-            <Table.Col className={"flex"}>
+            <Table.Col className={'flex'}>
                 {(expense: ExpenseType) => {
                     const type = EXPENSE_TYPES[expense.document_type] ?? EXPENSE_TYPES.INVOICE
                     return (

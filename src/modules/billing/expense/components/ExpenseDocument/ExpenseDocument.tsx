@@ -1,6 +1,6 @@
 import React from 'react'
+import { ExpenseType } from '@billing/expense/type/expense'
 import { Box } from '@digico/ui'
-import { ExpenseType } from '@expense/type/expense'
 
 import { Header } from './Header'
 
