@@ -13,8 +13,8 @@ export const SummaryInvoice = () => {
             <StatusBox />
             <ActionInvoice />
             <StatusSelect />
-            <TransactionsBox />
             <UpdateFormInvoice />
+            <TransactionsBox />
         </Grid>
     )
 }

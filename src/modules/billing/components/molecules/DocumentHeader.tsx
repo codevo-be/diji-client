@@ -11,7 +11,7 @@ type Props = {
     data: InvoiceType | CreditNoteType | RecurringInvoiceType | EstimateType | SelfInvoiceType
 }
 
-export const Header = ({ data }: Props) => {
+export const DocumentHeader = ({ data }: Props) => {
     const queryTenant = useReadTenant()
 
     return (

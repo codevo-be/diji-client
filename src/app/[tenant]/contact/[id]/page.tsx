@@ -15,7 +15,7 @@ export default function Page() {
                     Contacts
                 </PageHeader>
             </Grid.Col>
-            <Grid.Col>
+            <Grid.Col column={9}>
                 <UpdateContactForm />
             </Grid.Col>
         </Grid>
