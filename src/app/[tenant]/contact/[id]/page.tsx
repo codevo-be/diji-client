@@ -25,11 +25,13 @@ export default function Page() {
 
     return (
         <Grid>
-            <Grid.Col>
+            <Grid.Col className="flex justify-between item-start">
                 <PageHeader label="Retour" href={routerTenant.get('/contact')}>
                     Contacts
                 </PageHeader>
-                <Button onClick={onRemoveContact}>Supprimer</Button>
+                <Button intent={'error'} onClick={onRemoveContact}>
+                    Supprimer
+                </Button>
             </Grid.Col>
             <Grid.Col>
                 <UpdateContactForm />

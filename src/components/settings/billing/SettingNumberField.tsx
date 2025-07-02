@@ -60,7 +60,6 @@ export const SettingNumberField = () => {
                         />
                     </Form.Row>
                 </Form.Group>
-
                 <Button type="submit">Sauvegarder</Button>
             </Form>
         </Box>
