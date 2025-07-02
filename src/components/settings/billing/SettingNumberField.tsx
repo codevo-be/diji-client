@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Box, Form } from '@digico/ui'
+import { Box, Button, Form } from '@digico/ui'
 import { toast } from 'sonner'
 
 import { useUpdateOrCreateMeta } from 'hooks/mutations/meta/useUpdateOrCreateMeta'
@@ -60,6 +60,8 @@ export const SettingNumberField = () => {
                         />
                     </Form.Row>
                 </Form.Group>
+
+                <Button type="submit">Sauvegarder</Button>
             </Form>
         </Box>
     )
