@@ -20,13 +20,29 @@ export const ContactFields = () => {
                 </Form.Row>
             </Form.Group>
 
-            <Form.Group title="Adresse de facturation">
+            <Form.Group title="Adresse de factauration">
                 <Form.Row>
                     <Form.Field name={`billing_address.street`} id="billing_address.street" label="Rue" placeholder="Route de marche" />
                     <Form.Field name={`billing_address.street_number`} id="billing_address.street_number" label="Numéro de rue" placeholder="12" />
                     <Form.Field name={`billing_address.city`} id="billing_address.city" label="Ville" placeholder="Namur" />
                     <Form.Field name={`billing_address.zipcode`} id="billing_address.zipcode" label="Code postal" placeholder="5590" />
                     <Form.Select name="billing_address.country" label={'Pays'} options={countries} />
+                </Form.Row>
+            </Form.Group>
+
+            <Form.Group title="Options">
+                <Form.Row>
+                    <Form.Field
+                        name={`percentage`}
+                        id="percentage"
+                        label="Pourcentage"
+                        type="number"
+                        placeholder="10"
+                        min={0}
+                        max={100}
+                        suffix="%"
+                        defaultValue={0}
+                    />
                 </Form.Row>
             </Form.Group>
         </>

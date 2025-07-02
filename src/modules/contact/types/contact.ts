@@ -15,4 +15,5 @@ export type ContactType = {
         zipcode: string
         country: string
     }
+    percentage: number
 }
