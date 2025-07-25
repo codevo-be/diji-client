@@ -24,7 +24,7 @@ export const CreditNoteBatchList = () => {
     const queryCreditNotes = useReadCreditNotes(useQueryParams())
     const destroyBatchCreditNotes = useDestroyBatchCreditNotes()
     const updateBatchCreditNotes = useUpdateBatchCreditNotes()
-    const downloadBatchCreditsNotes = useDownloadBatchCreditNotes();
+    const downloadBatchCreditsNotes = useDownloadBatchCreditNotes()
 
     const form = useForm()
 
@@ -73,19 +73,20 @@ export const CreditNoteBatchList = () => {
     }
 
     const onDownload = () => {
-        downloadBatchCreditsNotes.mutate({
-            email: user.email,
-            ids: formList.watch('invoices').map((id) => Number(id))
-        }, {
-            onSuccess: (data) => {
-                const skippedIds = data.errors;
-                console.log(data);
-                console.log(Object.keys(skippedIds).length > 0)
-                if (Object.keys(skippedIds).length > 0) {
-                    setErrors(skippedIds);
+        downloadBatchCreditsNotes.mutate(
+            {
+                email: user.email,
+                ids: formList.watch('invoices').map((id) => Number(id))
+            },
+            {
+                onSuccess: (data) => {
+                    const skippedIds = data.errors
+                    if (Object.keys(skippedIds).length > 0) {
+                        setErrors(skippedIds)
+                    }
                 }
             }
-        })
+        )
     }
 
     return (
@@ -166,7 +167,12 @@ export const CreditNoteBatchList = () => {
                                         <Button type="submit" className="w-full" isLoading={updateBatchCreditNotes.isPending}>
                                             Appliquer les modifications
                                         </Button>
-                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchCreditsNotes.isPending} onClick={onDownload} >
+                                        <Button
+                                            type={'button'}
+                                            intent={'grey200'}
+                                            className={'w-full'}
+                                            isLoading={downloadBatchCreditsNotes.isPending}
+                                            onClick={onDownload}>
                                             Télécharger
                                         </Button>
                                         <Button

@@ -24,7 +24,7 @@ export const SelfInvoiceBatchList = () => {
     const querySelfInvoices = useReadSelfInvoices(useQueryParams())
     const destroySelfInvoices = useDestroyBatchSelfInvoices()
     const updateBatchSelfInvoices = useUpdateBatchSelfInvoices()
-    const downloadBatchSelfInvoice = useDownloadBatchSelfInvoice();
+    const downloadBatchSelfInvoice = useDownloadBatchSelfInvoice()
 
     const form = useForm()
 
@@ -73,19 +73,20 @@ export const SelfInvoiceBatchList = () => {
     }
 
     const onDownload = () => {
-        downloadBatchSelfInvoice.mutate({
-            email: user.email,
-            ids: formList.watch('invoices').map((id) => Number(id))
-        }, {
-            onSuccess: (data) => {
-                const skippedIds = data.errors;
-                console.log(data);
-                console.log(Object.keys(skippedIds).length > 0)
-                if (Object.keys(skippedIds).length > 0) {
-                    setErrors(skippedIds);
+        downloadBatchSelfInvoice.mutate(
+            {
+                email: user.email,
+                ids: formList.watch('invoices').map((id) => Number(id))
+            },
+            {
+                onSuccess: (data) => {
+                    const skippedIds = data.errors
+                    if (Object.keys(skippedIds).length > 0) {
+                        setErrors(skippedIds)
+                    }
                 }
             }
-        });
+        )
     }
 
     return (
@@ -168,7 +169,12 @@ export const SelfInvoiceBatchList = () => {
                                         <Button type="submit" className="w-full" isLoading={updateBatchSelfInvoices.isPending}>
                                             Appliquer les modifications
                                         </Button>
-                                        <Button type={'button'} intent={'grey200'} className={'w-full'} isLoading={downloadBatchSelfInvoice.isPending} onClick={onDownload}>
+                                        <Button
+                                            type={'button'}
+                                            intent={'grey200'}
+                                            className={'w-full'}
+                                            isLoading={downloadBatchSelfInvoice.isPending}
+                                            onClick={onDownload}>
                                             Télécharger
                                         </Button>
                                         <Button type="button" className="w-full" intent={'error'} onClick={onDestroy} isLoading={destroySelfInvoices.isPending}>
