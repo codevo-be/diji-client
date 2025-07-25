@@ -64,7 +64,7 @@ export const UpdateFormInvoice = () => {
                                 label="Date de la facture"
                             />
                             <Form.Field
-                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateField(e, 'date')}
+                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateField(e, 'due_date')}
                                 name="due_date"
                                 id="due_date"
                                 type="date"
