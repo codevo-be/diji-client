@@ -22,10 +22,10 @@
         "paths": {
             "@contact/*": ["./modules/contact/*"],
             "@billing/*": ["./modules/billing/*"],
-            "@task/*": ["./modules/task/*"],
-            "@project/*": ["./modules/project/*"],
+            "@components/*": ["./components/*"],
             "@helpers/*": ["./components/helpers/*"],
-            "@components/*": ["./components/*"]
+            "@task/*": ["./modules/task/*"],
+            "@project/*": ["./modules/project/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types"],

@@ -8,6 +8,8 @@ export type ContactType = {
     iban?: string
     email: string
     phone?: string
+    peppol_identifier?: string
+    peppol_type?: 'vat' | 'enterprise'
     billing_address?: {
         street: string
         street_number: string

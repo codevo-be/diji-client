@@ -4,31 +4,26 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { Box, Button, Form } from '@digico/ui'
 import { toast } from 'sonner'
 
-import { useUpdateOrCreateMeta } from 'hooks/mutations/meta/useUpdateOrCreateMeta'
+import { useUpdateTenant } from '../../../hooks/mutations/tenant'
+import { useReadTenant } from '../../../hooks/queries/tenant/useReadTenant'
 import { useCreateUpload } from 'hooks/mutations/upload'
-import { useReadMeta } from 'hooks/queries/meta/useReadMeta'
 
 import { SettingsBillingFields } from './SettingsBillingFields'
 
 export const BoxBilling = () => {
-    const queryMeta = useReadMeta('tenant_billing_details')
+    const queryTenant = useReadTenant()
 
-    const updateOrCreateMeta = useUpdateOrCreateMeta()
+    const updateTenant = useUpdateTenant()
     const createUpload = useCreateUpload()
 
     const form = useForm({
         values: {
-            ...(queryMeta.data
-                ? //@ts-ignore
-                  { ...(queryMeta.data.value ?? {}) }
-                : {
-                      country: 'be'
-                  }),
+            ...(queryTenant.data?.data.settings ?? { country: 'be' }),
             logo: {
-                //@ts-ignore
-                url: queryMeta.data?.value?.logo ?? ''
+                url: queryTenant.data?.data.settings?.logo ?? ''
             }
         }
+
     })
 
     const onSubmit = async ({ logo, ...data }: FieldValues) => {
@@ -39,21 +34,15 @@ export const BoxBilling = () => {
                 const formData = new FormData()
                 formData.append('file', logo.file)
 
-                const uploadedLogo = await new Promise((resolve) => {
+                data.logo = await new Promise((resolve) => {
                     createUpload.mutate(formData, {
                         onSuccess: ({ data: el }) => resolve(el.url)
                     })
                 })
-
-                data.logo = uploadedLogo
             }
 
-            updateOrCreateMeta.mutate(
-                {
-                    key: 'tenant_billing_details',
-                    value: data,
-                    type: 'json'
-                },
+            updateTenant.mutate(
+                { settings: data },
                 {
                     onSuccess: () => {
                         toast.success('Coordonnées mises à jour !')
@@ -66,10 +55,10 @@ export const BoxBilling = () => {
     }
 
     return (
-        <Box isLoading={queryMeta.isLoading} title="Coordonnées de contact">
+        <Box isLoading={queryTenant.isLoading} title="Coordonnées de contact">
             <Form useForm={form} onSubmit={onSubmit}>
                 <SettingsBillingFields />
-                <Button isLoading={updateOrCreateMeta.isPending} type="submit">
+                <Button isLoading={updateTenant.isPending} type="submit">
                     Sauvegarder
                 </Button>
             </Form>

@@ -32,7 +32,7 @@ export default function Page() {
                     Supprimer
                 </Button>
             </Grid.Col>
-            <Grid.Col>
+            <Grid.Col column={9}>
                 <UpdateContactForm />
             </Grid.Col>
         </Grid>

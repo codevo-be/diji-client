@@ -7,6 +7,7 @@ export type IconName =
 	| "contact"
 	| "cross"
 	| "edit"
+	| "expense"
 	| "list"
 	| "logout"
 	| "project"

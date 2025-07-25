@@ -1,23 +1,32 @@
 'use client'
 
+import { useParams } from 'next/navigation'
+
 import { Grid } from '@digico/ui'
 
-import { ActionTransaction } from '@billing/transaction/components/organisms/ActionTransaction'
-import { ResumeTransaction } from '@billing/transaction/components/organisms/ResumeTransaction'
+import { useReadExpense } from '@billing/expense/hooks/queries'
+
+import { ExpenseContent } from '@billing/expense/components/ExpenseContent'
+import { ExpenseDocument } from '@billing/expense/components/ExpenseDocument/ExpenseDocument'
 import { PageHeader } from '@helpers/PageHeader'
 
 export default function Page() {
+    const { id } = useParams()
+    const { data } = useReadExpense(Number(id))
+
+    console.log('Page des dépenses', data)
+
     return (
         <Grid>
             <Grid.Col>
-                <PageHeader label="Retour aux dépenses">Dépense</PageHeader>
+                <PageHeader label="Retour aux dépenses">
+                    Dépense : {data?.document_type === 'CREDIT_NOTE' ? 'note de crédit' : 'facture'} {data?.document_identifier}
+                </PageHeader>
             </Grid.Col>
-
-            <Grid.Col column={8}>
-                <ResumeTransaction />
-            </Grid.Col>
-            <Grid.Col column={4}>
-                <ActionTransaction />
+            <Grid.Col column={7}>
+                <ExpenseDocument data={data}>
+                    <ExpenseContent />
+                </ExpenseDocument>
             </Grid.Col>
         </Grid>
     )
