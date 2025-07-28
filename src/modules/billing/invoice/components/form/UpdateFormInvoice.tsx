@@ -71,7 +71,7 @@ export const UpdateFormInvoice = () => {
                                 label="Date d'échéance"
                             />
 
-                            <Form.Checkbox id={'check_paid_notification'} name={'check_paid_notification'} label={'Activer les rappels de paiement'} />
+                            {/* <Form.Checkbox id={'check_paid_notification'} name={'check_paid_notification'} label={'Activer les rappels de paiement'} /> */}
                         </Form.Row>
                     </Form.Group>
                 </Box>
