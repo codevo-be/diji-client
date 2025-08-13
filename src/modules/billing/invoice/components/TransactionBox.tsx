@@ -26,7 +26,7 @@ export const TransactionsBox = () => {
         })
     }
 
-    if (!isSuccess) {
+    if (!isSuccess || transactions.length === 0) {
         return null
     }
 

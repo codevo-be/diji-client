@@ -25,7 +25,8 @@
             "@components/*": ["./components/*"],
             "@helpers/*": ["./components/helpers/*"],
             "@task/*": ["./modules/task/*"],
-            "@project/*": ["./modules/project/*"]
+            "@project/*": ["./modules/project/*"],
+            "@ui/*": ["./components/ui/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types"],

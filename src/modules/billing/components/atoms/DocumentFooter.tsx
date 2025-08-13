@@ -34,7 +34,7 @@ export const DocumentFooter = ({ data, type }: Props) => {
         )
     }
 
-    if (isInvoice(data)) {
+    if (isInvoice(data) && data?.structured_communication) {
         return (
             <div className="mt-40 text-xs">
                 <p className="mt-4">
