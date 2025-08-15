@@ -3,6 +3,7 @@ import { formatCurrency } from '@digico/utils'
 import { months } from 'data/date'
 
 import { useReadInvoices } from '../hooks/queries'
+import { useReadCreditNotes } from '@billing/credit-note/hooks/queries'
 
 import { INVOICE_STATUSES } from '../data/invoice-statuses'
 
@@ -10,6 +11,11 @@ export const BoxStats = () => {
     const params = useQueryParams()
 
     const queryInvoices = useReadInvoices({
+        month: params.month,
+        status: params.status ?? ''
+    })
+
+    const queryCreditNotes = useReadCreditNotes({
         month: params.month,
         status: params.status ?? ''
     })
@@ -37,9 +43,12 @@ export const BoxStats = () => {
             <p className="text-grey-600 text-sm">{queryInvoices.data?.data.length} factures</p>
             <h2 className="font-bold text-xl">
                 {formatCurrency(
-                    queryInvoices.data?.data.reduce((current, item) => {
+                    (queryInvoices.data?.data.reduce((current, item) => {
                         return current + (item.subtotal ?? 0)
-                    }, 0) ?? 0
+                    }, 0) ?? 0) -
+                        (queryCreditNotes.data?.data.reduce((current, item) => {
+                            return current + (item.subtotal ?? 0)
+                        }, 0) ?? 0)
                 )}{' '}
                 HT
             </h2>

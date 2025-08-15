@@ -9,7 +9,7 @@ export const TenantSwitcher = () => {
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const firstLetter = tenant?.name?.charAt(0)
+    const firstLetter = tenant?.name?.charAt(0).toUpperCase()
 
     if (tenants.length <= 1) {
         return null
@@ -28,11 +28,11 @@ export const TenantSwitcher = () => {
                     {tenants
                         .filter((t) => t.id !== tenant?.id)
                         .map((tenant) => (
-                            <li key={tenant.id}>
+                            <li key={tenant.id} title={tenant.name}>
                                 <Link
                                     href={`/${tenant.id}`}
                                     className="cursor-pointer text-white leading-none w-full flex items-center justify-center font-bold p-5 rounded transition-all hover:bg-white hover:text-main">
-                                    {tenant.name.charAt(0)}
+                                    {tenant.name.charAt(0).toUpperCase()}
                                 </Link>
                             </li>
                         ))}
