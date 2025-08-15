@@ -8,6 +8,7 @@ import { useAuth } from 'helpers/auth-context/useAuth'
 import { useRouteTenant } from 'helpers/route-tenant'
 
 import { ButtonSettings } from './ButtonSettings'
+import { TenantSwitcher } from './TenantSwitcher'
 
 export const MenuSidebar = () => {
     const { modules = [] } = useAuth()
@@ -16,6 +17,8 @@ export const MenuSidebar = () => {
     return (
         <div className="w-auto bg-main py-8 px-2">
             <ul className="h-full flex flex-col items-center">
+                <TenantSwitcher />
+
                 <MenuItemSidebar icon="app" href={routerTenant.get('/')} />
 
                 {modules.map((module) => {

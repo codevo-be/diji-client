@@ -9,15 +9,17 @@ import { UserType } from 'types/user.types'
 type Auth = {
     user: UserType
     tenant: TenantType
+    tenants: TenantType[]
     modules: ModuleType[]
 }
 
 export const AuthContext = createContext<Auth>({
     user: undefined as any,
     tenant: undefined as any,
+    tenants: [],
     modules: []
 })
 
-export const AuthProvider = ({ children, user, tenant, modules }: { children: React.ReactNode } & Auth) => {
-    return <AuthContext.Provider value={{ user, tenant, modules }}>{children}</AuthContext.Provider>
+export const AuthProvider = ({ children, user, tenant, tenants, modules }: { children: React.ReactNode } & Auth) => {
+    return <AuthContext.Provider value={{ user, tenant, tenants, modules }}>{children}</AuthContext.Provider>
 }

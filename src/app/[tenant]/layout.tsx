@@ -8,10 +8,10 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
-    const { user, tenant, modules } = await getAuthenticatedUser()
+    const { user, tenant, tenants, modules } = await getAuthenticatedUser()
 
     return (
-        <AuthProvider tenant={tenant} user={user} modules={modules}>
+        <AuthProvider tenants={tenants} tenant={tenant} user={user} modules={modules}>
             <DashboardLayout>{children}</DashboardLayout>
         </AuthProvider>
     )

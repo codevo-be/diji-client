@@ -16,6 +16,7 @@ export const getAuthenticatedUser = async (tenant?: string) => {
             data: {
                 user: UserType
                 tenant: TenantType
+                tenants: TenantType[]
                 modules: ModuleType[]
             }
         }>(`/auth/user`)
